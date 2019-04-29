@@ -1,0 +1,34 @@
+#ifndef DEF_ALIEN
+#define DEF_ALIEN
+ 
+#include <iostream>
+#include <string>
+
+#include "Entity.h"
+#include "Tower.h"
+#include "Path.h"
+
+
+class Alien : public Entity{
+	private :
+		int pv; /* points de vie */
+		int reward; /* argent laisse apres la mort */
+		int speed; /* vitesse de deplacement en unite de temps */
+
+	public:
+		Alien();
+		~Alien();
+
+		int getPv();
+		int getReward();
+		int getSpeed();
+
+		void setPv(int pv);
+		void setReward(int reward);
+		void setSpeed(int speed);
+
+		Path choosePath(); /* choisit un chemin à suivre selon le risque */
+		int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
+};
+
+#endif
