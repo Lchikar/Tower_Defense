@@ -21,30 +21,30 @@ Alien(AlienType type){
 
 
 int getPv(){
-	int pv = this.pv;
+	int pv = this->pv;
 	return pv;
 }
 
 int getReward() {
-	int reward = this.reward;
+	int reward = this->reward;
 	return reward;
 }
 
 int getSpeed() {
-	in speed = this.speed;
+	in speed = this->speed;
 	return speed;
 }
 
 void setPv(int pv){
-	this.pv = pv;
+	this->pv = pv;
 }
 
 void setReward(int reward) {
-	this.reward = reward;
+	this->reward = reward;
 }
 
 void setSpeed(int speed) {
-	this.speed = speed;
+	this->speed = speed;
 }
 
 Path choosePath(); /* choisit un chemin à suivre selon le risque */

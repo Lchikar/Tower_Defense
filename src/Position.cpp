@@ -3,12 +3,27 @@
 
 #include "Position.hpp"
 
-Position();
+Position(float x, float y) {
+	this->x = x;
+	this->y = y;
+}
 
-float getX();
-float getY();
+float getX() {
+	float x = this->x;
+	return x;
+}
 
-void setX(float x);
-void setY(float Y);
+float getY() {
+	float y = this->y;
+	return y;
+}
+
+void setX(float x) {
+	this->x = x;
+}
+
+void setY(float Y) {
+	this->y = y;
+}
 
 int dist(Position p);

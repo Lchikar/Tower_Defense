@@ -11,7 +11,7 @@ class Position{
 		float y;
 
 	public:
-		Position();
+		Position(float x, float y);
 		~Position(); /* penser aux delete */
 
 		float getX();
