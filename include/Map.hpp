@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-typedef enum {empty=0, path=1, tower=2, alien=3} TileType;
+enum TileType {empty, path, tower, alien};
 
 class Map{
 	
