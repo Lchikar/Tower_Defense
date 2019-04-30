@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.h"
-#include "Tower.h"
+#include "Entity.hpp"
+#include "Tower.hpp"
 
 class Building : public Entity{
 	private :
