@@ -8,14 +8,14 @@
 
 Alien(AlienType type){
 	if(type == fatty){
-		alien.pv =  150;
-		alien.reward = 100;
-		alien.speed = 20;
+		pv =  150;
+		reward = 100;
+		speed = 20;
 	}
 	else{
-		alien.pv =  50;
-		alien.reward = 50;
-		alien.speed = 100;
+		pv =  50;
+		reward = 50;
+		speed = 100;
 	}
 }
 
