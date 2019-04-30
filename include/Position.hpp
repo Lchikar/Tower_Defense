@@ -14,6 +14,12 @@ class Position{
 		Position();
 		~Position(); /* penser aux delete */
 
+		float getX();
+		float getY();
+
+		void setX(float x);
+		void setY(float Y);
+
 		int dist(Position p); /* calcule la distance entre this et p */
 }
 

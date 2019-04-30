@@ -19,6 +19,7 @@ Alien(AlienType type){
 	}
 }
 
+
 int getPv(){
 	int pv = this.pv;
 	return pv;
