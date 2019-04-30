@@ -5,7 +5,10 @@
 #include "Tower.hpp"
 #include "Building.hpp"
 
-Building(TypeBuild type);
+Building(int value, TypeBuild type) {
+	this->value = value;
+	this->type = type;
+}
 
 int getValue() {
 	int value = this->value;
