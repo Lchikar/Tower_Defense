@@ -28,16 +28,27 @@ int getPv(){
 	return pv;
 }
 
+int getReward() {
+	int reward = this.reward;
+	return reward;
+}
 
-int getReward();
-int getSpeed();
+int getSpeed() {
+	in speed = this.speed;
+	return speed;
+}
 
 void setPv(int pv){
 	this.pv = pv;
 }
 
-void setReward(int reward);
-void setSpeed(int speed);
+void setReward(int reward) {
+	this.reward = reward;
+}
+
+void setSpeed(int speed) {
+	this.speed = speed;
+}
 
 Path choosePath(); /* choisit un chemin à suivre selon le risque */
 int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
