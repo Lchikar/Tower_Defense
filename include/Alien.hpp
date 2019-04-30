@@ -4,9 +4,15 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.hpp"
-#include "Tower.hpp"
-#include "Path.hpp"
+#include "Entity.h"
+#include "Tower.h"
+#include "Path.h"
+
+enum AlienType
+{
+	fatty;
+	nervous;
+};
 
 
 class Alien : public Entity{
@@ -14,9 +20,10 @@ class Alien : public Entity{
 		int pv; /* points de vie */
 		int reward; /* argent laisse apres la mort */
 		int speed; /* vitesse de deplacement en unite de temps */
+		AlienType type;
 
 	public:
-		Alien();
+		Alien(AlienType type);
 		~Alien();
 
 		int getPv();
