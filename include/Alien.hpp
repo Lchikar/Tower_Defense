@@ -20,7 +20,7 @@ class Alien : public Entity{
 		int pv; /* points de vie */
 		int reward; /* argent laisse apres la mort */
 		int speed; /* vitesse de deplacement en unite de temps */
-		AlienType type;
+		AlienType type; /* type d'alien */
 
 	public:
 		Alien(AlienType type);
