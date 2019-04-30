@@ -4,7 +4,32 @@
 #include "Entity.hpp"
 #include "Tower.hpp"
 
-Tower();
+Tower(ColorType color) {
+	if(color == red){
+		damage = 3;
+		range = 2;
+		shotRate = 1;
+		price = 5;
+	}
+	if(color == green){
+		damage = 2;
+		range = 1;
+		shotRate = 3;
+		price = 5;
+	}
+	if(color == yellow){
+		damage = 1;
+		range = 1;
+		shotRate = 2;
+		price = 5;
+	}
+	if(color == blue){
+		damage = 1;
+		range = 3;
+		shotRate = 2;
+		price = 5;
+	}
+}
 
 int getDamage() {
 	int damage = this->damage;
@@ -26,8 +51,8 @@ int getPrice() {
 	return price;
 }
 
-string getColor() {
-	string color = this->color;
+ColorType getColor() {
+	ColorType color = this->color;
 	return color;
 }
 
@@ -47,7 +72,7 @@ void setPrice(int price) {
 	this->price = price;
 }
 
-void setColor(string color) {
+void setColor(ColorType color) {
 	this->color = color;
 }		
 

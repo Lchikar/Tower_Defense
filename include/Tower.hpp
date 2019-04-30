@@ -6,6 +6,13 @@
 
 #include "Entity.hpp"
 
+enum ColorType
+{
+	red;
+	green;
+	yellow;
+	blue;
+};
 
 class Tower : public Entity{
 	private :
@@ -13,23 +20,23 @@ class Tower : public Entity{
 		int range; /* portee */
 		int shotRate; /* cadence de tir */
 		int price; /* prix */
-		string color; /* couleur de la tour */
+		ColorType color; /* couleur de la tour */
 
 	public:
-		Tower();
+		Tower(ColorType color);
 		~Tower();
 
 		int getDamage();
 		int getRange();
 		int getShotRate();
 		int getPrice();
-		string getColor();
+		ColorType getColor();
 
 		void setDamage(int damage);
 		void setRange(int range);
 		void setShotRate(int shotRate);
 		void setPrice(int price);
-		void setColor(string color);		
+		void setColor(ColorType color);		
 
 		bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
 		Position target(); /* renvoie la position de l'alien le plus proche */
