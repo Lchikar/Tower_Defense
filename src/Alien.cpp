@@ -7,7 +7,6 @@
 #include "Alien.hpp"
 
 Alien(AlienType type){
-	Alien alien = new Alien();
 	if(type == fatty){
 		alien.pv =  150;
 		alien.reward = 100;
