@@ -22,6 +22,6 @@ class Position{
 		void setY(float Y);
 
 		int dist(Position p); /* calcule la distance entre this et p */
-}
+};
 
 #endif

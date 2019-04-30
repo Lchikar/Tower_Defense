@@ -6,6 +6,9 @@ all: bin/itd
 bin/itd: bin/itd.o bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
 	g++ -o bin/itd bin/itd.o #tower_defense.o main.o -lMLV -lm
 
+bin/itd.o: bin/itd.o bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
+	g++ -o bin/itd bin/itd.o #tower_defense.o main.o -lMLV -lm
+
 #tower_defense.o: tower_defense.h tower_defense.cpp
 #	g++ -o tower_defense.o -c tower_defense.cpp $(CFLAGS)
 

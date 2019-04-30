@@ -20,6 +20,6 @@ class Path{
 
 		//ajout setter grace au fichier ppm ?
 
-}
+};
 
 #endif

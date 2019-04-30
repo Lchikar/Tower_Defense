@@ -18,5 +18,6 @@ class Map{
 		void draw();
 
 		TileType getTileType();
+};
 
 #endif
