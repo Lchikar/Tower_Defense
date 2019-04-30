@@ -26,4 +26,6 @@ void setY(float Y) {
 	this->y = y;
 }
 
-int dist(Position p);
+int dist(Position p){
+	return sqrt(pow(this.getX()-p.getX(), 2)+pow(this.getY()-p.getY(), 2))
+}

@@ -3,6 +3,7 @@
  
 #include <iostream>
 #include <string>
+#include <cmath>
 
 class Position{
 	
@@ -12,8 +13,8 @@ class Position{
 
 	public:
 		Position(float x, float y);
-		~Position(); /* penser aux delete */
-
+		~Position();
+		
 		float getX();
 		float getY();
 

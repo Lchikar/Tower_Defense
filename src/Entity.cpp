@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cmath>
+
 
 #include "Position.hpp"
 #include "Entity.hpp"
