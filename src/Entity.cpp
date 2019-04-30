@@ -4,9 +4,9 @@
 #include "Position.hpp"
 #include "Entity.hpp"
 
-Entity(Position p, string sprite) {
+Entity(Position p, string sprt) {
 	pos = p;
-	sprite = sprite;
+	sprite = sprt;
 }
 
 ~Entity();
