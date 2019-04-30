@@ -1,0 +1,30 @@
+Déroulement du jeu
+
+charger et vérifier la carte .itd
+créer chemins à partir de la carte
+initialiser la liste des tours, batiments, aliens
+initialiser le gameplay (vie, argent, temps, numero vague)
+
+Pour chaque unité de temps:
+	tester si game over:
+		test si 50 vagues passées
+		test si vie = 0
+	charger aliens (nombre et type selon n° vague)
+	test si clic achat:
+		test si assez argent:
+			argent--
+			tour/batiment à placer:
+				si placement ok:
+					ajout tour/batiment à la liste
+					update affichage et effets (tirs/ameliorations)
+	déplacer aliens
+		affichage mis à jour (montrer deplacement)
+	faire tirer tours 
+		affichage mois à jour (montrer ennemis touchés)
+	test si aliens morts:
+		pour chaque alien tué:
+			argent++ selon valeur reward
+			supp alien de la liste des aliens
+			affichage mis à jour (enlever aliens morts)
+		si tous les aliens sont morts:
+			vague++
