@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.h"
+#include "Entity.hpp"
 
 
 class Tower : public Entity{
