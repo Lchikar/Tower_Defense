@@ -4,7 +4,10 @@
 #include "Position.hpp"
 #include "Entity.hpp"
 
-Entity();
+Entity(Position p, string sprite) {
+	pos = p;
+	sprite = sprite;
+}
 
 ~Entity();
 		
