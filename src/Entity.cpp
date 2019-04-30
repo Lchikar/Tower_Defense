@@ -8,8 +8,6 @@ Entity(Position p, string sprt) {
 	pos = p;
 	sprite = sprt;
 }
-
-~Entity();
 		
 Position getPos() {
 	Position pos = this.pos;

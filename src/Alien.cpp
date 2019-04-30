@@ -19,9 +19,6 @@ Alien(AlienType type){
 	}
 }
 
-
-~Alien();
-
 int getPv(){
 	int pv = this.pv;
 	return pv;
