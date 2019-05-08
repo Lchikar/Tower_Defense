@@ -10,8 +10,8 @@
 
 enum AlienType
 {
-	fatty;
-	nervous;
+	fatty,
+	nervous,
 };
 
 

@@ -11,7 +11,7 @@ typedef enum {input = 0, output = 1, bend = 2, cross = 3} NodeType;
 class Path{
 
 	private:
-		dict NodeType graph; //representation du chemin par un graphe
+		//dict NodeType graph; //representation du chemin par un graphe
 	public :
 		Path();
 		~Path();

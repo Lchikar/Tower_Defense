@@ -5,6 +5,7 @@
 #include <string>
 #include "Position.hpp"
 
+using namespace std;
 
 
 class Entity{

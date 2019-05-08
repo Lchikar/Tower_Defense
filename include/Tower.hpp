@@ -8,13 +8,13 @@
 
 enum ColorType
 {
-	red;
-	green;
-	yellow;
-	blue;
+	red,
+	green,
+	yellow,
+	blue,
 };
 
-class Tower : public Entity{
+class Tower : public Entity {
 	private :
 		int damage; /* degats */
 		int range; /* portee */

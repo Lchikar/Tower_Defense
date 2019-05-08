@@ -9,9 +9,9 @@
 
 enum TypeBuild
 {
-	radar;
-	weapon;
-	stock;
+	radar,
+	weapon,
+	stock,
 };
 
 class Building : public Entity{
@@ -20,7 +20,7 @@ class Building : public Entity{
 		TypeBuild type; /* type d'upgrade */
 
 	public:
-		Building(TypeBuild type);
+		Building(int value, TypeBuild type);
 		~Building();
 
 		int getValue();
