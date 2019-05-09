@@ -11,4 +11,8 @@ liste fonctions:
 - win() termine le jeu, penser à detruire ce qui a été alloué
 - lose() idem
 - shop_management(Position clic, Tower* towers, Building* buildings, int money) si clic dans la boutique et si enough money, ajout article dans la liste des tours et batiments en cours
-- 
+- Entity.is_placeable(Position pos) vérifie si l'entité peut être placé à l'endroit pos
+- affichage.update() met à jour l'affichage
+- alien.move() déplace l'alien selon son chemin
+- tower.fire() choisit la cible la plus proche et lui enlève des points de vie et renvoie la cible, si aucune cible dans la porté alors renvoie -1
+- alien.is_dead() vérifie si l'alien est mort

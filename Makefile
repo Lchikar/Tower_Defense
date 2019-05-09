@@ -3,18 +3,8 @@ CFLAGS = -g -Wall -Werror -ansi
 all: bin/itd
 
 
-bin/itd: bin/itd.o bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
-	g++ -o bin/itd bin/itd.o #tower_defense.o main.o -lMLV -lm
-
-bin/itd.o: bin/itd.o bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
-	g++ -o bin/itd bin/itd.o #tower_defense.o main.o -lMLV -lm
-
-#tower_defense.o: tower_defense.h tower_defense.cpp
-#	g++ -o tower_defense.o -c tower_defense.cpp $(CFLAGS)
-
-#test.o:  test.cpp #tower_defense.h test.h
-#	g++ -o test.o -c test.cpp $(CFLAGS)
-
+bin/itd: bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
+	g++ -o bin/itd bin/main.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o 
 
 bin/Map.o: include/Map.hpp src/Map.cpp
 	g++ -o bin/Map.o -c src/Map.cpp $(CFLAGS)
