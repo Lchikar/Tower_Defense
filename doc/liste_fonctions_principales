@@ -16,3 +16,8 @@ liste fonctions:
 - alien.move() déplace l'alien selon son chemin
 - tower.fire() choisit la cible la plus proche et lui enlève des points de vie et renvoie la cible, si aucune cible dans la porté alors renvoie -1
 - alien.is_dead() vérifie si l'alien est mort
+
+fonctions pour les graphs:
+- Créer graphe pondéré selon nb tours sur les chemins
+- calculer pcc avec Bellman-Ford
+- Vérifier faisabilité
