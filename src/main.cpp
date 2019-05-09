@@ -14,12 +14,10 @@
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
 
-<<<<<<< Updated upstream
 /* Dimensions de la fenetre 
 static unsigned int WINDOW_WIDTH = 1010;
 static unsigned int WINDOW_HEIGHT = 750;
 */
-=======
 
 void print_error(){
 	fprintf(stderr, "Mauvais usage\n './itd map.itd' est demandé\n");
@@ -128,4 +126,3 @@ static int main(int argc, char** argv){
 
 	return 0;
 }
->>>>>>> Stashed changes
