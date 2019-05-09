@@ -1,0 +1,14 @@
+liste fonctions:
+- good_itd(char** path) vérifie si le fichier itd est valide
+- path_list(char** path) génère la liste des chemins de la map
+- init_towers() initialise liste des tours du jeu
+- init_buildings()
+- init_aliens()
+- init_life()
+- init_money()
+- init_time()
+- init_waves()
+- win() termine le jeu, penser à detruire ce qui a été alloué
+- lose() idem
+- shop_management(Position clic, Tower* towers, Building* buildings, int money) si clic dans la boutique et si enough money, ajout article dans la liste des tours et batiments en cours
+- 
