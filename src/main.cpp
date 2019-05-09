@@ -45,7 +45,6 @@ static int main(int argc, char** argv){
 	}
 
 	/* Créer chemins à partir de la carte */
-
 	Path* paths = path_list(argv[1]);
 	if(!paths){
 		fprintf(stderr, "No path generated\n");
@@ -114,14 +113,35 @@ static int main(int argc, char** argv){
 			foreach(produit in article){
 				if(clic in zone_produit){
 					if(money >= article.prix){
-						ajout_produit in list; /* ajout à towers ou buildings */
 						money -= article.prix;
 						/* placer article */
+						if(produit.is_placeable){
+							ajout_produit in list; /* ajout à towers ou buildings */
+							affichage.update_towers(); /* ou update_building */	
+						}
 					}
 				}
 			}
 		}
 
+		/* déplacer aliens */
+		for(alien in aliens){
+			alien.move(); /* fait avancer selon un chemin */ 
+		}
+		affichage.update_aliens();
+
+		/* faire tirer les tours */
+		for(tower in towers){
+			target = tower.fire(); /* tire et renvoie l'alien touché ou 0 */
+			if(target.is_dead()){
+				money += target.get_reward();
+				aliens.pop(alien);
+				if(aliens.is_empty){ /* si tous les aliens on été tués */
+					vague++;
+				}
+				affichage.update();
+			}
+		}
 	}
 
 	return 0;

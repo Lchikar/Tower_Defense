@@ -20,7 +20,7 @@ Pour chaque unité de temps:
 	déplacer aliens
 		affichage mis à jour (montrer deplacement)
 	faire tirer tours 
-		affichage mois à jour (montrer ennemis touchés)
+		affichage mis à jour (montrer ennemis touchés)
 	test si aliens morts:
 		pour chaque alien tué:
 			argent++ selon valeur reward
