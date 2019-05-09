@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 
+#include "../include/Map.hpp"
+
 using namespace std;
 
 bool Map::checkITD() {
@@ -19,17 +21,18 @@ bool Map::checkITD() {
 
 		map.seekg(0, ios::beg);
 		map>>chaine1;
-		if(chaine1!="@ITD") {return EXIT_FAILURE};
+		if(chaine1!="@ITD") {return EXIT_FAILURE;}
 
 		map.seekg(1, ios::cur);
 		map>>entier1;
-		if(!entier1) {return EXIT_FAILURE};
+		if(!entier1) {return EXIT_FAILURE;}
 
 		map.seekg(1, ios::cur);
 		map>>chaine1;
-		if(chaine1!="#") {return EXIT_FAILURE};
+		if(chaine1!="#") {return EXIT_FAILURE;}
 
 
-		return true;
+		
 	}
+	return true;
 }
