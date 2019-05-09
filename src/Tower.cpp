@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.hpp"
-#include "Tower.hpp"
+#include "../include/Entity.hpp"
+#include "../include/Tower.hpp"
 
 Tower(ColorType color) {
 	if(color == red){

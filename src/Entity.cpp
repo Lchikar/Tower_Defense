@@ -3,8 +3,8 @@
 #include <cmath>
 
 
-#include "Position.hpp"
-#include "Entity.hpp"
+#include "../include/Position.hpp"
+#include "../include/Entity.hpp"
 
 Entity(Position pos, string sprite) {
 	this->pos = pos;

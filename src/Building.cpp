@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.hpp"
-#include "Tower.hpp"
-#include "Building.hpp"
+#include "../include/Entity.hpp"
+#include "../include/Tower.hpp"
+#include "../include/Building.hpp"
 
 Building(int value, TypeBuild type) {
 	this->value = value;

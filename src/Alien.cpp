@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 
-#include "Entity.hpp"
-#include "Tower.hpp"
-#include "Path.hpp"
-#include "Alien.hpp"
+#include "../include/Entity.hpp"
+#include "../include/Tower.hpp"
+#include "../include/Path.hpp"
+#include "../include/Alien.hpp"
 
 Alien(AlienType type){
 	if(type == fatty){

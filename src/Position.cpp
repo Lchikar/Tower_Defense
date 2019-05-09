@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "Position.hpp"
+#include "../include/Position.hpp"
 
 Position(float x, float y) {
 	this->x = x;
