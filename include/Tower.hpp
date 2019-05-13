@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Entity.hpp"
+#include "Position.hpp"
 
 enum ColorType
 {
@@ -38,8 +39,8 @@ class Tower : public Entity {
 		void setPrice(int price);
 		void setColor(ColorType color);		
 
-		bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-		Position target(); /* renvoie la position de l'alien le plus proche */
+		//bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
+		//Position target(); /* renvoie la position de l'alien le plus proche */
 };
 
 #endif

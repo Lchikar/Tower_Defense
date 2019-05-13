@@ -30,8 +30,8 @@ class Building : public Entity{
 		void setType(TypeBuild type);
 
 
-		bool isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */
-		void upgrade(Tower* tower); /* améliore la tour 'tower' */
+		//bool isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */
+		//void upgrade(Tower tower); /* améliore la tour 'tower' */
 };
 
 #endif

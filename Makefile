@@ -18,7 +18,7 @@ bin/Position.o: include/Position.hpp src/Position.cpp
 bin/Entity.o: include/Entity.hpp src/Entity.cpp include/Position.hpp
 	g++ -o bin/Entity.o -c src/Entity.cpp $(CFLAGS)	
 
-bin/Tower.o: include/Tower.hpp src/Tower.cpp include/Entity.hpp
+bin/Tower.o: include/Tower.hpp src/Tower.cpp include/Entity.hpp include/Position.hpp
 	g++ -o bin/Tower.o -c src/Tower.cpp $(CFLAGS)
 
 bin/Building.o: include/Building.hpp src/Building.cpp include/Tower.hpp include/Entity.hpp

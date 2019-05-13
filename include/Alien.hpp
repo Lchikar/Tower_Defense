@@ -34,8 +34,8 @@ class Alien : public Entity{
 		void setReward(int reward);
 		void setSpeed(int speed);
 
-		Path choosePath(); /* choisit un chemin à suivre selon le risque */
-		int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
+		//Path choosePath(); /* choisit un chemin à suivre selon le risque */
+		//int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
 };
 
 #endif

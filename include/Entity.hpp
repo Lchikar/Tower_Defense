@@ -15,6 +15,7 @@ class Entity{
 		string sprite; /* nom de la forme representant l'entite <==> 'GL_forme' */
 
 	public:
+		Entity();
 		Entity(Position pos, string sprite);
 		~Entity();
 		

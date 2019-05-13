@@ -5,13 +5,15 @@
 #include <string>
 #include <cmath>
 
-class Position{
+
+class Position {
 	
 	private:
 		float x;
 		float y;
 
 	public:
+		Position();
 		Position(float x, float y);
 		~Position();
 		

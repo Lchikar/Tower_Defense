@@ -149,5 +149,6 @@
 
 int main(int argc, char const *argv[])
 {
+	fprintf(stderr, "coucou\n");
 	return 0;
 }

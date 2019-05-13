@@ -3,8 +3,9 @@
 
 #include "../include/Entity.hpp"
 #include "../include/Tower.hpp"
+#include "../include/Position.hpp"
 
-Tower(ColorType color) {
+Tower::Tower(ColorType color) {
 	if(color == red){
 		damage = 3;
 		range = 2;
@@ -31,50 +32,50 @@ Tower(ColorType color) {
 	}
 }
 
-int getDamage() {
+int Tower::getDamage() {
 	int damage = this->damage;
 	return damage;
 }
 
-int getRange() {
+int Tower::getRange() {
 	int range = this->range;
 	return range;
 }
 
-int getShotRate() {
+int Tower::getShotRate() {
 	int shotRate = this->shotRate;
 	return shotRate;
 }
 
-int getPrice() {
+int Tower::getPrice() {
 	int price = this->price;
 	return price;
 }
 
-ColorType getColor() {
+ColorType Tower::getColor() {
 	ColorType color = this->color;
 	return color;
 }
 
-void setDamage(int damage) {
+void Tower::setDamage(int damage) {
 	this->damage = damage;
 }
 
-void setRange(int range) {
+void Tower::setRange(int range) {
 	this->range = range;
 }
 
-void setShotRate(int shotRate) {
+void Tower::setShotRate(int shotRate) {
 	this->shotRate = shotRate;
 }
 
-void setPrice(int price) {
+void Tower::setPrice(int price) {
 	this->price = price;
 }
 
-void setColor(ColorType color) {
+void Tower::setColor(ColorType color) {
 	this->color = color;
 }		
 
-bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-Position target(); /* renvoie la position de l'alien le plus proche */
+//bool Tower::isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
+//Position Tower::target(); /* renvoie la position de l'alien le plus proche */

@@ -6,7 +6,7 @@
 #include "../include/Path.hpp"
 #include "../include/Alien.hpp"
 
-Alien(AlienType type){
+Alien::Alien(AlienType type){
 	if(type == fatty){
 		pv =  150;
 		reward = 100;
@@ -20,32 +20,32 @@ Alien(AlienType type){
 }
 
 
-int getPv(){
+int Alien::getPv(){
 	int pv = this->pv;
 	return pv;
 }
 
-int getReward() {
+int Alien::getReward() {
 	int reward = this->reward;
 	return reward;
 }
 
-int getSpeed() {
-	in speed = this->speed;
+int Alien::getSpeed() {
+	int speed = this->speed;
 	return speed;
 }
 
-void setPv(int pv){
+void Alien::setPv(int pv){
 	this->pv = pv;
 }
 
-void setReward(int reward) {
+void Alien::setReward(int reward) {
 	this->reward = reward;
 }
 
-void setSpeed(int speed) {
+void Alien::setSpeed(int speed) {
 	this->speed = speed;
 }
 
-Path choosePath(); /* choisit un chemin à suivre selon le risque */
-int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
+//Path Alien::choosePath(); /* choisit un chemin à suivre selon le risque */
+//int Alien::resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
