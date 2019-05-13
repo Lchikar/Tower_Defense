@@ -6,26 +6,26 @@
 #include "../include/Position.hpp"
 #include "../include/Entity.hpp"
 
-Entity(Position pos, string sprite) {
+Entity::Entity(Position pos, string sprite) {
 	this->pos = pos;
 	this->sprite = sprite;
 }
 
 		
-Position getPos() {
+Position Entity::getPos() {
 	Position pos = this->pos;
 	return pos;
 }
 
-void setPos(Position p) {
+void Entity::setPos(Position p) {
 	this->pos = p;
 }
 
-string getSprite() {
+string Entity::getSprite() {
 	string sprite = this->sprite;
 	return sprite;
 }
 
-void setSprite(string sprite) {
+void Entity::setSprite(string sprite) {
 	this->sprite = sprite;
 }
