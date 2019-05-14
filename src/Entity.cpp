@@ -4,8 +4,11 @@
 
 #include "../include/Position.hpp"
 #include "../include/Entity.hpp"
+ 
+Entity::Entity() {
+	this->pos = Position();
+}
 
-Entity::Entity() {}
 Entity::Entity(Position pos, string sprite) {
 	this->pos = pos;
 	this->sprite = sprite;

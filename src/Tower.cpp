@@ -3,7 +3,6 @@
 
 #include "../include/Entity.hpp"
 #include "../include/Tower.hpp"
-#include "../include/Position.hpp"
 
 Tower::Tower(ColorType color) {
 	if(color == red){

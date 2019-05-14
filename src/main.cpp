@@ -1,10 +1,15 @@
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <math.h>
+#include <time.h>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 #include "../include/Entity.hpp"
 #include "../include/Map.hpp"
@@ -13,142 +18,145 @@
 #include "../include/Alien.hpp"
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
+#include "../include/texture.hpp"
 
 // Dimensions de la fenetre 
 //static unsigned int WINDOW_WIDTH = 1010;
 //static unsigned int WINDOW_HEIGHT = 750;
 
-/*
-	void print_error(){
-		fprintf(stderr, "Mauvais usage\n './itd map.itd' est demandé\n");
-	}
+using namespace std;
 
+/* Dimensions initiales et titre de la fenetre */
+static const unsigned int WINDOW_WIDTH = 1010;
+static const unsigned int WINDOW_HEIGHT = 750;
+static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
 
-	int main(int argc, char** argv){
+/* Espace fenetre virtuelle */
+static const float GL_VIEW_WIDTH = 1;
+static const float GL_VIEW_HEIGHT = 1;
 
-		// Ouvrir et tester map
-		// On est censés avoir ./itd map.itd
+/* Nombre de bits par pixel de la fenetre */
+static const unsigned int BIT_PER_PIXEL = 32;
 
-		if(argc != 2){
-			print_error();
-			CD_ERROR;
-		}
+/* Nombre minimal de millisecondes separant le rendu de deux images */
+static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
-		if(0 != strcmp(".itd", argv[1]+(strlen(argv[1])-4))){
-			print_error();
-			CD_ERROR;
-		}
-
-		if(!is_valid_itd(argv[1])){
-			fprintf(stderr, "Map not valid\n");
-			CD_ERROR;	
-		}
-
-		// Créer chemins à partir de la carte
-		Path* paths = path_list(argv[1]);
-		if(!paths){
-			fprintf(stderr, "No path generated\n");
-			CD_ERROR;
-		}
-
-		// INITIALISATION ENTITES
-		// Fonctions init ?
-
-		Tower* towers = (Towers*)alloc(NB_TOWER_MAX*sizeof(Tower));
-		if(!towers){
-			fprintf(stderr, "Alloc error towers\n");
-			CD_ERROR;
-		}
-		else{
-			nb_towers = 0;
-		}
-
-		Building* buildings = (Building*)alloc(NB_BUIDING_MAX*sizeof(Building));
-		if(!buildings){
-			fprintf(stderr, "Alloc error buildings\n");
-			CD_ERROR;
-		}
-		else{
-			nb_buildings = 0;
-		}
-
-		Alien* aliens = (Aliens*)alloc(NB_alien_MAX*sizeof(Alien));
-		if(!aliens){
-			fprintf(stderr, "Alloc error aliens\n");
-			CD_ERROR;
-		}
-		else{
-			nb_aliens = 0;
-		}
-
-		// INIT GAMEPLAY
-		init_life();
-		init_money();
-		init_time();
-		init_waves();
-
-		// Boucle jeu
-		while(time % 1/10 sec){ // toutes les k/10e de secondes
-			// game over
-			if(num_wave == 50){
-				win();
-				return 0;
-			}
-			if(vie <= 0){
-				lose()
-				return 0;
-			}
-
-			// si nouvelle vague load aliens (nb aliens selon n° vague)
-			if(nouvelle_vague){
-				while(i < nb_aliens_a_ajouter){
-					aliens.push(type alien);
-					i++;	
-				}// ajout des aliens à la liste
-			}
-			
-			// test si clic achat
-			// fonction shop_management ?
-			if(clic in zone_achat){// test sur les coordo
-				foreach(produit in article){
-					if(clic in zone_produit){
-						if(money >= article.prix){
-							money -= article.prix;
-							// placer article
-							if(produit.is_placeable(clic.get_position())){
-								ajout_produit in list; // ajout à towers ou buildings	
-							}
-						}
-					}
-				}
-			}
-
-			// déplacer aliens
-			for(alien in aliens){
-				alien.move(); // fait avancer selon un chemin 
-			}
-
-			// faire tirer les tours
-			for(tower in towers){
-				target = tower.fire(); // tire et renvoie l'alien touché ou -1			if(target.is_dead()){
-				if(-1 != target){	
-					money += target.get_reward();
-					aliens.pop(alien);
-					if(aliens.is_empty){ // si tous les aliens on été tués
-						vague++;
-					}
-				}
-			}
-
-			affichage.update();
-		}
-
-		return 0;
-	}
-*/
-
-int main(int argc, char const *argv[])
+void reshape(SDL_Surface** surface, unsigned int width, unsigned int height)
 {
-	fprintf(stderr, "coucou\n");
-	return 0;
+    SDL_Surface* surface_temp = SDL_SetVideoMode(   
+        width, height, BIT_PER_PIXEL,
+        SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE);
+    if(NULL == surface_temp) 
+    {
+        fprintf(
+            stderr, 
+            "Erreur lors du redimensionnement de la fenetre.\n");
+        exit(EXIT_FAILURE);
+    }
+    *surface = surface_temp;
+
+    glViewport(0, 0, (*surface)->w, (*surface)->h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-GL_VIEW_WIDTH / 2, GL_VIEW_WIDTH / 2, 
+        -GL_VIEW_HEIGHT / 2, GL_VIEW_HEIGHT / 2);
+}
+
+int main()  {   
+    /* Initialisation de la SDL */
+    if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
+        fprintf(
+            stderr, 
+            "Impossible d'initialiser la SDL. Fin du programme.\n");
+        exit(EXIT_FAILURE);
+    }
+  
+    /* Ouverture d'une fenetre et creation d'un contexte OpenGL */
+    SDL_Surface* surface;
+    reshape(&surface, WINDOW_WIDTH, WINDOW_HEIGHT);
+    /*
+    surface = SDL_SetVideoMode(
+        WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, 
+        SDL_OPENGL | SDL_GL_DOUBLEBUFFER);
+    */
+    if(NULL == surface) 
+    {
+        fprintf(
+            stderr, 
+            "Impossible d'ouvrir la fenetre. Fin du programme.\n");
+        return EXIT_FAILURE;
+    }
+
+
+    /* Initialisation du titre de la fenetre */
+    SDL_WM_SetCaption(WINDOW_TITLE, NULL);
+  	
+  	// Chargement et traitement de la texture de la map
+    Map map;
+    GLuint textureMap = map.setMap();
+
+    /* Boucle principale */
+    int loop = 1;
+    while(loop) {
+        /* Recuperation du temps au debut de la boucle */
+        Uint32 startTime = SDL_GetTicks();
+        
+        /* Placer ici le code de dessin */
+        glClear(GL_COLOR_BUFFER_BIT);
+        glPushMatrix();
+            map.drawMap(textureMap, 1, 1);
+		glPopMatrix();
+        
+
+        /* Echange du front et du back buffer : mise a jour de la fenetre */
+        SDL_GL_SwapBuffers();
+        
+        /* Boucle traitant les evenements */
+        SDL_Event e;
+        while(SDL_PollEvent(&e)) {
+            /* L'utilisateur ferme la fenetre : */
+            if(e.type == SDL_QUIT) {
+                loop = 0;
+                break;
+            }
+        
+            if( e.type == SDL_KEYDOWN 
+                && (e.key.keysym.sym == SDLK_q || e.key.keysym.sym == SDLK_ESCAPE)) {
+                loop = 0; 
+                break;
+            }
+            
+            /* Quelques exemples de traitement d'evenements : */
+            switch(e.type) {
+                /* Clic souris */
+                case SDL_MOUSEBUTTONUP:
+                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    break;
+                
+                /* Touche clavier */
+                case SDL_KEYDOWN:
+                    printf("touche pressee (code = %d)\n", e.key.keysym.sym);
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+
+        /* Calcul du temps ecoule */
+        Uint32 elapsedTime = SDL_GetTicks() - startTime;
+        /* Si trop peu de temps s'est ecoule, on met en pause le programme */
+        if(elapsedTime < FRAMERATE_MILLISECONDS) {
+            SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
+        }
+    }
+
+     // Libération des données GPU
+	glDeleteTextures(1, &textureMap);
+
+    /* Liberation des ressources associees a la SDL */ 
+    SDL_Quit();
+    
+    return EXIT_SUCCESS;
+
 }

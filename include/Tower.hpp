@@ -5,7 +5,6 @@
 #include <string>
 
 #include "Entity.hpp"
-#include "Position.hpp"
 
 enum ColorType
 {
