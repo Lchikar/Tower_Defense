@@ -18,6 +18,7 @@
 #include "../include/Alien.hpp"
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
+#include "../include/texture.hpp"
 
 // Dimensions de la fenetre 
 //static unsigned int WINDOW_WIDTH = 1010;
@@ -35,8 +36,6 @@ static const unsigned int BIT_PER_PIXEL = 32;
 
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
-
-
 
 int main()  {   
     /* Initialisation de la SDL */
@@ -63,7 +62,11 @@ int main()  {
 
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
-  
+  	
+  	// Chargement et traitement de la texture de la map
+    Map map;
+    GLuint textureMap = map.setMap();
+
     /* Boucle principale */
     int loop = 1;
     while(loop) {
@@ -72,7 +75,11 @@ int main()  {
         
         /* Placer ici le code de dessin */
         glClear(GL_COLOR_BUFFER_BIT);
+        glPushMatrix();
+            map.drawMap(textureMap, 0, 0);
+		glPopMatrix();
         
+
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
         
@@ -115,6 +122,9 @@ int main()  {
             SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
         }
     }
+
+     // Libération des données GPU
+	glDeleteTextures(1, &textureMap);
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

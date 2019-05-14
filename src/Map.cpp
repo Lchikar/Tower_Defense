@@ -1,4 +1,5 @@
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
@@ -6,8 +7,13 @@
 #include <fstream>
 
 #include "../include/Map.hpp"
+#include "../include/texture.hpp"
 
 using namespace std;
+
+const char* filename = "../img/textMapMars.png";
+
+Map::Map(){};
 
 bool Map::checkITD() {
 	// ouvrir .itd
@@ -30,9 +36,16 @@ bool Map::checkITD() {
 		map.seekg(1, ios::cur);
 		map>>chaine1;
 		if(chaine1!="#") {return EXIT_FAILURE;}
-
-
-		
+	
 	}
 	return true;
+}
+
+GLuint Map::setMap() {
+	GLuint textureID = setTexture(filename); 
+	return textureID;
+}
+
+void Map::drawMap(GLuint textureID, float x, float y){
+	drawTexture(texture, x, y);
 }
