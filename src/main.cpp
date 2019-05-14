@@ -32,8 +32,6 @@ static const unsigned int WINDOW_HEIGHT = 750;
 static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
 
 /* Espace fenetre virtuelle */
-static const float GL_VIEW_WIDTH = 1;
-static const float GL_VIEW_HEIGHT = 1;
 
 /* Nombre de bits par pixel de la fenetre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -41,26 +39,6 @@ static const unsigned int BIT_PER_PIXEL = 32;
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
-void reshape(SDL_Surface** surface, unsigned int width, unsigned int height)
-{
-    SDL_Surface* surface_temp = SDL_SetVideoMode(   
-        width, height, BIT_PER_PIXEL,
-        SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE);
-    if(NULL == surface_temp) 
-    {
-        fprintf(
-            stderr, 
-            "Erreur lors du redimensionnement de la fenetre.\n");
-        exit(EXIT_FAILURE);
-    }
-    *surface = surface_temp;
-
-    glViewport(0, 0, (*surface)->w, (*surface)->h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-GL_VIEW_WIDTH / 2, GL_VIEW_WIDTH / 2, 
-        -GL_VIEW_HEIGHT / 2, GL_VIEW_HEIGHT / 2);
-}
 
 int main()  {   
     /* Initialisation de la SDL */
@@ -73,12 +51,9 @@ int main()  {
   
     /* Ouverture d'une fenetre et creation d'un contexte OpenGL */
     SDL_Surface* surface;
-    reshape(&surface, WINDOW_WIDTH, WINDOW_HEIGHT);
-    /*
     surface = SDL_SetVideoMode(
         WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, 
         SDL_OPENGL | SDL_GL_DOUBLEBUFFER);
-    */
     if(NULL == surface) 
     {
         fprintf(

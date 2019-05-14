@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const char* filename = "./img/textMapMars.png";
+const char* filename = "./img/textMapMars.jpg";
 
 /* contructor */
 Map::Map(){};
