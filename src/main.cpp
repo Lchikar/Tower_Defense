@@ -32,6 +32,8 @@ static const unsigned int WINDOW_HEIGHT = 750;
 static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
 
 /* Espace fenetre virtuelle */
+static const float GL_VIEW_WIDTH = 1010;
+static const float GL_VIEW_HEIGHT = 750;
 
 /* Nombre de bits par pixel de la fenetre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -54,6 +56,13 @@ int main()  {
     surface = SDL_SetVideoMode(
         WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, 
         SDL_OPENGL | SDL_GL_DOUBLEBUFFER);
+    glViewport(0, 0, (surface)->w, (surface)->h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(
+        -GL_VIEW_WIDTH, GL_VIEW_WIDTH, 
+        -GL_VIEW_HEIGHT, GL_VIEW_HEIGHT);
+
     if(NULL == surface) 
     {
         fprintf(
@@ -69,6 +78,8 @@ int main()  {
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
+    Alien fatty = Alien(nervous);
+    GLuint textureFatty = fatty.setAlien();
 
     /* Boucle principale */
     int loop = 1;
@@ -79,7 +90,12 @@ int main()  {
         /* Placer ici le code de dessin */
         glClear(GL_COLOR_BUFFER_BIT);
         glPushMatrix();
-            map.drawMap(textureMap, 1, 1);
+            map.drawMap(textureMap, 1010, 750);
+            
+            glTranslatef(500,0,0);
+            fatty.drawAlien(textureFatty, 35, 35);
+            glTranslatef(-485*2,270,0);
+            fatty.drawAlien(textureFatty, 35, 35);
 		glPopMatrix();
         
 
@@ -128,6 +144,7 @@ int main()  {
 
      // Libération des données GPU
 	glDeleteTextures(1, &textureMap);
+	glDeleteTextures(1, &textureFatty);
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

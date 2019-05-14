@@ -35,7 +35,7 @@ GLuint setTexture(const char* filename) {
         GL_RGB, 
         image->w, 
         image->h, 0, 
-        GL_RGB, 
+        GL_RGBA, 
         GL_UNSIGNED_BYTE, 
         image->pixels);
 

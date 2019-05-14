@@ -14,6 +14,7 @@ Entity::Entity(Position pos, string sprite) {
 	this->sprite = sprite;
 }
 
+Entity::~Entity(){};
 		
 Position Entity::getPos() {
 	Position pos = this->pos;
