@@ -24,8 +24,8 @@ GLuint setTexture(const char* filename) {
 
     GLuint textureID;
 
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
  
     // Envoie des données texture à la carte graphique

@@ -11,10 +11,13 @@
 
 using namespace std;
 
-const char* filename = "../img/textMapMars.png";
+const char* filename = "./img/textMapMars.png";
 
 /* contructor */
 Map::Map(){};
+
+/* destructor */
+Map::~Map(){};
 
 /* verification de la validité du .itd */
 // en cours
@@ -53,5 +56,5 @@ GLuint Map::setMap() {
 
 /* affichage de la texture */
 void Map::drawMap(GLuint textureID, float x, float y){
-	drawTexture(texture, x, y);
+	drawTexture(textureID, x, y);
 }
