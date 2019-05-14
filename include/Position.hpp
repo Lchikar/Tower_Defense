@@ -15,7 +15,7 @@ class Position {
 	public:
 		Position();
 		Position(float x, float y);
-		~Position();
+		~Position(){};
 		
 		float getX();
 		float getY();
