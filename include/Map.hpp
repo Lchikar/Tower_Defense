@@ -27,7 +27,9 @@ class Map {
 		/* Verifier itd*/
 		bool checkITD();
 
+		/* initialisation de la texture */
 		GLuint setMap();
+		/* affichage de la texture */
 		void drawMap(GLuint textureID, float x, float y);
 
 		//TileType getTileType();

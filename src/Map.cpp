@@ -13,8 +13,11 @@ using namespace std;
 
 const char* filename = "../img/textMapMars.png";
 
+/* contructor */
 Map::Map(){};
 
+/* verification de la validité du .itd */
+// en cours
 bool Map::checkITD() {
 	// ouvrir .itd
 	string const mapName("./data/testmap.itd");
@@ -41,11 +44,14 @@ bool Map::checkITD() {
 	return true;
 }
 
+
+/* initialisation de la texture */
 GLuint Map::setMap() {
 	GLuint textureID = setTexture(filename); 
 	return textureID;
 }
 
+/* affichage de la texture */
 void Map::drawMap(GLuint textureID, float x, float y){
 	drawTexture(texture, x, y);
 }
