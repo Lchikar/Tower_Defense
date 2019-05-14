@@ -2,7 +2,7 @@ CC     = g++
 CFLAGS = -Wall -Wextra -O2 -Wno-unused-result -g
 LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lm
 LIB    = -lm
-OBJ    = bin/main.o bin/texture.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
+OBJ    = obj/main.o obj/texture.o obj/Map.o obj/Path.o obj/Position.o obj/Entity.o obj/Tower.o obj/Building.o obj/Alien.o
 RM     = rm -f
 BIN    = bin/itd
 DIRNAME = $(shell basename $$PWD)
@@ -15,47 +15,47 @@ all : $(OBJ)
 	@echo "            to execute type: $(BIN) "
 	@echo "--------------------------------------------------------------"
 
-bin/texture.o : include/texture.hpp src/texture.cpp
+obj/texture.o : include/texture.hpp src/texture.cpp
 	@echo "compile texture"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Map.o : include/Map.hpp src/Map.cpp include/texture.hpp
+obj/Map.o : include/Map.hpp src/Map.cpp include/texture.hpp
 	@echo "compile Map"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Path.o : include/Path.hpp src/Path.cpp
+obj/Path.o : include/Path.hpp src/Path.cpp
 	@echo "compile Path"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Position.o : include/Position.hpp src/Position.cpp
+obj/Position.o : include/Position.hpp src/Position.cpp
 	@echo "compile Position"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Entity.o : include/Entity.hpp src/Entity.cpp include/Position.hpp
+obj/Entity.o : include/Entity.hpp src/Entity.cpp include/Position.hpp
 	@echo "compile Entity"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Tower.o : include/Tower.hpp src/Tower.cpp include/Entity.hpp
+obj/Tower.o : include/Tower.hpp src/Tower.cpp include/Entity.hpp
 	@echo "compile Tower"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Building.o : include/Building.hpp src/Building.cpp include/Tower.hpp include/Entity.hpp
+obj/Building.o : include/Building.hpp src/Building.cpp include/Tower.hpp include/Entity.hpp
 	@echo "compile Building"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/Alien.o : include/Alien.hpp src/Alien.cpp include/Tower.hpp include/Entity.hpp include/Path.hpp
+obj/Alien.o : include/Alien.hpp src/Alien.cpp include/Tower.hpp include/Entity.hpp include/Path.hpp
 	@echo "compile Alien"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-bin/main.o : src/main.cpp bin/texture.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
+obj/main.o : src/main.cpp obj/texture.o obj/Map.o obj/Path.o obj/Position.o obj/Entity.o obj/Tower.o obj/Building.o obj/Alien.o
 	@echo "compile main"
 	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."

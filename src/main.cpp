@@ -76,7 +76,7 @@ int main()  {
         /* Placer ici le code de dessin */
         glClear(GL_COLOR_BUFFER_BIT);
         glPushMatrix();
-            map.drawMap(textureMap, 0, 0);
+            map.drawMap(textureMap, 1010, 750);
 		glPopMatrix();
         
 
