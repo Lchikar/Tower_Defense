@@ -46,7 +46,7 @@ GLuint Alien::setAlien() {
 		textureID = setTexture(filenameF);
 		return textureID;
 	} 
-	if(type == nervous) {
+	else{
 		textureID = setTexture(filenameN);
 		return textureID;
 	}

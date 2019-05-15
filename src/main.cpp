@@ -78,7 +78,7 @@ int main()  {
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-    Alien fatty = Alien(nervous);
+    Alien fatty = Alien(fatty);
     GLuint textureFatty = fatty.setAlien();
 
     /* Boucle principale */
