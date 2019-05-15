@@ -1,36 +1,87 @@
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <iostream>
 #include <string>
 
 #include "../include/Entity.hpp"
 #include "../include/Tower.hpp"
+#include "../include/texture.hpp"
 
-Tower::Tower(ColorType color) {
-	if(color == red){
+using namespace std;
+
+const char* filenameTower1 = "./img/assets/textTower1.png";
+const char* filenameTower2 = "./img/assets/textTower2.png";
+const char* filenameTower3 = "./img/assets/textTower3.png";
+const char* filenameTower4 = "./img/assets/textTower4.png";
+
+/****************************************
+************ CONSTRUCTOR ****************
+*****************************************/
+/* Contructor */
+Tower::Tower(ColorType type) {
+	this->type = type;
+	if(type == red){
 		damage = 3;
 		range = 2;
 		shotRate = 1;
 		price = 5;
 	}
-	if(color == green){
+	if(type == green){
 		damage = 2;
 		range = 1;
 		shotRate = 3;
 		price = 5;
 	}
-	if(color == yellow){
+	if(type == yellow){
 		damage = 1;
 		range = 1;
 		shotRate = 2;
 		price = 5;
 	}
-	if(color == blue){
+	if(type == blue){
 		damage = 1;
 		range = 3;
 		shotRate = 2;
 		price = 5;
 	}
 }
+/* Destructor */
+Tower::~Tower(){};
 
+/****************************************
+*************** DRAW ********************
+*****************************************/
+/* initialisation de la texture */
+GLuint Tower::setTower() {
+	GLuint textureID;
+	if(type == red) {
+		textureID = setTexture(filenameTower1);
+		return textureID;
+	}
+	if(type == green) {
+		textureID = setTexture(filenameTower2);
+		return textureID;
+	}
+	if(type == yellow) {
+		textureID = setTexture(filenameTower3);
+		return textureID;
+	}
+	else{
+		textureID = setTexture(filenameTower4);
+		return textureID;
+	}
+}
+
+/* affichage de la texture */
+void Tower::drawTower(GLuint textureID, float x, float y) {
+	drawTexture(textureID, x, y);
+}
+
+/****************************************
+************** GET & SET ****************
+*****************************************/
 int Tower::getDamage() {
 	int damage = this->damage;
 	return damage;
@@ -52,8 +103,8 @@ int Tower::getPrice() {
 }
 
 ColorType Tower::getColor() {
-	ColorType color = this->color;
-	return color;
+	ColorType type = this->type;
+	return type;
 }
 
 void Tower::setDamage(int damage) {
@@ -72,8 +123,8 @@ void Tower::setPrice(int price) {
 	this->price = price;
 }
 
-void Tower::setColor(ColorType color) {
-	this->color = color;
+void Tower::setColor(ColorType type) {
+	this->type = type;
 }		
 
 //bool Tower::isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */

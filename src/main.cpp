@@ -78,8 +78,12 @@ int main()  {
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-    Alien fatty = Alien(fatty);
+    // Chargement et traitement de la texture Alien test
+    Alien fatty = Alien(nervous);
     GLuint textureFatty = fatty.setAlien();
+    // Chargement et traitement de la texture Tower test
+    //Tower towerTest = Tower(red);
+    //GLuint textureTower = towerTest.setTower();
 
     /* Boucle principale */
     int loop = 1;
@@ -92,10 +96,11 @@ int main()  {
         glPushMatrix();
             map.drawMap(textureMap, 1010, 750);
             
-            glTranslatef(500,0,0);
-            fatty.drawAlien(textureFatty, 35, 35);
+            //towerTest.drawTower(textureTower, 50, 50);
+
             glTranslatef(-485*2,270,0);
             fatty.drawAlien(textureFatty, 35, 35);
+			
 		glPopMatrix();
         
 
@@ -145,6 +150,7 @@ int main()  {
      // Libération des données GPU
 	glDeleteTextures(1, &textureMap);
 	glDeleteTextures(1, &textureFatty);
+	//glDeleteTextures(1, &textureTower);
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

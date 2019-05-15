@@ -43,11 +43,13 @@ class Alien : public Entity {
 		int getPv();
 		int getReward();
 		int getSpeed();
+		AlienType getAlienType();
 
 		/* set */
 		void setPv(int pv);
 		void setReward(int reward);
 		void setSpeed(int speed);
+		void setAlienType(AlienType type);
 
 		//Path choosePath(); /* choisit un chemin à suivre selon le risque */
 		//int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
