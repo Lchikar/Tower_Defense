@@ -60,8 +60,8 @@ int main()  {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(
-        -GL_VIEW_WIDTH, GL_VIEW_WIDTH, 
-        -GL_VIEW_HEIGHT, GL_VIEW_HEIGHT);
+        -GL_VIEW_WIDTH/2, GL_VIEW_WIDTH/2, 
+        -GL_VIEW_HEIGHT/2, GL_VIEW_HEIGHT/2);
 
     if(NULL == surface) 
     {
@@ -74,16 +74,20 @@ int main()  {
 
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
   	
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
     // Chargement et traitement de la texture Alien test
-    Alien fatty = Alien(nervous);
-    GLuint textureFatty = fatty.setAlien();
+    Alien alienTest = Alien(nervous);
+    GLuint textureAlien = alienTest.setAlien();
     // Chargement et traitement de la texture Tower test
-    //Tower towerTest = Tower(red);
-    //GLuint textureTower = towerTest.setTower();
+    Tower towerTest = Tower(blue);
+    GLuint textureTower = towerTest.setTower();
 
     /* Boucle principale */
     int loop = 1;
@@ -94,12 +98,12 @@ int main()  {
         /* Placer ici le code de dessin */
         glClear(GL_COLOR_BUFFER_BIT);
         glPushMatrix();
-            map.drawMap(textureMap, 1010, 750);
+            map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
             
-            //towerTest.drawTower(textureTower, 50, 50);
+            towerTest.drawTower(textureTower, 50, 50);
 
-            glTranslatef(-485*2,270,0);
-            fatty.drawAlien(textureFatty, 35, 35);
+            glTranslatef(-485,140,0);
+            alienTest.drawAlien(textureAlien, 35, 35);
 			
 		glPopMatrix();
         
@@ -149,8 +153,8 @@ int main()  {
 
      // Libération des données GPU
 	glDeleteTextures(1, &textureMap);
-	glDeleteTextures(1, &textureFatty);
-	//glDeleteTextures(1, &textureTower);
+	glDeleteTextures(1, &textureAlien);
+	glDeleteTextures(1, &textureTower);
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

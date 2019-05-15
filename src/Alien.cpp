@@ -13,8 +13,8 @@
 
 using namespace std;
 
-const char* filenameFatty = "./img/assets/textAlienNervous.png";
-const char* filenameNervous = "./img/assets/textAlienFatty.png";
+const char* filenameNervous = "./img/assets/textAlienNervous.png";
+const char* filenameFatty = "./img/assets/textAlienFatty.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -41,7 +41,6 @@ Alien::~Alien(){};
 *****************************************/
 /* initialisation de la texture */
 GLuint Alien::setAlien() {
-	AlienType type = getAlienType();
 	GLuint textureID;
 	if(type == fatty) {
 		textureID = setTexture(filenameFatty);

@@ -32,9 +32,10 @@ GLuint setTexture(const char* filename) {
     glTexImage2D(
         GL_TEXTURE_2D, 
         0, 
-        GL_RGB, 
+        GL_RGBA, 
         image->w, 
-        image->h, 0, 
+        image->h, 
+        0, 
         GL_RGBA, 
         GL_UNSIGNED_BYTE, 
         image->pixels);
@@ -51,13 +52,13 @@ void drawTexture(GLuint textureID, float x, float y) {
         glBindTexture(GL_TEXTURE_2D, textureID);
         	glBegin(GL_QUADS);
         		glTexCoord2f(0,1);
-        		glVertex2f(-x, -y);
+        		glVertex2f(-x/2, -y/2);
         		glTexCoord2f(1,1);
-        		glVertex2f(x, -y);
+        		glVertex2f(x/2, -y/2);
         		glTexCoord2f(1,0);
-        		glVertex2f(x, y);
+        		glVertex2f(x/2, y/2);
         		glTexCoord2f(0,0);
-        		glVertex2f(-x, y);
+        		glVertex2f(-x/2, y/2);
         	glEnd();
 		glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
