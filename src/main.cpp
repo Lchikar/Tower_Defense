@@ -75,9 +75,9 @@ int main()  {
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
 
+    /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
   	
   	// Chargement et traitement de la texture de la map
     Map map;
