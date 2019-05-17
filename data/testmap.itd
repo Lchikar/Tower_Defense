@@ -1,6 +1,6 @@
 @ITD 1
 # ligne de commentaire
-carte map.ppm
+carte ./img/mapPPM3_1180x750.ppm
 chemin 255 255 255
 noeud 0 0 255
 construct 0 0 0
