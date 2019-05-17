@@ -21,18 +21,18 @@
 #include "../include/texture.hpp"
 
 // Dimensions de la fenetre 
-//static unsigned int WINDOW_WIDTH = 1010;
+//static unsigned int WINDOW_WIDTH = 1180;
 //static unsigned int WINDOW_HEIGHT = 750;
 
 using namespace std;
 
 /* Dimensions initiales et titre de la fenetre */
-static const unsigned int WINDOW_WIDTH = 1010;
+static const unsigned int WINDOW_WIDTH = 1180;
 static const unsigned int WINDOW_HEIGHT = 750;
 static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
 
 /* Espace fenetre virtuelle */
-static const float GL_VIEW_WIDTH = 1010;
+static const float GL_VIEW_WIDTH = 1180;
 static const float GL_VIEW_HEIGHT = 750;
 
 /* Nombre de bits par pixel de la fenetre */

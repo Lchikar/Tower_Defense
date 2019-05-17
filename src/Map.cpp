@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const char* filenameMap = "./img/assets/textMapMars.png";
+const char* filenameMap = "./img/assets/textMap_1180x750.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
