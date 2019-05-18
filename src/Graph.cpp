@@ -2,6 +2,7 @@
 #include <string>
 
 #include "../include/Graph.hpp"
+#include "../include/File.hpp"
 
 Graph(vector<Arc> const &arcs, int nb_nodes) {
 	adjencyList.resize(nb_nodes);
