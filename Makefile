@@ -2,7 +2,7 @@ CC     = g++
 CFLAGS = -Wall -Wextra -O2 -Wno-unused-result -g
 LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lm
 LIB    = -lm
-OBJ    = bin/main.o bin/texture.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
+OBJ    = bin/main.o bin/texture.o bin/IHM.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o
 RM     = rm -f
 BIN    = bin/itd
 DIRNAME = $(shell basename $$PWD)
@@ -17,6 +17,11 @@ all : $(OBJ)
 
 bin/texture.o : src/texture.cpp
 	@echo "compile texture"
+	$(CC) $(CFLAGS) -c -o $@  $<
+	@echo "done..."
+
+bin/IHM.o : src/IHM.cpp
+	@echo "compile IHM"
 	$(CC) $(CFLAGS) -c -o $@  $<
 	@echo "done..."
 

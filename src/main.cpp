@@ -19,6 +19,7 @@
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
 #include "../include/texture.hpp"
+#include "../include/IHM.hpp"
 
 // Dimensions de la fenetre 
 //static unsigned int WINDOW_WIDTH = 1180;

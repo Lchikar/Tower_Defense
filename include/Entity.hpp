@@ -1,9 +1,16 @@
 #ifndef DEF_ENTITY
 #define DEF_ENTITY
- 
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <iostream>
 #include <string>
+#include <cmath>
+
 #include "Position.hpp"
+#include "texture.hpp"
 
 using namespace std;
 
