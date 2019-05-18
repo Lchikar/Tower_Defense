@@ -1,6 +1,5 @@
-#ifndef DEF_BUILDING
-#define DEF_BUILDING
- 
+#pragma once
+
 #include <iostream>
 #include <string>
 
@@ -33,5 +32,3 @@ class Building : public Entity{
 		//bool isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */
 		//void upgrade(Tower tower); /* améliore la tour 'tower' */
 };
-
-#endif

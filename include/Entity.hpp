@@ -1,5 +1,4 @@
-#ifndef DEF_ENTITY
-#define DEF_ENTITY
+#pragma once
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -32,5 +31,3 @@ class Entity{
 		GLuint getTextureID();
 		void setTextureID(GLuint textureID);
 };
-
-#endif

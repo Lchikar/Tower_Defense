@@ -1,5 +1,4 @@
-#ifndef DEF_PATH
-#define DEF_PATH
+#pragma once
  
 #include <iostream>
 #include <string>
@@ -21,5 +20,3 @@ class Path{
 		//ajout setter grace au fichier ppm ?
 
 };
-
-#endif

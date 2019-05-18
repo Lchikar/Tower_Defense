@@ -1,6 +1,4 @@
-#ifndef DEF_MAP
-#define DEF_MAP
-
+#pragma once
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -34,5 +32,3 @@ class Map {
 
 		//TileType getTileType();
 };
-
-#endif

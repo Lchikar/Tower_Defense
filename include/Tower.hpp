@@ -1,6 +1,5 @@
-#ifndef DEF_TOWER
-#define DEF_TOWER
- 
+#pragma once
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <GL/gl.h>
@@ -56,5 +55,3 @@ class Tower : public Entity {
 		//bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
 		//Position target(); /* renvoie la position de l'alien le plus proche */
 };
-
-#endif

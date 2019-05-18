@@ -1,5 +1,4 @@
-#ifndef DEF_ALIEN
-#define DEF_ALIEN
+#pragma once
  
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -55,5 +54,3 @@ class Alien : public Entity {
 		//Path choosePath(); /* choisit un chemin à suivre selon le risque */
 		//int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef DEF_TEXTURE
-#define DEF_TEXTURE
+#pragma once
 
 #include <string>
 #include <SDL/SDL.h>
@@ -14,5 +13,3 @@ int isLoaded (SDL_Surface* image);
 GLuint setTexture(const char* filename);
 
 void drawTexture(GLuint textureID, float x, float y);
-
-#endif

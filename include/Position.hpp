@@ -1,6 +1,5 @@
-#ifndef DEF_POSITION
-#define DEF_POSITION
- 
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -25,5 +24,3 @@ class Position {
 
 		int dist(Position p); /* calcule la distance entre this et p */
 };
-
-#endif
