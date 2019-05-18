@@ -4,6 +4,8 @@
 #include <vector>
 #include <cctype>
 
+#include "../include/File.hpp"
+
 
 using namespace std;
 
