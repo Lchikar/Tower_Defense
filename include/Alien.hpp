@@ -12,6 +12,7 @@
 #include "Tower.hpp"
 #include "Path.hpp"
 #include "texture.hpp"
+#include "../include/const.hpp"
 
 using namespace std;
 
@@ -37,7 +38,7 @@ class Alien : public Entity {
 		GLuint setAlien();
 
 		/* affichage de la texture */
-		void drawAlien(GLuint textureID, float x, float y);
+		void drawAlien(GLuint textureID);
 
 		/* get */
 		int getPv();

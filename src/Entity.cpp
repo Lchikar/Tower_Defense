@@ -18,9 +18,9 @@ Entity::Entity() {
 	this->pos = Position();
 }
 
-Entity::Entity(Position pos, string sprite) {
+Entity::Entity(Position pos, GLuint textureID) {
 	this->pos = pos;
-	this->sprite = sprite;
+	this->textureID = textureID;
 }
 
 /* Destructor */
@@ -43,11 +43,11 @@ void Entity::setPos(Position p) {
 	this->pos = p;
 }
 
-string Entity::getSprite() {
-	string sprite = this->sprite;
-	return sprite;
+GLuint Entity::getTextureID() {
+	GLuint textureID = this->textureID;
+	return textureID;
 }
 
-void Entity::setSprite(string sprite) {
-	this->sprite = sprite;
+void Entity::setTextureID(GLuint textureID) {
+	this->textureID = textureID;
 }

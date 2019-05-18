@@ -19,28 +19,14 @@
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
 #include "../include/texture.hpp"
-#include "../include/IHM.hpp"
+#include "../include/IHM/Button.hpp"
+
+#include "../include/const.hpp"
 
 // Dimensions de la fenetre 
 //static unsigned int WINDOW_WIDTH = 1180;
 //static unsigned int WINDOW_HEIGHT = 750;
 
-using namespace std;
-
-/* Dimensions initiales et titre de la fenetre */
-static const unsigned int WINDOW_WIDTH = 1180;
-static const unsigned int WINDOW_HEIGHT = 750;
-static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
-
-/* Espace fenetre virtuelle */
-static const float GL_VIEW_WIDTH = 1180;
-static const float GL_VIEW_HEIGHT = 750;
-
-/* Nombre de bits par pixel de la fenetre */
-static const unsigned int BIT_PER_PIXEL = 32;
-
-/* Nombre minimal de millisecondes separant le rendu de deux images */
-static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
 
 int main()  {   
@@ -80,15 +66,40 @@ int main()  {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
   	
+
+
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
     // Chargement et traitement de la texture Alien test
     Alien alienTest = Alien(nervous);
     GLuint textureAlien = alienTest.setAlien();
+
     // Chargement et traitement de la texture Tower test
     Tower towerTest = Tower(blue);
     GLuint textureTower = towerTest.setTower();
+
+
+
+    /******* Set IHM ************/
+    // Button Info
+    Button buttonInfo = Button(info);
+    GLuint textureButtonInfo = buttonInfo.setButtonTexture();
+    // Button Pause
+    Button buttonPause = Button(pause);
+    GLuint textureButtonPause = buttonPause.setButtonTexture();
+    // Button Play
+    Button buttonPlay = Button(play);
+    GLuint textureButtonPlay = buttonPlay.setButtonTexture();
+    // Coins
+    Button buttonCoins = Button(coins);
+    GLuint textureButtonCoins = buttonCoins.setButtonTexture();
+    // Coins
+    Button buttonInterface = Button(interface);
+    GLuint textureInterface = buttonInterface.setButtonTexture();
+    /****************************/
+
+
 
     /* Boucle principale */
     int loop = 1;
@@ -104,9 +115,17 @@ int main()  {
             towerTest.drawTower(textureTower, 50, 50);
 
             glTranslatef(-485,140,0);
-            alienTest.drawAlien(textureAlien, 35, 35);
+            alienTest.drawAlien(textureAlien);
 			
 		glPopMatrix();
+
+
+		/********* DRAW IHM *********/
+		buttonInfo.drawButton(textureButtonInfo);
+		buttonPause.drawButton(textureButtonPause);
+		buttonCoins.drawButton(textureButtonCoins);
+		buttonInterface.drawButton(textureInterface);
+		/***************************/
         
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
@@ -156,6 +175,14 @@ int main()  {
 	glDeleteTextures(1, &textureMap);
 	glDeleteTextures(1, &textureAlien);
 	glDeleteTextures(1, &textureTower);
+
+	/************ DELETE IHM **********/
+	glDeleteTextures(1, &textureButtonInfo);
+	glDeleteTextures(1, &textureButtonPause);
+	glDeleteTextures(1, &textureButtonPlay);
+	glDeleteTextures(1, &textureButtonCoins);
+	glDeleteTextures(1, &textureInterface);
+	/*********************************/
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

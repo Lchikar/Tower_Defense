@@ -19,18 +19,18 @@ class Entity{
 
 	private:
 		Position pos; /* position de l'entite */
-		string sprite; /* nom de la forme representant l'entite <==> 'GL_forme' */
+		GLuint textureID; /* nom de la forme representant l'entite <==> 'GL_forme' */
 
 	public:
 		Entity();
-		Entity(Position pos, string sprite);
+		Entity(Position pos, GLuint textureID);
 		~Entity();
 		
 		Position getPos();
 		void setPos(Position p);
 
-		string getSprite();
-		void setSprite(string sprite);
+		GLuint getTextureID();
+		void setTextureID(GLuint textureID);
 };
 
 #endif

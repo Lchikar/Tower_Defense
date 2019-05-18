@@ -53,8 +53,8 @@ GLuint Alien::setAlien() {
 }
 
 /* affichage de la texture */
-void Alien::drawAlien(GLuint textureID, float x, float y) {
-	drawTexture(textureID, x, y);
+void Alien::drawAlien(GLuint textureID) {
+	drawTexture(textureID, 35, 35);
 }
 
 
