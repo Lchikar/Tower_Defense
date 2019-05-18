@@ -18,7 +18,7 @@
 /* Dimensions initiales et titre de la fenetre */
 static const unsigned int WINDOW_WIDTH = 1180;
 static const unsigned int WINDOW_HEIGHT = 750;
-static const char WINDOW_TITLE[] = "Tower Defence Mars Attak";
+static const char WINDOW_TITLE[] = "IMars Attak";
 
 
 /* Espace fenetre virtuelle */

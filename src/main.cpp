@@ -30,6 +30,7 @@
 
 
 int main()  {   
+	/************** WINDOW SDL **********************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(
@@ -50,17 +51,18 @@ int main()  {
         -GL_VIEW_WIDTH/2, GL_VIEW_WIDTH/2, 
         -GL_VIEW_HEIGHT/2, GL_VIEW_HEIGHT/2);
 
-    if(NULL == surface) 
-    {
+    if(NULL == surface) {
         fprintf(
             stderr, 
             "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
     }
 
-
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
+    /****************************************************/
+
+
 
     /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
@@ -68,9 +70,14 @@ int main()  {
   	
 
 
+    /******************** MAP ********************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
+    /*********************************************/
+
+
+
     // Chargement et traitement de la texture Alien test
     Alien alienTest = Alien(nervous);
     GLuint textureAlien = alienTest.setAlien();
@@ -115,8 +122,7 @@ int main()  {
             towerTest.drawTower(textureTower, 50, 50);
 
             glTranslatef(-485,140,0);
-            alienTest.drawAlien(textureAlien);
-			
+            alienTest.drawAlien(textureAlien);	
 		glPopMatrix();
 
 
@@ -131,6 +137,8 @@ int main()  {
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
         
+
+
         /* Boucle traitant les evenements */
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
@@ -171,7 +179,9 @@ int main()  {
         }
     }
 
-     // Libération des données GPU
+
+
+    // Libération des données GPU
 	glDeleteTextures(1, &textureMap);
 	glDeleteTextures(1, &textureAlien);
 	glDeleteTextures(1, &textureTower);
@@ -188,5 +198,4 @@ int main()  {
     SDL_Quit();
     
     return EXIT_SUCCESS;
-
 }
