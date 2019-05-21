@@ -7,7 +7,8 @@
 #include <iostream>
 #include <string>
 
-#include "../texture.hpp"
+#include "Entity.hpp"
+#include "texture.hpp"
 
 using namespace std;
 
@@ -17,11 +18,9 @@ enum ButtonType
 	play,
 	pause,
 	cros,
-	coins,
-	interface,
 };
 
-class Button {
+class Button : public Entity {
 	private :
 		ButtonType type;
 

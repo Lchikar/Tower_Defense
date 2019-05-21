@@ -28,15 +28,15 @@ Tower::Tower(ColorType type) {
 		shotRate = 3;
 		price = 5;
 	}
-	if(type == yellow){
-		damage = 1;
-		range = 1;
-		shotRate = 2;
-		price = 5;
-	}
 	if(type == blue){
 		damage = 1;
 		range = 3;
+		shotRate = 2;
+		price = 5;
+	}
+	if(type == yellow){
+		damage = 1;
+		range = 1;
 		shotRate = 2;
 		price = 5;
 	}

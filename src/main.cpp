@@ -19,7 +19,8 @@
 #include "../include/Path.hpp"
 #include "../include/Position.hpp"
 #include "../include/texture.hpp"
-#include "../include/IHM/Button.hpp"
+#include "../include/Button.hpp"
+#include "../include/IHM.hpp"
 
 #include "../include/const.hpp"
 
@@ -91,7 +92,7 @@ int main()  {
 
 
 
-    /******************** Set IHM *************************/
+    /************** Initialisation de l'IHM ****************/
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
@@ -102,11 +103,11 @@ int main()  {
     Button buttonPlay = Button(play);
     GLuint textureButtonPlay = buttonPlay.setButtonTexture();
     // Coins
-    Button buttonCoins = Button(coins);
-    GLuint textureButtonCoins = buttonCoins.setButtonTexture();
+    IHM IHMCoins = IHM(coins);
+    GLuint textureIHMCoins = IHMCoins.setIHMTexture();
     // Coins
-    Button buttonInterface = Button(interface);
-    GLuint textureInterface = buttonInterface.setButtonTexture();
+    IHM IHMInterface = IHM(interface);
+    GLuint textureInterface = IHMInterface.setIHMTexture();
     /********************************************************/
 
 
@@ -116,10 +117,15 @@ int main()  {
     Alien alienTest = Alien(fatty);
 
     // New tower
-    Tower towerTest = Tower(blue);
+    Tower tower1 = Tower(red);
+    Tower tower2 = Tower(green);
+    Tower tower3 = Tower(blue);
+    Tower tower4 = Tower(yellow);
 
     // New Building
-    Building buildingTest = Building(radar);
+    Building radarIHM = Building(radar);
+    Building navetteIHM = Building(navette);
+    Building robotIHM = Building(robot);
     /*******************************************************/
 
 
@@ -138,7 +144,10 @@ int main()  {
         glPopMatrix();
 
         glPushMatrix();
-            towerTest.drawEntity(textureTower3);
+            tower1.drawEntity(textureTower1);
+            tower2.drawEntity(textureTower2);
+            tower3.drawEntity(textureTower3);
+            tower4.drawEntity(textureTower4);
         glPopMatrix();
 
         glPushMatrix();
@@ -148,15 +157,19 @@ int main()  {
 
         glPushMatrix();
             glTranslatef(80,100,0);
-            buildingTest.drawEntity(textureRadar);	
+            radarIHM.drawEntity(textureRadar);
+            navetteIHM.drawEntity(textureNavette);	
+            robotIHM.drawEntity(textureRobot);
 		glPopMatrix();
 
 
 		/***************** DRAW IHM ******************/
+		// Buttons
 		buttonInfo.drawButton(textureButtonInfo);
 		buttonPause.drawButton(textureButtonPause);
-		buttonCoins.drawButton(textureButtonCoins);
-		buttonInterface.drawButton(textureInterface);
+		// Interface
+		IHMCoins.drawIHM(textureIHMCoins);
+		IHMInterface.drawIHM(textureInterface);
 		/*********************************************/
         
 
@@ -227,7 +240,7 @@ int main()  {
 	glDeleteTextures(1, &textureButtonInfo);
 	glDeleteTextures(1, &textureButtonPause);
 	glDeleteTextures(1, &textureButtonPlay);
-	glDeleteTextures(1, &textureButtonCoins);
+	glDeleteTextures(1, &textureIHMCoins);
 	glDeleteTextures(1, &textureInterface);
 	/**********************************************************/
 

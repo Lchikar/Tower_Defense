@@ -10,12 +10,14 @@
 #include "../include/Entity.hpp"
 #include "../include/texture.hpp"
 
+#include "../include/const.hpp"
+
 /****************************************
 ************ CONSTRUCTOR ****************
 *****************************************/
 /* Contructor */
 Entity::Entity() {
-	this->pos = Position();
+	this->pos = Position(GL_VIEW_WIDTH/2, GL_VIEW_HEIGHT/2);
 }
 
 Entity::Entity(Position pos, GLuint textureID, float width, float height) {

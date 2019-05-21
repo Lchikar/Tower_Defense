@@ -15,8 +15,8 @@ enum ColorType
 {
 	red,
 	green,
-	yellow,
 	blue,
+	yellow,
 };
 
 class Tower : public Entity {

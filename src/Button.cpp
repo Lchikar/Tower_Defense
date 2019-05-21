@@ -5,8 +5,9 @@
 #include <iostream>
 #include <string>
 
-#include "../../include/IHM/Button.hpp"
-#include "../../include/texture.hpp"
+#include "../include/Button.hpp"
+#include "../include/Entity.hpp"
+#include "../include/texture.hpp"
 
 using namespace std;
 
@@ -14,8 +15,6 @@ const char* filenameButtonInfo = "./img/assets/textButtonInfo.png";
 const char* filenameButtonPause = "./img/assets/textButtonPause.png";
 const char* filenameButtonPlay = "./img/assets/textButtonPlay.png";
 const char* filenameButtonCross = "./img/assets/textButtonCross.png";
-const char* filenameCoins = "./img/assets/textCoins.png";
-const char* filenameInterface = "./img/assets/textInterfaceBG_100x552.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -26,6 +25,8 @@ Button::Button() {};
 /*  */
 Button::Button(ButtonType type){
 	this->type = type;
+	setWidth(40);
+	setHeight(40);
 }
 
 /* Destructor */
@@ -54,20 +55,10 @@ GLuint Button::setButtonTexture() {
 		textureID = setTexture(filenameButtonCross);
 		return textureID;
 	}
-	if(type == coins) {
-		textureID = setTexture(filenameCoins);
-		return textureID;
-	}
-	else{
-		textureID = setTexture(filenameInterface);
-		return textureID;
-	}
 }
 
 void Button::drawButton(GLuint textureID) {
 	float x, y;
-	float w = 40;
-	float h = 40;
 	if(type == info) {
 		x = 560;
 		y = 345;
@@ -84,19 +75,8 @@ void Button::drawButton(GLuint textureID) {
 		x = 560;
 		y = 345;
 	}
-	if(type == coins) {
-		x = 530;
-		y = 280;
-		w = 100;
-	}
-	if(type == interface) {
-		x = 530;
-		y = -60;
-		w = 100;
-		h = 600;
-	}
 	glPushMatrix();
 	glTranslatef(x, y, 0);
-	drawTexture(textureID, w, h);
+	drawEntity(textureID);
 	glPopMatrix();
 }
