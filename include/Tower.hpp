@@ -8,7 +8,6 @@
 #include <string>
 
 #include "Entity.hpp"
-#include "texture.hpp"
 
 using namespace std;
 
@@ -33,10 +32,10 @@ class Tower : public Entity {
 		~Tower();
 
 		/* initialisation de la texture */
-		GLuint setTower();
+		//GLuint setTower();
 
 		/* affichage de la texture */
-		void drawTower(GLuint textureID, float x, float y);
+		//void drawTower(GLuint textureID, float x, float y);
 
 		/* get */
 		int getDamage();

@@ -14,20 +14,30 @@
 using namespace std;
 
 
-class Entity{
+class Entity {
 
 	private:
 		Position pos; /* position de l'entite */
 		GLuint textureID; /* nom de la forme representant l'entite <==> 'GL_forme' */
+		float width;
+		float height;
 
 	public:
 		Entity();
-		Entity(Position pos, GLuint textureID);
+		Entity(Position pos, GLuint textureID, float width, float height);
 		~Entity();
+
+		void drawEntity(GLuint textureID);
 		
 		Position getPos();
 		void setPos(Position p);
 
 		GLuint getTextureID();
 		void setTextureID(GLuint textureID);
+
+		float getWidth();
+		void setWidth(float width);
+
+		float getHeight();
+		void setHeight(float height);
 };

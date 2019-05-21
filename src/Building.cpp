@@ -1,3 +1,7 @@
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <iostream>
 #include <string>
 
@@ -5,11 +9,24 @@
 #include "../include/Tower.hpp"
 #include "../include/Building.hpp"
 
-Building::Building(int value, TypeBuild type) {
+using namespace std;
+
+/****************************************
+************ CONSTRUCTOR ****************
+*****************************************/
+/* Contructor */
+Building::Building(TypeBuild type) {
 	this->value = value;
 	this->type = type;
+	setWidth(50);
+	setHeight(50);
 }
+/* Destructor */
+Building::~Building(){};
 
+/****************************************
+************** GET & SET ****************
+*****************************************/
 int Building::getValue() {
 	int value = this->value;
 	return value;

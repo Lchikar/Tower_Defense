@@ -10,8 +10,6 @@
 #include "Entity.hpp"
 #include "Tower.hpp"
 #include "Path.hpp"
-#include "texture.hpp"
-#include "../include/const.hpp"
 
 using namespace std;
 
@@ -34,10 +32,10 @@ class Alien : public Entity {
 		~Alien();
 
 		/* initialisation de la texture */
-		GLuint setAlien();
+		//GLuint setAlien();
 
 		/* affichage de la texture */
-		void drawAlien(GLuint textureID);
+		//void drawAlien(GLuint textureID);
 
 		/* get */
 		int getPv();

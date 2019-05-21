@@ -7,14 +7,8 @@
 
 #include "../include/Entity.hpp"
 #include "../include/Tower.hpp"
-#include "../include/texture.hpp"
 
 using namespace std;
-
-const char* filenameTower1 = "./img/assets/textTower1.png";
-const char* filenameTower2 = "./img/assets/textTower2.png";
-const char* filenameTower3 = "./img/assets/textTower3.png";
-const char* filenameTower4 = "./img/assets/textTower4.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -46,6 +40,8 @@ Tower::Tower(ColorType type) {
 		shotRate = 2;
 		price = 5;
 	}
+	setWidth(50);
+	setHeight(50);
 }
 /* Destructor */
 Tower::~Tower(){};
@@ -53,7 +49,7 @@ Tower::~Tower(){};
 /****************************************
 *************** DRAW ********************
 *****************************************/
-/* initialisation de la texture */
+/* initialisation de la texture 
 GLuint Tower::setTower() {
 	GLuint textureID;
 	if(type == red) {
@@ -73,11 +69,12 @@ GLuint Tower::setTower() {
 		return textureID;
 	}
 }
-
-/* affichage de la texture */
+*/
+/* affichage de la texture 
 void Tower::drawTower(GLuint textureID, float x, float y) {
 	drawTexture(textureID, x, y);
 }
+*/
 
 /****************************************
 ************** GET & SET ****************

@@ -18,9 +18,11 @@ Entity::Entity() {
 	this->pos = Position();
 }
 
-Entity::Entity(Position pos, GLuint textureID) {
+Entity::Entity(Position pos, GLuint textureID, float width, float height) {
 	this->pos = pos;
 	this->textureID = textureID;
+	this->width = width;
+	this->height = height;
 }
 
 /* Destructor */
@@ -29,7 +31,9 @@ Entity::~Entity(){};
 /****************************************
 *************** DRAW ********************
 *****************************************/
-
+void Entity::drawEntity(GLuint textureID) {
+	drawTexture(textureID, width, height);
+}
 
 /****************************************
 ************** GET & SET ****************
@@ -50,4 +54,22 @@ GLuint Entity::getTextureID() {
 
 void Entity::setTextureID(GLuint textureID) {
 	this->textureID = textureID;
+}
+
+float Entity::getWidth() {
+	float width = this->width;
+	return width;
+}
+
+void Entity::setWidth(float width) {
+	this->width = width;
+}
+
+float Entity::getHeight() {
+	float height = this->height;
+	return height;
+}
+
+void Entity::setHeight(float height) {
+	this->height = height;
 }

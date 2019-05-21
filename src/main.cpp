@@ -1,6 +1,5 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-//#include <SDL/SDL_ttf.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdlib.h>
@@ -24,14 +23,12 @@
 
 #include "../include/const.hpp"
 
-// Dimensions de la fenetre 
-//static unsigned int WINDOW_WIDTH = 1180;
-//static unsigned int WINDOW_HEIGHT = 750;
+// Dimensions de la fenetre : 1180x750;
 
 
-
-int main()  {   
-	/************** WINDOW SDL **********************/
+int main()  {  
+    
+	/********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(
@@ -61,35 +58,40 @@ int main()  {
 
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
-    /****************************************************/
-
-
 
     /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-  	
+    /********************************************************/
 
 
-    /******************** MAP ********************/
+     
+    /*********** Initialisation des textures ****************/
+    // Aliens
+    GLuint textureAlienNervous = setTexture(filenameNervous);
+    GLuint textureAlienFatty = setTexture(filenameFatty);
+    // Towers
+    GLuint textureTower1 = setTexture(filenameTower1);
+    GLuint textureTower2 = setTexture(filenameTower2);
+    GLuint textureTower3 = setTexture(filenameTower3);
+    GLuint textureTower4 = setTexture(filenameTower4);
+    // Buildings
+    GLuint textureRadar = setTexture(filenameRadar);
+    GLuint textureNavette = setTexture(filenameNavette);
+    GLuint textureRobot = setTexture(filenameRobot);
+    /*******************************************************/
+
+
+
+    /********************** MAP ***************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-    /*********************************************/
+    /******************************************************/
 
 
 
-    // Chargement et traitement de la texture Alien test
-    Alien alienTest = Alien(nervous);
-    GLuint textureAlien = alienTest.setAlien();
-
-    // Chargement et traitement de la texture Tower test
-    Tower towerTest = Tower(blue);
-    GLuint textureTower = towerTest.setTower();
-
-
-
-    /******* Set IHM ************/
+    /******************** Set IHM *************************/
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
@@ -105,7 +107,20 @@ int main()  {
     // Coins
     Button buttonInterface = Button(interface);
     GLuint textureInterface = buttonInterface.setButtonTexture();
-    /****************************/
+    /********************************************************/
+
+
+
+    /****************** TEST NEW ELEMENTS *******************/
+    // New alien
+    Alien alienTest = Alien(fatty);
+
+    // New tower
+    Tower towerTest = Tower(blue);
+
+    // New Building
+    Building buildingTest = Building(radar);
+    /*******************************************************/
 
 
 
@@ -117,22 +132,32 @@ int main()  {
         
         /* Placer ici le code de dessin */
         glClear(GL_COLOR_BUFFER_BIT);
+
         glPushMatrix();
             map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
-            
-            towerTest.drawTower(textureTower, 50, 50);
+        glPopMatrix();
 
+        glPushMatrix();
+            towerTest.drawEntity(textureTower3);
+        glPopMatrix();
+
+        glPushMatrix();
             glTranslatef(-485,140,0);
-            alienTest.drawAlien(textureAlien);	
+            alienTest.drawEntity(textureAlienFatty);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(80,100,0);
+            buildingTest.drawEntity(textureRadar);	
 		glPopMatrix();
 
 
-		/********* DRAW IHM *********/
+		/***************** DRAW IHM ******************/
 		buttonInfo.drawButton(textureButtonInfo);
 		buttonPause.drawButton(textureButtonPause);
 		buttonCoins.drawButton(textureButtonCoins);
 		buttonInterface.drawButton(textureInterface);
-		/***************************/
+		/*********************************************/
         
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
@@ -182,18 +207,30 @@ int main()  {
 
 
 
-    // Libération des données GPU
+    /********** Libération des données GPU *****************/
+    // Delete textures
+    // Map
 	glDeleteTextures(1, &textureMap);
-	glDeleteTextures(1, &textureAlien);
-	glDeleteTextures(1, &textureTower);
-
-	/************ DELETE IHM **********/
+    // Aliens
+	glDeleteTextures(1, &textureAlienFatty);
+    glDeleteTextures(1, &textureAlienNervous);
+    // Towers
+	glDeleteTextures(1, &textureTower1);
+    glDeleteTextures(1, &textureTower2);
+    glDeleteTextures(1, &textureTower3);
+    glDeleteTextures(1, &textureTower4);
+    // Buildings
+    glDeleteTextures(1, &textureRadar);
+    glDeleteTextures(1, &textureNavette);
+    glDeleteTextures(1, &textureRobot);
+	// Delete IHM
 	glDeleteTextures(1, &textureButtonInfo);
 	glDeleteTextures(1, &textureButtonPause);
 	glDeleteTextures(1, &textureButtonPlay);
 	glDeleteTextures(1, &textureButtonCoins);
 	glDeleteTextures(1, &textureInterface);
-	/*********************************/
+	/**********************************************************/
+
 
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();

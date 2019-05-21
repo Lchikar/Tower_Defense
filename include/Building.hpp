@@ -1,16 +1,22 @@
 #pragma once
 
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <iostream>
 #include <string>
 
 #include "Entity.hpp"
 #include "Tower.hpp"
 
+using namespace std;
+
 enum TypeBuild
 {
 	radar,
-	weapon,
-	stock,
+	navette,
+	robot,
 };
 
 class Building : public Entity{
@@ -19,7 +25,7 @@ class Building : public Entity{
 		TypeBuild type; /* type d'upgrade */
 
 	public:
-		Building(int value, TypeBuild type);
+		Building(TypeBuild type);
 		~Building();
 
 		int getValue();

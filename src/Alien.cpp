@@ -9,12 +9,11 @@
 #include "../include/Tower.hpp"
 #include "../include/Path.hpp"
 #include "../include/Alien.hpp"
-#include "../include/texture.hpp"
 
 using namespace std;
 
-const char* filenameNervous = "./img/assets/textAlienNervous.png";
-const char* filenameFatty = "./img/assets/textAlienFatty.png";
+// const char* filenameNervous = "./img/assets/textAlienNervous.png";
+// const char* filenameFatty = "./img/assets/textAlienFatty.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -31,6 +30,8 @@ Alien::Alien(AlienType type){
 		reward = 50;
 		speed = 100;
 	}
+	setWidth(35);
+	setHeight(35);
 }
 /* Destructor */
 Alien::~Alien(){};
@@ -39,7 +40,8 @@ Alien::~Alien(){};
 /****************************************
 *************** DRAW ********************
 *****************************************/
-/* initialisation de la texture */
+/*
+//initialisation de la texture
 GLuint Alien::setAlien() {
 	GLuint textureID;
 	if(type == fatty) {
@@ -51,11 +53,12 @@ GLuint Alien::setAlien() {
 		return textureID;
 	}
 }
-
-/* affichage de la texture */
+*/
+/* affichage de la texture 
 void Alien::drawAlien(GLuint textureID) {
 	drawTexture(textureID, 35, 35);
 }
+*/
 
 
 
