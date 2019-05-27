@@ -180,9 +180,9 @@ int main()  {
         SDL_GL_SwapBuffers();
         
 
-        /* Boucle traitant les evenements */
+        /*************** Boucle traitant les evenements ***************/
         SDL_Event e;
-        
+
         // Coordonnées de la souris
         float mouseX = e.button.x-(GL_VIEW_WIDTH/2);
         float mouseY = e.button.y+(GL_VIEW_HEIGHT/2)-60;
@@ -216,9 +216,7 @@ int main()  {
 					if (buttonPause.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Pause\n");
 						buttonPlay.drawButton(textureButtonPlay);
-					}
-                
-                    
+					}  
                     break;
                 
                 /* Touche clavier */
@@ -230,6 +228,8 @@ int main()  {
                     break;
             }
         }
+        /****************************************************************************/
+
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
@@ -240,8 +240,7 @@ int main()  {
     }
 
 
-
-    /********** Libération des données GPU *****************/
+    /************ Libération des données GPU *****************/
     // Delete textures
     // Map
 	glDeleteTextures(1, &textureMap);
