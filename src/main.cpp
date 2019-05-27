@@ -199,9 +199,10 @@ int main()  {
                     //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
                     //Position mousepos = Position(e.button.x, e.button.y);
                     //int distance2 = buttonInfo.getPos().dist(mousepos);
-                	//if( (buttonInfo.getPos().dist(Position(e.button.x, e.button.y))) == 0) {
-					printf("distance %d\n", buttonInfo.getPos().dist(Position(e.button.x, e.button.y)));
-                	//}
+                	printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
+                	printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+			printf("distance %d\n", buttonInfo.getPos().dist(Position(e.button.x, e.button.y)));
+                
                     
                     break;
                 
