@@ -1,9 +1,13 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "../include/Position.hpp"
 
-Position::Position(){}
+Position::Position() {
+	x = 0;
+	y = 0;
+}
 
 Position::Position(float x, float y) {
 	this->x = x;
@@ -24,10 +28,10 @@ void Position::setX(float x) {
 	this->x = x;
 }
 
-void Position::setY(float Y) {
+void Position::setY(float y) {
 	this->y = y;
 }
 
-int Position::dist(Position p){
-	return sqrt(pow(this->getX()-p.getX(), 2)+pow(this->getY()-p.getY(), 2));
+float Position::dist(Position p){
+	return sqrt(pow((this->x)-(p.getX()), 2)+pow((this->y)-(p.getY()), 2));
 }

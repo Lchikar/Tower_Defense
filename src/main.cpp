@@ -129,6 +129,7 @@ int main()  {
     /*******************************************************/
 
 
+   
 
     /* Boucle principale */
     int loop = 1;
@@ -143,25 +144,6 @@ int main()  {
             map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
         glPopMatrix();
 
-        glPushMatrix();
-            tower1.drawEntity(textureTower1);
-            tower2.drawEntity(textureTower2);
-            tower3.drawEntity(textureTower3);
-            tower4.drawEntity(textureTower4);
-        glPopMatrix();
-
-        glPushMatrix();
-            glTranslatef(-485,140,0);
-            alienTest.drawEntity(textureAlienFatty);
-        glPopMatrix();
-
-        glPushMatrix();
-            glTranslatef(80,100,0);
-            radarIHM.drawEntity(textureRadar);
-            navetteIHM.drawEntity(textureNavette);	
-            robotIHM.drawEntity(textureRobot);
-		glPopMatrix();
-
 
 		/***************** DRAW IHM ******************/
 		// Buttons
@@ -173,10 +155,27 @@ int main()  {
 		/*********************************************/
         
 
+        tower1.drawEntity(textureTower1, 530, 200);
+        tower2.drawEntity(textureTower2, 530, 115);
+        tower3.drawEntity(textureTower3, 530, 30);
+        tower4.drawEntity(textureTower4, 530, -55);
+        radarIHM.drawEntity(textureRadar, 530, -140);
+        navetteIHM.drawEntity(textureNavette, 530, -225);
+        robotIHM.drawEntity(textureRobot, 530, -310);
+
+        alienTest.drawEntity(textureAlienFatty, -500, 140);
+
+        //printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
+    	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+
+    	//printf("position x de bouton radar: %f\n", radarIHM.getPos().getX());
+    	//printf("position y de bouton radar: %f\n", radarIHM.getPos().getY());
+
+
+
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
         
-
 
         /* Boucle traitant les evenements */
         SDL_Event e;
@@ -197,7 +196,13 @@ int main()  {
             switch(e.type) {
                 /* Clic souris */
                 case SDL_MOUSEBUTTONUP:
-                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    //Position mousepos = Position(e.button.x, e.button.y);
+                    //int distance2 = buttonInfo.getPos().dist(mousepos);
+                	//if( (buttonInfo.getPos().dist(Position(e.button.x, e.button.y))) == 0) {
+					printf("distance %d\n", buttonInfo.getPos().dist(Position(e.button.x, e.button.y)));
+                	//}
+                    
                     break;
                 
                 /* Touche clavier */
