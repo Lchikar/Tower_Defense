@@ -96,6 +96,9 @@ int main()  {
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
+    // Button Cross
+    Button buttonCross = Button(cros);
+    GLuint textureButtonCross = buttonCross.setButtonTexture();
     // Button Pause
     Button buttonPause = Button(pause);
     GLuint textureButtonPause = buttonPause.setButtonTexture();
@@ -199,9 +202,13 @@ int main()  {
                     //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
                     //Position mousepos = Position(e.button.x, e.button.y);
                     //int distance2 = buttonInfo.getPos().dist(mousepos);
-                	printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
-                	printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
-			printf("distance %d\n", buttonInfo.getPos().dist(Position(e.button.x, e.button.y)));
+                	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
+                	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
+					if (buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 40) {
+						printf("J'ai cliqué sur le bouton Info\n");
+						buttonCross.drawButton(textureButtonCross);
+					}
                 
                     
                     break;
@@ -246,6 +253,7 @@ int main()  {
 	glDeleteTextures(1, &textureButtonInfo);
 	glDeleteTextures(1, &textureButtonPause);
 	glDeleteTextures(1, &textureButtonPlay);
+	glDeleteTextures(1, &textureButtonCross);
 	glDeleteTextures(1, &textureIHMCoins);
 	glDeleteTextures(1, &textureInterface);
 	/**********************************************************/
