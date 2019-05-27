@@ -33,7 +33,7 @@ void Position::setY(float y) {
 }
 
 float Position::dist(Position p){
-	printf("calcul de sqrt((pow%f-%f,2)+(pow(%f-%f,2))\n", this->x, p.getX(), this->y, p.getY());
+	//printf("calcul de sqrt((pow%f-%f,2)+(pow(%f-%f,2))\n", this->x, p.getX(), this->y, p.getY());
 	return sqrt(
 		(pow(this->x-p.getX(), 2))+
 		(pow(this->y-p.getY(), 2))

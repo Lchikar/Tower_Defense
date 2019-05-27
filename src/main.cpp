@@ -200,14 +200,16 @@ int main()  {
                 /* Clic souris */
                 case SDL_MOUSEBUTTONUP:
                     //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
-                    //Position mousepos = Position(e.button.x, e.button.y);
-                    //int distance2 = buttonInfo.getPos().dist(mousepos);
                 	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
                 	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
-					if (buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 40) {
+					if (buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 20) {
 						printf("J'ai cliqué sur le bouton Info\n");
 						buttonCross.drawButton(textureButtonCross);
+					}
+					if (buttonPause.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 20) {
+						printf("J'ai cliqué sur le bouton Pause\n");
+						buttonPlay.drawButton(textureButtonPlay);
 					}
                 
                     
