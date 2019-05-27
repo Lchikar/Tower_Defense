@@ -211,7 +211,7 @@ int main()  {
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
 					if (buttonInfo.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Info\n");
-						buttonCross.drawButton(textureButtonCross);
+						//buttonCross.drawButton(textureButtonCross);
 					}
 					if (buttonPause.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Pause\n");
