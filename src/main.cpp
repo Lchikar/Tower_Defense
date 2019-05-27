@@ -165,11 +165,11 @@ int main()  {
 
         alienTest.drawEntity(textureAlienFatty, -500, 140);
 
-        printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
-    	printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+        //printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
+    	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 
-    	printf("position x de bouton radar: %f\n", radarIHM.getPos().getX());
-    	printf("position y de bouton radar: %f\n", radarIHM.getPos().getY());
+    	//printf("position x de bouton radar: %f\n", radarIHM.getPos().getX());
+    	//printf("position y de bouton radar: %f\n", radarIHM.getPos().getY());
 
 
 
@@ -196,7 +196,13 @@ int main()  {
             switch(e.type) {
                 /* Clic souris */
                 case SDL_MOUSEBUTTONUP:
-                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    //Position mousepos = Position(e.button.x, e.button.y);
+                    //int distance2 = buttonInfo.getPos().dist(mousepos);
+                	//if( (buttonInfo.getPos().dist(Position(e.button.x, e.button.y))) == 0) {
+					printf("distance %d\n", buttonInfo.getPos().dist(Position(e.button.x, e.button.y)));
+                	//}
+                    
                     break;
                 
                 /* Touche clavier */

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "../include/Position.hpp"
 
@@ -31,6 +32,6 @@ void Position::setY(float y) {
 	this->y = y;
 }
 
-int Position::dist(Position p){
-	return sqrt(pow(this->getX()-p.getX(), 2)+pow(this->getY()-p.getY(), 2));
+float Position::dist(Position p){
+	return sqrt(pow((this->x)-(p.getX()), 2)+pow((this->y)-(p.getY()), 2));
 }
