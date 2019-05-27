@@ -29,7 +29,7 @@ class Entity {
 		Entity(Position pos, GLuint textureID, float width, float height);
 		~Entity();
 
-		void drawEntity(GLuint textureID);
+		void drawEntity(GLuint textureID, float x, float y);
 		
 		Position getPos();
 		void setPos(Position p);

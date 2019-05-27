@@ -17,7 +17,7 @@
 *****************************************/
 /* Contructor */
 Entity::Entity() {
-	this->pos = Position(GL_VIEW_WIDTH/2, GL_VIEW_HEIGHT/2);
+	this->pos = Position();
 }
 
 Entity::Entity(Position pos, GLuint textureID, float width, float height) {
@@ -33,8 +33,12 @@ Entity::~Entity(){};
 /****************************************
 *************** DRAW ********************
 *****************************************/
-void Entity::drawEntity(GLuint textureID) {
-	drawTexture(textureID, width, height);
+void Entity::drawEntity(GLuint textureID, float x, float y) {
+	glPushMatrix();
+		glTranslatef(x, y, 0);
+		this->setPos(Position(x, y));
+		drawTexture(textureID, width, height);
+	glPopMatrix();
 }
 
 /****************************************

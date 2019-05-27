@@ -3,7 +3,10 @@
 
 #include "../include/Position.hpp"
 
-Position::Position(){}
+Position::Position() {
+	x = 0;
+	y = 0;
+}
 
 Position::Position(float x, float y) {
 	this->x = x;
@@ -24,7 +27,7 @@ void Position::setX(float x) {
 	this->x = x;
 }
 
-void Position::setY(float Y) {
+void Position::setY(float y) {
 	this->y = y;
 }
 
