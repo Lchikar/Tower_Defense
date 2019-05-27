@@ -182,6 +182,11 @@ int main()  {
 
         /* Boucle traitant les evenements */
         SDL_Event e;
+        
+        // Coordonnées de la souris
+        float mouseX = e.button.x-(GL_VIEW_WIDTH/2);
+        float mouseY = e.button.y+(GL_VIEW_HEIGHT/2)-60;
+
         while(SDL_PollEvent(&e)) {
             /* L'utilisateur ferme la fenetre : */
             if(e.type == SDL_QUIT) {
@@ -198,16 +203,17 @@ int main()  {
             /* Quelques exemples de traitement d'evenements : */
             switch(e.type) {
                 /* Clic souris */
+                
                 case SDL_MOUSEBUTTONUP:
                     //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
                 	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
                 	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
-					if (buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 20) {
+					if (buttonInfo.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Info\n");
 						buttonCross.drawButton(textureButtonCross);
 					}
-					if (buttonPause.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)) <= 20) {
+					if (buttonPause.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Pause\n");
 						buttonPlay.drawButton(textureButtonPlay);
 					}
