@@ -23,6 +23,7 @@ enum ButtonType
 class Button : public Entity {
 	private :
 		ButtonType type;
+		bool isClick;
 
 	public:
 		Button();
@@ -31,6 +32,11 @@ class Button : public Entity {
 
 		GLuint setButtonTexture();
 		void drawButton(GLuint textureID);
+
+		void click(float mouseX, float mouseY);
+
+		bool getIsClick();
+		void setIsClick(bool isClick);
 
 };
 

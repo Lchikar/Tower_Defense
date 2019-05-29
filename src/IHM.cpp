@@ -12,7 +12,7 @@ using namespace std;
 
 const char* filenameCoins = "./img/assets/textCoins.png";
 const char* filenameInterface = "./img/assets/textInterfaceBG_100x552.png";
-const char* filenameUserGuide = "./img/assets/textUserGuide_1180x750.png";
+const char* filenameUserGuide = "./img/assets/textUserGuide.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -62,6 +62,12 @@ void IHM::drawIHM(GLuint textureID) {
 		y = -60;
 		w = 100;
 		h = 600;
+	}
+	if(type == userGuide) {
+		x = -50;
+		y = 0;
+		w = 1000;
+		h = 700;
 	}
 	glPushMatrix();
 	glTranslatef(x, y, 0);

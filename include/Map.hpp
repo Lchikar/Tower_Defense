@@ -22,9 +22,6 @@ class Map {
 		Map();
 		~Map(); /* penser aux delete */
 
-		/* Verifier itd*/
-		bool checkITD();
-
 		/* initialisation de la texture */
 		GLuint setMap();
 		/* affichage de la texture */

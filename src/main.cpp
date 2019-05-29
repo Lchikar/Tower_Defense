@@ -108,9 +108,12 @@ int main()  {
     // Coins
     IHM IHMCoins = IHM(coins);
     GLuint textureIHMCoins = IHMCoins.setIHMTexture();
-    // Coins
+    // Interface
     IHM IHMInterface = IHM(interface);
     GLuint textureInterface = IHMInterface.setIHMTexture();
+    // User Guide
+    IHM guide = IHM(userGuide);
+    GLuint textureGuide = guide.setIHMTexture();
     /********************************************************/
 
 
@@ -140,24 +143,24 @@ int main()  {
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
-        /* Placer ici le code de dessin */
+        /****************************************
+        *************** DRAW ********************
+        *****************************************/
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glPushMatrix();
-            map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
-        glPopMatrix();
+
+        /***************** DRAW MAP ******************/
+        map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
+        /*********************************************/
 
 
-		/***************** DRAW IHM ******************/
-		// Buttons
-		buttonInfo.drawButton(textureButtonInfo);
-		buttonPause.drawButton(textureButtonPause);
-		// Interface
-		IHMCoins.drawIHM(textureIHMCoins);
-		IHMInterface.drawIHM(textureInterface);
-		/*********************************************/
-        
+        /***************** DRAW IHM ****************/
+        IHMCoins.drawIHM(textureIHMCoins);
+        IHMInterface.drawIHM(textureInterface);
+        /*********************************************/
 
+
+        /*****************************************/
         tower1.drawEntity(textureTower1, 530, 200);
         tower2.drawEntity(textureTower2, 530, 115);
         tower3.drawEntity(textureTower3, 530, 30);
@@ -165,20 +168,33 @@ int main()  {
         radarIHM.drawEntity(textureRadar, 530, -140);
         navetteIHM.drawEntity(textureNavette, 530, -225);
         robotIHM.drawEntity(textureRobot, 530, -310);
+        /*********************************************/
+
 
         alienTest.drawEntity(textureAlienFatty, -500, 140);
 
-        //printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
-    	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 
-    	//printf("position x de bouton radar: %f\n", radarIHM.getPos().getX());
-    	//printf("position y de bouton radar: %f\n", radarIHM.getPos().getY());
 
+        /***************** DRAW BUTTON ****************/
+        if (!buttonInfo.getIsClick()) {
+            buttonInfo.drawButton(textureButtonInfo);
+        } else {
+            buttonCross.drawButton(textureButtonCross);
+            guide.drawIHM(textureGuide);
+        }
+        if (!buttonPause.getIsClick()) {
+            buttonPause.drawButton(textureButtonPause);
+        } else {
+            buttonPlay.drawButton(textureButtonPlay);
+        }
+        /*********************************************/
 
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
         
+
+
 
         /*************** Boucle traitant les evenements ***************/
         SDL_Event e;
@@ -209,14 +225,17 @@ int main()  {
                 	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
                 	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
-					if (buttonInfo.getPos().dist(Position(mouseX, mouseY)) <= 20) {
+					
+                    /*
+                    if (buttonInfo.getPos().dist(Position(mouseX, mouseY)) <= 20) {
 						printf("J'ai cliqué sur le bouton Info\n");
-						//buttonCross.drawButton(textureButtonCross);
-					}
-					if (buttonPause.getPos().dist(Position(mouseX, mouseY)) <= 20) {
-						printf("J'ai cliqué sur le bouton Pause\n");
-						buttonPlay.drawButton(textureButtonPlay);
-					}  
+						buttonCross.drawButton(textureButtonCross);
+					} 
+                    */
+                    buttonInfo.click(mouseX, mouseY);
+                    buttonCross.click(mouseX, mouseY);
+                    buttonPause.click(mouseX, mouseY);
+                    buttonPlay.click(mouseX, mouseY);
                     break;
                 
                 /* Touche clavier */
@@ -244,6 +263,14 @@ int main()  {
     // Delete textures
     // Map
 	glDeleteTextures(1, &textureMap);
+    // Delete IHM
+    glDeleteTextures(1, &textureButtonInfo);
+    glDeleteTextures(1, &textureButtonPause);
+    glDeleteTextures(1, &textureButtonPlay);
+    glDeleteTextures(1, &textureButtonCross);
+    glDeleteTextures(1, &textureIHMCoins);
+    glDeleteTextures(1, &textureInterface);
+    glDeleteTextures(1, &textureGuide);
     // Aliens
 	glDeleteTextures(1, &textureAlienFatty);
     glDeleteTextures(1, &textureAlienNervous);
@@ -256,13 +283,6 @@ int main()  {
     glDeleteTextures(1, &textureRadar);
     glDeleteTextures(1, &textureNavette);
     glDeleteTextures(1, &textureRobot);
-	// Delete IHM
-	glDeleteTextures(1, &textureButtonInfo);
-	glDeleteTextures(1, &textureButtonPause);
-	glDeleteTextures(1, &textureButtonPlay);
-	glDeleteTextures(1, &textureButtonCross);
-	glDeleteTextures(1, &textureIHMCoins);
-	glDeleteTextures(1, &textureInterface);
 	/**********************************************************/
 
 

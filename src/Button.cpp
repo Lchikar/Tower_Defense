@@ -25,6 +25,7 @@ Button::Button() {};
 /*  */
 Button::Button(ButtonType type){
 	this->type = type;
+	this->isClick = false;
 	setWidth(40);
 	setHeight(40);
 }
@@ -83,4 +84,27 @@ void Button::drawButton(GLuint textureID) {
 	//glTranslatef(x, y, 0);
 	drawEntity(textureID, x, y);
 	glPopMatrix();
+}
+
+
+/****************************************
+***************** CLICK *****************
+*****************************************/
+void Button::click(float mouseX, float mouseY) {
+	if (this->getPos().dist(Position(mouseX, mouseY)) <= 20) {
+		this->isClick = !this->isClick;
+	}
+} 
+
+
+/****************************************
+*************** GET & SET ****************
+*****************************************/
+bool Button::getIsClick() {
+	bool isClick = this->isClick;
+	return isClick;
+}
+
+void Button::setIsClick(bool isClick){
+	this->isClick = isClick;
 }
