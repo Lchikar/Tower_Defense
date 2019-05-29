@@ -124,7 +124,7 @@ map<int,vector<pair<int,int>>> Dijkstra(map<int,vector<pair<int,int>>> *adj, int
 	}
 	return path;
 }
-
+/*
 int main(int argc, char const *argv[])
 {
 	map<int,vector<pair<int,int>>> adjency;
@@ -230,4 +230,4 @@ int main(int argc, char const *argv[])
 	cout << "\n";	
 
 	return 0;
-}
+}*/

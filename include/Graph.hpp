@@ -1,5 +1,4 @@
-#ifndef DEF_GRAPH
-#define DEF_GRAPH
+#pragma once
  
 #include <iostream>
 #include <string>
@@ -9,14 +8,29 @@ using namespace std;
 class Graph {
 	
 	private:
-		vector<Path> chemins;
-		
+		// dictionnaire d'adjacence avec :
+		// cles = sommets
+		// valeurs = liste de couples (successeur, poid)
+		map<int,vector<pair<int,int>>> adj;
 
 	public:
 		Graph();
 		~Graph();
 
+		void addVertex(int u);
+		
+		void addEdge(int u, int v, int w);
+
+		vector<int> successors(int u);
+
+		int weight(int u, int v);
+
+		int pop_closest_vertex(vector<int> *vertices, vector<int> distances);
+
+		vector<int> distances(int src);
+
+		map<int,vector<pair<int,int>>> Dijkstra(int src);
+
+		bool exists_path(int src, int dest);
 
 };
-
-#endif
