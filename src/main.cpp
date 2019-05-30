@@ -29,7 +29,7 @@
 
 int main()  {  
     
-	/********************* WINDOW SDL ************************/
+/********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(
@@ -63,11 +63,11 @@ int main()  {
     /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    /********************************************************/
+/********************************************************/
 
 
      
-    /*********** Initialisation des textures ****************/
+/*********** Initialisation des textures ****************/
     // Aliens
     GLuint textureAlienNervous = setTexture(filenameNervous);
     GLuint textureAlienFatty = setTexture(filenameFatty);
@@ -80,19 +80,19 @@ int main()  {
     GLuint textureRadar = setTexture(filenameRadar);
     GLuint textureNavette = setTexture(filenameNavette);
     GLuint textureRobot = setTexture(filenameRobot);
-    /*******************************************************/
+/*******************************************************/
 
 
 
-    /********************** MAP ***************************/
+/********************** MAP ***************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-    /******************************************************/
+/******************************************************/
 
 
 
-    /************** Initialisation de l'IHM ****************/
+/************** Initialisation de l'IHM ****************/
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
@@ -114,11 +114,11 @@ int main()  {
     // User Guide
     IHM guide = IHM(userGuide);
     GLuint textureGuide = guide.setIHMTexture();
-    /********************************************************/
+/********************************************************/
 
 
 
-    /****************** TEST NEW ELEMENTS *******************/
+/****************** TEST NEW ELEMENTS *******************/
     // New alien
     Alien alienTest = Alien(fatty);
 
@@ -132,7 +132,7 @@ int main()  {
     Building radarIHM = Building(radar);
     Building navetteIHM = Building(navette);
     Building robotIHM = Building(robot);
-    /*******************************************************/
+/*******************************************************/
 
 
    
@@ -172,6 +172,8 @@ int main()  {
 
 
         alienTest.drawEntity(textureAlienFatty, -500, 140);
+        //alienTest.move(Position(-500, 140));
+        alienTest.drawEntity(textureAlienFatty, alienTest.getPos().getX(), alienTest.getPos().getY());
 
 
 
@@ -221,7 +223,12 @@ int main()  {
                 /* Clic souris */
                 
                 case SDL_MOUSEBUTTONUP:
-                    //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    mouseX = e.button.x-(GL_VIEW_WIDTH/2);
+                    mouseY = -(e.button.y+(GL_VIEW_HEIGHT/2)-729);
+
+                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                    printf("\tclic en (%f, %f)\n", mouseX, mouseY);
+                    alienTest.move(Position(mouseX,mouseY));
                 	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
                 	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
@@ -236,6 +243,8 @@ int main()  {
                     buttonCross.click(mouseX, mouseY);
                     buttonPause.click(mouseX, mouseY);
                     buttonPlay.click(mouseX, mouseY);
+
+                    //alienTest.move(Position(mouseX, mouseY));
                     break;
                 
                 /* Touche clavier */
@@ -289,5 +298,10 @@ int main()  {
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();
     
+
+
+
+
+
     return EXIT_SUCCESS;
 }

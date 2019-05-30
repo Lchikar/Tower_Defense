@@ -6,6 +6,9 @@ initialiser la liste des tours, batiments, aliens
 initialiser le gameplay (vie, argent, temps, numero vague)
 
 Pour chaque unité de temps:
+	test si tours ajoutées:
+		calcul des nouveaux risques
+		mise à jour graphe
 	tester si game over:
 		test si 50 vagues passées --> WIN()
 		test si vie = 0 --> LOSE()

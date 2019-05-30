@@ -8,7 +8,7 @@
 #include <string>
 
 #include "Entity.hpp"
-#include "Path.hpp"
+#include "Graph.hpp"
 
 using namespace std;
 

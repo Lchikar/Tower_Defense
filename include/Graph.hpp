@@ -2,6 +2,9 @@
  
 #include <iostream>
 #include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,6 +27,8 @@ class Graph {
 		vector<int> successors(int u);
 
 		int weight(int u, int v);
+
+		void update_weight(int u, int v, int w);
 
 		int pop_closest_vertex(vector<int> *vertices, vector<int> distances);
 
