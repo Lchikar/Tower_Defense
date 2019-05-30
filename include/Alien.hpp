@@ -8,7 +8,6 @@
 #include <string>
 
 #include "Entity.hpp"
-#include "Tower.hpp"
 #include "Path.hpp"
 
 using namespace std;
@@ -50,5 +49,4 @@ class Alien : public Entity {
 		void setAlienType(AlienType type);
 
 		//Path choosePath(); /* choisit un chemin à suivre selon le risque */
-		//int resistance(string towerColor); /* calcule la resistance aux attaques de la tour 'tower' */
 };

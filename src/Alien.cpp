@@ -6,7 +6,6 @@
 #include <string>
 
 #include "../include/Entity.hpp"
-#include "../include/Tower.hpp"
 #include "../include/Path.hpp"
 #include "../include/Alien.hpp"
 

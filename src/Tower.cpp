@@ -6,6 +6,7 @@
 #include <string>
 
 #include "../include/Entity.hpp"
+#include "../include/Alien.hpp"
 #include "../include/Tower.hpp"
 
 using namespace std;
@@ -123,6 +124,19 @@ void Tower::setPrice(int price) {
 void Tower::setColor(ColorType type) {
 	this->type = type;
 }		
+//vérifie si la tour peut etre construite a la position 'pos'
+//bool Tower::isBuildable(Position pos); 
 
-//bool Tower::isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-//Position Tower::target(); /* renvoie la position de l'alien le plus proche */
+//renvoie la position de l'alien le plus proche
+Position Tower::target(vector<Alien> aliens){
+	int dist_min = 9999999;
+	Position target = this->getPos();
+	for(Alien alien : aliens){
+		int dist = alien.getPos().dist(this->getPos()); 
+		if(dist <= this->range && dist < dist_min){
+			dist_min = dist;
+			target = alien.getPos();
+		}
+	}
+	return target;
+}
