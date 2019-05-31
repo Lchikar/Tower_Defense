@@ -51,7 +51,9 @@ void InGame::reinitBuildings(){
 void InGame::addAliens(Alien alien){
 	this->aliens.push_back(alien);
 }
-void InGame::addTowers(Tower tower){
+void InGame::addTowers(ColorType type, Position p){
+	Tower tower = Tower(type);
+	tower.move(p);
 	this->towers.push_back(tower);
 }
 void InGame::addBuildings(Building building){

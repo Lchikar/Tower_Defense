@@ -88,10 +88,6 @@ int main(int argc, char** argv){
 
     
 
-    Ingame game = Ingame();
-    int nbTowers = 0;
-
-
 /********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
@@ -202,7 +198,12 @@ int main(int argc, char** argv){
 
     /* Boucle principale */
     int loop = 1;
-    while(loop) {
+    while(loop) {   
+        printf("nbtours %d\n",game.getTowers().size() );
+        for(int i = 0; i < game.getTowers().size(); i++){
+            printf("Tour %d: (%f,%f)\n", i,game.getTowers()[i].getPos().getX(), game.getTowers()[i].getPos().getY());
+        }
+
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
@@ -316,12 +317,31 @@ int main(int argc, char** argv){
                     navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     
-                    if(tower1.getIsClick()) {
-                        Tower t = Tower(red);
-                        t.move(Psition((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                        game.addTowers(t)
-                        printf("position x de t: %f\n", t.getPos().getX());
-                        printf("position y de t: %f\n", t.getPos().getY());
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
+                        if(tower1.getIsClick()) {
+                            printf("Achat tour 1\n");
+                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower1.setIsClick(false);
+                        }
+                    }
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
+                        if(tower2.getIsClick()) {
+                            printf("Achat tour 2\n");
+                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower2.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
+                        if(tower3.getIsClick()) {
+                            printf("Achat tour 3\n");
+                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower3.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
+                        if(tower4.getIsClick()) {
+                            printf("Achat tour 4\n");
+                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower4.setIsClick(false);
+                        }
                     }
                     break;
                 
