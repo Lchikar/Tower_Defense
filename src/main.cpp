@@ -23,6 +23,7 @@
 #include "../include/Button.hpp"
 #include "../include/IHM.hpp"
 #include "../include/Graph.hpp"
+#include "../include/InGame.hpp"
 
 #include "../include/const.hpp"
 
@@ -58,7 +59,7 @@ int main(int argc, char** argv){
     // cout << "\n";
     // }
     // printf("\n");
-    
+
     for(int u = 0; u < nbNodes; u++){
         G.addVertex(u);
     }
@@ -79,6 +80,10 @@ int main(int argc, char** argv){
     // }
     // cout << "\n";
     
+
+    InGame game = InGame();
+    int nbTowers = 0;
+    vector<pair<int,int>> edges = G.edges();
 
 
     

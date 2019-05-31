@@ -32,6 +32,8 @@ class Graph {
 
 		int weight(int u, int v);
 
+		vector<pair<int,int>> edges();
+
 		void update_weight(int u, int v, int w);
 
 		int pop_closest_vertex(vector<int> *vertices, vector<int> distances);

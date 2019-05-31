@@ -226,6 +226,15 @@ void Graph::addEdge(int u, int v, int w){
 	this->adj[u].push_back(pair<int,int>(v,w));
 }  
 
+vector<pair<int,int>> Graph::edges(){
+	vector<pair<int,int>> edges_list = vector<pair<int,int>>();
+	for(int u = 0; u < this->adj.size(); u++){
+		for(auto i = this->adj[u].begin(); i != this->adj[u].end(); i++){
+			edges_list.push_back(pair<int,int>(u,(*i).first));
+		}	
+	}
+}
+
 vector<int> Graph::successors(int u){
 	vector<int> succ;
 	if(0 == this->adj.count(u)){
