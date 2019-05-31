@@ -78,7 +78,6 @@ void Button::drawButton(GLuint textureID) {
 	}
 	this->move(Position(x, y));
 	glPushMatrix();
-	//glTranslatef(x, y, 0);
 	drawEntity(textureID);
 	glPopMatrix();
 }
