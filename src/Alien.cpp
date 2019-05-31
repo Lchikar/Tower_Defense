@@ -6,8 +6,7 @@
 #include <string>
 
 #include "../include/Entity.hpp"
-#include "../include/Tower.hpp"
-#include "../include/Path.hpp"
+#include "../include/Graph.hpp"
 #include "../include/Alien.hpp"
 
 using namespace std;

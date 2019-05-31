@@ -23,16 +23,25 @@ class Building : public Entity{
 	private :
 		int value; /* valeur de l'upgrade */
 		TypeBuild type; /* type d'upgrade */
+		bool isClick;
 
 	public:
 		Building(TypeBuild type);
 		~Building();
 
+		/* draw building IHM */
+		void drawBuildingIHM(GLuint textureID);
+
+		/* is click */
+		void click(float mouseX, float mouseY);
+
 		int getValue();
 		TypeBuild getType();
+		bool getIsClick();
 
 		void setValue(int value);
 		void setType(TypeBuild type);
+		void setIsClick(bool isClick);
 
 
 		//bool isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */

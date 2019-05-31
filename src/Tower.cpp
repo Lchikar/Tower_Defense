@@ -6,6 +6,7 @@
 #include <string>
 
 #include "../include/Entity.hpp"
+#include "../include/Alien.hpp"
 #include "../include/Tower.hpp"
 
 using namespace std;
@@ -16,6 +17,7 @@ using namespace std;
 /* Contructor */
 Tower::Tower(ColorType type) {
 	this->type = type;
+	this->isClick = false;
 	if(type == red){
 		damage = 3;
 		range = 2;
@@ -47,34 +49,38 @@ Tower::Tower(ColorType type) {
 Tower::~Tower(){};
 
 /****************************************
-*************** DRAW ********************
+************* DRAW TOWER IHM ***********
 *****************************************/
-/* initialisation de la texture 
-GLuint Tower::setTower() {
-	GLuint textureID;
+void Tower::drawTowerIHM(GLuint textureID) {
+	float x = 530;
+	float y;
 	if(type == red) {
-		textureID = setTexture(filenameTower1);
-		return textureID;
+		y = 200;
 	}
 	if(type == green) {
-		textureID = setTexture(filenameTower2);
-		return textureID;
+		y = 115;
+	}
+	if(type == blue) {
+		y = 30;
 	}
 	if(type == yellow) {
-		textureID = setTexture(filenameTower3);
-		return textureID;
+		y = -55;
 	}
-	else{
-		textureID = setTexture(filenameTower4);
-		return textureID;
+	this->move(Position(x, y));
+	glPushMatrix();
+	drawEntity(textureID);
+	glPopMatrix();
+}
+
+/****************************************
+***************** CLICK *****************
+*****************************************/
+void Tower::click(float mouseX, float mouseY) {
+	if (this->getPos().dist(Position(mouseX, mouseY)) <= 25) {
+		this->isClick = !this->isClick;
+		printf("J'ai cliqué sur une tour\n");
 	}
-}
-*/
-/* affichage de la texture 
-void Tower::drawTower(GLuint textureID, float x, float y) {
-	drawTexture(textureID, x, y);
-}
-*/
+} 
 
 /****************************************
 ************** GET & SET ****************
@@ -104,6 +110,11 @@ ColorType Tower::getColor() {
 	return type;
 }
 
+bool Tower::getIsClick() {
+	bool isClick = this->isClick;
+	return isClick;
+}
+
 void Tower::setDamage(int damage) {
 	this->damage = damage;
 }
@@ -122,7 +133,24 @@ void Tower::setPrice(int price) {
 
 void Tower::setColor(ColorType type) {
 	this->type = type;
-}		
+}	
 
-//bool Tower::isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-//Position Tower::target(); /* renvoie la position de l'alien le plus proche */
+void Tower::setIsClick(bool isClick){
+	this->isClick = isClick;
+}	
+//vérifie si la tour peut etre construite a la position 'pos'
+//bool Tower::isBuildable(Position pos); 
+
+//renvoie la position de l'alien le plus proche
+Position Tower::target(vector<Alien> aliens){
+	int dist_min = 9999999;
+	Position target = this->getPos();
+	for(Alien alien : aliens){
+		int dist = alien.getPos().dist(this->getPos()); 
+		if(dist <= this->range && dist < dist_min){
+			dist_min = dist;
+			target = alien.getPos();
+		}
+	}
+	return target;
+}

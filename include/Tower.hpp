@@ -8,6 +8,7 @@
 #include <string>
 
 #include "Entity.hpp"
+#include "Alien.hpp"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ class Tower : public Entity {
 		int shotRate; /* cadence de tir */
 		int price; /* prix */
 		ColorType type; /* couleur de la tour */
+		bool isClick;
 
 	public:
 		Tower(ColorType type);
@@ -34,8 +36,11 @@ class Tower : public Entity {
 		/* initialisation de la texture */
 		//GLuint setTower();
 
-		/* affichage de la texture */
-		//void drawTower(GLuint textureID, float x, float y);
+		/* DRAW TOWER IHM */
+		void drawTowerIHM(GLuint textureID);
+
+		/* is click */
+		void click(float mouseX, float mouseY);
 
 		/* get */
 		int getDamage();
@@ -43,14 +48,16 @@ class Tower : public Entity {
 		int getShotRate();
 		int getPrice();
 		ColorType getColor();
+		bool getIsClick();
 
 		/* set */
 		void setDamage(int damage);
 		void setRange(int range);
 		void setShotRate(int shotRate);
 		void setPrice(int price);
-		void setColor(ColorType type);		
+		void setColor(ColorType type);	
+		void setIsClick(bool isClick);	
 
 		//bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-		//Position target(); /* renvoie la position de l'alien le plus proche */
+		Position target(vector<Alien> aliens); 
 };

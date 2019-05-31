@@ -29,7 +29,12 @@
 
 int main()  {  
     
-	/********************* WINDOW SDL ************************/
+
+    Ingame game = Ingame();
+    int nbTowers = 0;
+
+
+/********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(
@@ -63,11 +68,11 @@ int main()  {
     /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    /********************************************************/
+/********************************************************/
 
 
      
-    /*********** Initialisation des textures ****************/
+/*********** Initialisation des textures ****************/
     // Aliens
     GLuint textureAlienNervous = setTexture(filenameNervous);
     GLuint textureAlienFatty = setTexture(filenameFatty);
@@ -80,19 +85,19 @@ int main()  {
     GLuint textureRadar = setTexture(filenameRadar);
     GLuint textureNavette = setTexture(filenameNavette);
     GLuint textureRobot = setTexture(filenameRobot);
-    /*******************************************************/
+/*******************************************************/
 
 
 
-    /********************** MAP ***************************/
+/********************** MAP ***************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-    /******************************************************/
+/******************************************************/
 
 
 
-    /************** Initialisation de l'IHM ****************/
+/************** Initialisation de l'IHM ****************/
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
@@ -114,11 +119,11 @@ int main()  {
     // User Guide
     IHM guide = IHM(userGuide);
     GLuint textureGuide = guide.setIHMTexture();
-    /********************************************************/
+/********************************************************/
 
 
 
-    /****************** TEST NEW ELEMENTS *******************/
+/****************** TEST NEW ELEMENTS *******************/
     // New alien
     Alien alienTest = Alien(fatty);
 
@@ -132,7 +137,7 @@ int main()  {
     Building radarIHM = Building(radar);
     Building navetteIHM = Building(navette);
     Building robotIHM = Building(robot);
-    /*******************************************************/
+/*******************************************************/
 
 
    
@@ -160,18 +165,23 @@ int main()  {
         /*********************************************/
 
 
-        /*****************************************/
-        tower1.drawEntity(textureTower1, 530, 200);
-        tower2.drawEntity(textureTower2, 530, 115);
-        tower3.drawEntity(textureTower3, 530, 30);
-        tower4.drawEntity(textureTower4, 530, -55);
-        radarIHM.drawEntity(textureRadar, 530, -140);
-        navetteIHM.drawEntity(textureNavette, 530, -225);
-        robotIHM.drawEntity(textureRobot, 530, -310);
+        /************** DRAW TOWER IHM **************/
+        tower1.drawTowerIHM(textureTower1);
+        tower2.drawTowerIHM(textureTower2);
+        tower3.drawTowerIHM(textureTower3);
+        tower4.drawTowerIHM(textureTower4);
+        /********************************************/
+    
+
+        /************ DRAW BUILDING IHM *************/
+        radarIHM.drawBuildingIHM(textureRadar);
+        navetteIHM.drawBuildingIHM(textureNavette);
+        robotIHM.drawBuildingIHM(textureRobot);
         /*********************************************/
 
 
-        alienTest.drawEntity(textureAlienFatty, -500, 140);
+        alienTest.move(Position(-500, 140));
+        alienTest.drawEntity(textureAlienFatty);
 
 
 
@@ -198,10 +208,7 @@ int main()  {
 
         /*************** Boucle traitant les evenements ***************/
         SDL_Event e;
-
-        // Coordonnées de la souris
-        float mouseX = e.button.x-(GL_VIEW_WIDTH/2);
-        float mouseY = e.button.y+(GL_VIEW_HEIGHT/2)-60;
+        
 
         while(SDL_PollEvent(&e)) {
             /* L'utilisateur ferme la fenetre : */
@@ -221,9 +228,11 @@ int main()  {
                 /* Clic souris */
                 
                 case SDL_MOUSEBUTTONUP:
-                    //printf("clic en (%d, %d)\n", e.button.x, e.button.y);
-                	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
-                	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+
+                    //printf("mouse (%d,%d)\n", e.button.x, e.button.y);
+                    //printf("mouse (%f,%f)\n", (e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    //printf("position x de tower1: %f\n", tower1.getPos().getX());
+                	//printf("position y de tower1: %f\n", tower1.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
 					
                     /*
@@ -232,10 +241,30 @@ int main()  {
 						buttonCross.drawButton(textureButtonCross);
 					} 
                     */
-                    buttonInfo.click(mouseX, mouseY);
-                    buttonCross.click(mouseX, mouseY);
-                    buttonPause.click(mouseX, mouseY);
-                    buttonPlay.click(mouseX, mouseY);
+
+                    /* Buttons IHM */
+                    buttonInfo.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    buttonCross.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    buttonPause.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    buttonPlay.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    
+                    /* Tower */
+                    tower1.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    tower2.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    tower3.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    /* Building */
+                    radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    
+                    if(tower1.getIsClick()) {
+                        Tower t = Tower(red);
+                        t.move(Psition((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                        game.addTowers(t)
+                        printf("position x de t: %f\n", t.getPos().getX());
+                        printf("position y de t: %f\n", t.getPos().getY());
+                    }
                     break;
                 
                 /* Touche clavier */
@@ -289,5 +318,10 @@ int main()  {
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();
     
+
+
+
+
+
     return EXIT_SUCCESS;
 }
