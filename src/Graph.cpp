@@ -60,6 +60,16 @@ int Graph::weight(int u, int v){
 	return -1;
 }
 
+void Graph::update_weight(int u, int v, int w){
+	if(this->adj.count(u) > 0 && this->adj.count(v) > 0){
+		for(auto it = this->adj[u].begin(); it != this->adj[u].end(); it++){
+			if((*it).first == v)
+				(*it).second = w;
+		}
+	}
+	fprintf(stderr, "Invalid nodes\n");
+}
+
 int Graph::pop_closest_vertex(vector<int> *vertices, vector<int> distances){
 	int u = -1;
 	int dist_min = 99999;

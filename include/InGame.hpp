@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream> 
+#include <algorithm>
+#include <vector> 
 #include <ctime>
 
 #include "Alien.hpp"
@@ -23,25 +26,30 @@ class InGame{
 		~InGame();
 
 		vector<Alien> getAliens();
-		void setAliens(vector<Alien> aliens);
+		void reinitAliens();
+		void addAliens(Alien aliens);
+		void deleteAliens(int alien_index);
 
 		vector<Tower> getTowers();
-		void setTowers(vector<Tower> towers);
+		void reinitTowers();
+		void addTowers(Tower towers);
+		//towers can't be deleted
 		
 		vector<Building> getBuildings();
-		void setBuildings(vector<Building> buildings);
+		void reinitBuildings();
+		void addBuildings(Building buildings);
+		//buildings can't be deleted
 
 		int getLife();
 		void setLife(int pv);
 
 		clock_t getTime();
-		void setTime(clock_t time);
+		void updateTime();
 
 		int getMoney();
 		void setMoney(int price);
 
 		int getWaves();
-		void setWaves(int wave);
-
+		void updateWaves();
 		
-}
+};

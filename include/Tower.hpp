@@ -8,6 +8,7 @@
 #include <string>
 
 #include "Entity.hpp"
+#include "Alien.hpp"
 
 using namespace std;
 
@@ -52,5 +53,5 @@ class Tower : public Entity {
 		void setColor(ColorType type);		
 
 		//bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
-		//Position target(); /* renvoie la position de l'alien le plus proche */
+		Position target(vector<Alien> aliens); 
 };

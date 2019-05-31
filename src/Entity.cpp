@@ -33,10 +33,9 @@ Entity::~Entity(){};
 /****************************************
 *************** DRAW ********************
 *****************************************/
-void Entity::drawEntity(GLuint textureID, float x, float y) {
+void Entity::drawEntity(GLuint textureID) {
 	glPushMatrix();
-		glTranslatef(x, y, 0);
-		this->setPos(Position(x, y));
+		glTranslatef(this->getPos().getX(), this->getPos().getY(), 0);
 		drawTexture(textureID, width, height);
 	glPopMatrix();
 }
@@ -49,7 +48,7 @@ Position Entity::getPos() {
 	return pos;
 }
 
-void Entity::setPos(Position p) {
+void Entity::move(Position p) {
 	this->pos = p;
 }
 
