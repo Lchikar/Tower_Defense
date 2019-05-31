@@ -6,25 +6,29 @@ initialiser la liste des tours, batiments, aliens
 initialiser le gameplay (vie, argent, temps, numero vague)
 
 Pour chaque unité de temps:
+	test si tours ajoutées:
+		calcul des nouveaux risques
+		mise à jour graphe
 	tester si game over:
-		test si 50 vagues passées
-		test si vie = 0
-	charger aliens (nombre et type selon n° vague)
+		test si 50 vagues passées --> WIN()
+		test si vie = 0 --> LOSE()
+	charger aliens (nombre et type selon n° vague) --> Game.REINITALIENS() + Game.ADDALIENS()
 	test si clic achat:
 		test si assez argent:
-			argent--
+			argent-- --> Game.SETMONEY()
 			tour/batiment à placer:
 				si placement ok:
-					ajout tour/batiment à la liste
+					ajout tour/batiment à la liste --> Game.ADDTOWERS()/ADDBUILDINGS()
 					update affichage et effets (tirs/ameliorations)
-	déplacer aliens
+	déplacer aliens --> foreach(Game.aliens) alien.MOVE()
 		affichage mis à jour (montrer deplacement)
+	test si aliens dans out --> Game.SETLIFE()
 	faire tirer tours 
 		affichage mis à jour (montrer ennemis touchés)
 	test si aliens morts:
 		pour chaque alien tué:
-			argent++ selon valeur reward
-			supp alien de la liste des aliens
+			argent++ selon valeur reward --> Game.SETMONEY()
+			supp alien de la liste des aliens --> Game.DELETEALIENS()
 			affichage mis à jour (enlever aliens morts)
-		si tous les aliens sont morts:
-			vague++
+		si tous les aliens sont morts: --> Game.aliens.ISEMPTY()
+			vague++ --> Game.UPDATEWAVE()
