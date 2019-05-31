@@ -32,12 +32,12 @@ class InGame{
 
 		vector<Tower> getTowers();
 		void reinitTowers();
-		void addTowers(Tower towers);
+		void addTowers(ColorType type, Position p);
 		//towers can't be deleted
 		
 		vector<Building> getBuildings();
 		void reinitBuildings();
-		void addBuildings(Building buildings);
+		void addBuildings(TypeBuild type, Position p);
 		//buildings can't be deleted
 
 		int getLife();

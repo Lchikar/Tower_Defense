@@ -18,8 +18,6 @@ InGame::InGame(){
 	this->buildings = vector<Building>();
 	this->aliens = vector<Alien>();
 
-
-
 	this->aliens.push_back(Alien(fatty));
 	this->aliens.push_back(Alien(fatty));
 	this->aliens.push_back(Alien(nervous));
@@ -53,10 +51,14 @@ void InGame::reinitBuildings(){
 void InGame::addAliens(Alien alien){
 	this->aliens.push_back(alien);
 }
-void InGame::addTowers(Tower tower){
+void InGame::addTowers(ColorType type, Position p){
+	Tower tower = Tower(type);
+	tower.move(p);
 	this->towers.push_back(tower);
 }
-void InGame::addBuildings(Building building){
+void InGame::addBuildings(TypeBuild type, Position p){
+	Building building = Building(type);
+	building.move(p);
 	this->buildings.push_back(building);
 }
 

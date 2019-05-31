@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
 #include <vector>
 
 #include "../include/Entity.hpp"
@@ -21,18 +22,71 @@
 #include "../include/texture.hpp"
 #include "../include/Button.hpp"
 #include "../include/IHM.hpp"
+#include "../include/Graph.hpp"
+#include "../include/InGame.hpp"
 
 #include "../include/const.hpp"
 
 // Dimensions de la fenetre : 1180x750;
 
 
-int main()  {  
+int main(int argc, char** argv){
+
+    if(argc != 2){
+        fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
+        return EXIT_FAILURE;
+    } 
+
+    if(0 != strcmp(&(argv[1][strlen(argv[1])-4]), ".itd")){
+        fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
+        return EXIT_FAILURE;
+    }
+
+
+    Graph G = Graph();
+    int nbNodes;
+    vector<vector<int>> nodes = G.read_nodes(string(argv[1]), &nbNodes);
+    if(nodes.empty()){
+        fprintf(stderr, "Fail to read %s\n", argv[1]);
+        return EXIT_FAILURE;
+    }
+
+    // for (int i = 0; i < nodes.size(); i++){
+    //     cout << "node " << i << ": ";
+    //     for (int j = 0; j < nodes[i].size(); j++){
+    //         cout << nodes[i][j] << " ";
+    //     }
+    // cout << "\n";
+    // }
+    // printf("\n");
+
+    for(int u = 0; u < nbNodes; u++){
+        G.addVertex(u);
+    }
+    for(int u = 0; u < nbNodes; u++){
+        for(int v = 3; v < nodes[u].size(); v++){
+            Position u_p = Position(float(nodes[u][1]),float(nodes[u][2]));
+            Position v_p = Position(float(nodes[nodes[u][v]][1]),float(nodes[nodes[u][v]][2]));
+            G.addEdge(u,nodes[u][v], u_p.dist(v_p));
+        }
+    }
+
+    // for (int i = 0; i < G.getAdj().size(); i++){
+    //     cout << "node " << i << ": ";
+    //     for (int j = 0; j < G.getAdj()[i].size(); j++){
+    //         cout << "(" << G.getAdj()[i][j].first << ", " << G.getAdj()[i][j].second << ") ";
+    //     }
+    //     cout << "\n";
+    // }
+    // cout << "\n";
     
 
-    Ingame game = Ingame();
+    InGame game = InGame();
     int nbTowers = 0;
+    vector<pair<int,int>> edges = G.edges();
 
+
+    
 
 /********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
@@ -144,7 +198,7 @@ int main()  {
 
     /* Boucle principale */
     int loop = 1;
-    while(loop) {
+    while(loop) {   
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
@@ -182,6 +236,40 @@ int main()  {
 
         alienTest.move(Position(-500, 140));
         alienTest.drawEntity(textureAlienFatty);
+
+        /********** DRAW TOWERS IN GAME ***************/
+        for(int i = 0; i < game.getTowers().size(); i++){
+            Tower tour = game.getTowers()[i];
+            printf("Couleur tour %d --> %d\n", i, tour.getColor());
+            switch (tour.getColor()){
+                case red: tour.drawEntity(textureTower1);
+                            break; 
+                case green: tour.drawEntity(textureTower2);
+                            break;
+                case blue: tour.drawEntity(textureTower3);
+                            break;
+                case yellow: tour.drawEntity(textureTower4);
+                            break;
+                default: ;
+            }
+        }
+        /************************************************/
+
+        /*********** DRAW BUILDINGS INGAME **************/
+        for(int i = 0; i < game.getBuildings().size(); i++){
+            Building batiment = game.getBuildings()[i];
+            printf("Batiment %d --> %d\n", i, batiment.getType());
+            switch (batiment.getType()){
+                case radar: batiment.drawEntity(textureRadar);
+                            break; 
+                case navette: batiment.drawEntity(textureNavette);
+                            break;
+                case robot: batiment.drawEntity(textureRobot);
+                            break;
+                default: ;
+            }
+        }
+        /*************************************************/
 
 
 
@@ -253,17 +341,57 @@ int main()  {
                     tower2.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     tower3.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
+                        if(tower1.getIsClick()) {
+                            printf("Achat tour 1\n");
+                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower1.setIsClick(false);
+                        }
+                    }
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
+                        if(tower2.getIsClick()) {
+                            printf("Achat tour 2\n");
+                            game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower2.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
+                        if(tower3.getIsClick()) {
+                            printf("Achat tour 3\n");
+                            game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower3.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
+                        if(tower4.getIsClick()) {
+                            printf("Achat tour 4\n");
+                            game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            tower4.setIsClick(false);
+                        }
+                    }
+
                     /* Building */
                     radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    
-                    if(tower1.getIsClick()) {
-                        Tower t = Tower(red);
-                        t.move(Psition((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                        game.addTowers(t)
-                        printf("position x de t: %f\n", t.getPos().getX());
-                        printf("position y de t: %f\n", t.getPos().getY());
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(radarIHM.getPos()) > 25){
+                        if(radarIHM.getIsClick()) {
+                            printf("Achat radar\n");
+                            game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            radarIHM.setIsClick(false);
+                        }
+                    }
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(navetteIHM.getPos()) > 25){
+                        if(navetteIHM.getIsClick()) {
+                            printf("Achat navette\n");
+                            game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            navetteIHM.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(robotIHM.getPos()) > 25){
+                        if(robotIHM.getIsClick()) {
+                            printf("Achat tour 3\n");
+                            game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            robotIHM.setIsClick(false);
+                        }
                     }
                     break;
                 
