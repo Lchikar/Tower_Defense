@@ -199,11 +199,6 @@ int main(int argc, char** argv){
     /* Boucle principale */
     int loop = 1;
     while(loop) {   
-        printf("nbtours %d\n",game.getTowers().size() );
-        for(int i = 0; i < game.getTowers().size(); i++){
-            printf("Tour %d: (%f,%f)\n", i,game.getTowers()[i].getPos().getX(), game.getTowers()[i].getPos().getY());
-        }
-
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
@@ -241,6 +236,22 @@ int main(int argc, char** argv){
 
         alienTest.move(Position(-500, 140));
         alienTest.drawEntity(textureAlienFatty);
+
+        for(int i = 0; i < game.getTowers().size(); i++){
+            Tower tour = game.getTowers()[i];
+            printf("Couleur tour %d --> %d\n", i, tour.getColor());
+            switch (tour.getColor()){
+                case red: tour.drawEntity(textureTower1);
+                            break; 
+                case green: tour.drawEntity(textureTower2);
+                            break;
+                case blue: tour.drawEntity(textureTower3);
+                            break;
+                case yellow: tour.drawEntity(textureTower4);
+                            break;
+                default: ;
+            }
+        }
 
 
 
@@ -327,19 +338,19 @@ int main(int argc, char** argv){
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
                         if(tower2.getIsClick()) {
                             printf("Achat tour 2\n");
-                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
                             tower2.setIsClick(false);
                         }
                     }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
                         if(tower3.getIsClick()) {
                             printf("Achat tour 3\n");
-                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
                             tower3.setIsClick(false);
                         }
                     }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
                         if(tower4.getIsClick()) {
                             printf("Achat tour 4\n");
-                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
                             tower4.setIsClick(false);
                         }
                     }
