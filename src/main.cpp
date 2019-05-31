@@ -161,19 +161,31 @@ int main()  {
 
 
         /*****************************************/
-        tower1.drawEntity(textureTower1, 530, 200);
-        tower2.drawEntity(textureTower2, 530, 115);
-        tower3.drawEntity(textureTower3, 530, 30);
-        tower4.drawEntity(textureTower4, 530, -55);
-        radarIHM.drawEntity(textureRadar, 530, -140);
-        navetteIHM.drawEntity(textureNavette, 530, -225);
-        robotIHM.drawEntity(textureRobot, 530, -310);
+        tower1.move(Position(530,200));
+        tower1.drawEntity(textureTower1);
+
+        tower2.move(Position(530, 115));
+        tower2.drawEntity(textureTower2);
+
+        tower3.move(Position(530, 30));
+        tower3.drawEntity(textureTower3);
+
+        tower4.move(Position(530, -55));
+        tower4.drawEntity(textureTower4);
+
+        radarIHM.move(Position(530, -140));
+        radarIHM.drawEntity(textureRadar);
+
+        navetteIHM.move(Position(530, -225));
+        navetteIHM.drawEntity(textureNavette);
+
+        robotIHM.move(Position(530, -310));
+        robotIHM.drawEntity(textureRobot);
         /*********************************************/
 
 
-        alienTest.drawEntity(textureAlienFatty, -500, 140);
-        //alienTest.move(Position(-500, 140));
-        alienTest.drawEntity(textureAlienFatty, alienTest.getPos().getX(), alienTest.getPos().getY());
+       alienTest.move(Position(-500, 140));
+        alienTest.drawEntity(textureAlienFatty);
 
 
 
@@ -223,14 +235,10 @@ int main()  {
                 /* Clic souris */
                 
                 case SDL_MOUSEBUTTONUP:
-                    mouseX = e.button.x-(GL_VIEW_WIDTH/2);
-                    mouseY = -(e.button.y+(GL_VIEW_HEIGHT/2)-729);
-
-                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
-                    printf("\tclic en (%f, %f)\n", mouseX, mouseY);
-                    alienTest.move(Position(mouseX,mouseY));
-                	//printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
-                	//printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
+                    printf("\tclick (%d,%d)\n", e.button.x, e.button.y);
+                    printf("mouse (%f,%f)\n", mouseX, mouseY);
+                    printf("position x de bouton info: %f\n", buttonInfo.getPos().getX());
+                	printf("position y de bouton info: %f\n", buttonInfo.getPos().getY());
 					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
 					
                     /*
@@ -243,8 +251,6 @@ int main()  {
                     buttonCross.click(mouseX, mouseY);
                     buttonPause.click(mouseX, mouseY);
                     buttonPlay.click(mouseX, mouseY);
-
-                    //alienTest.move(Position(mouseX, mouseY));
                     break;
                 
                 /* Touche clavier */

@@ -63,26 +63,23 @@ void Button::drawButton(GLuint textureID) {
 	if(type == info) {
 		x = 560;
 		y = 345;
-		//this->setPos(Position(560, 345));
 	}
 	if(type == pause) {
 		x = 500;
 		y = 345;
-		//this->setPos(Position(500, 345));
 	}
 	if(type == play) {
 		x = 500;
 		y = 345;
-		//this->setPos(Position(500, 345));
 	}
 	if(type == cros) {
 		x = 560;
 		y = 345;
-		//this->setPos(Position(560, 345));
 	}
+	this->move(Position(x, y));
 	glPushMatrix();
 	//glTranslatef(x, y, 0);
-	drawEntity(textureID, x, y);
+	drawEntity(textureID);
 	glPopMatrix();
 }
 
