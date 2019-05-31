@@ -37,7 +37,7 @@ class InGame{
 		
 		vector<Building> getBuildings();
 		void reinitBuildings();
-		void addBuildings(Building buildings);
+		void addBuildings(TypeBuild type, Position p);
 		//buildings can't be deleted
 
 		int getLife();

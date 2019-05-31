@@ -56,7 +56,9 @@ void InGame::addTowers(ColorType type, Position p){
 	tower.move(p);
 	this->towers.push_back(tower);
 }
-void InGame::addBuildings(Building building){
+void InGame::addBuildings(TypeBuild type, Position p){
+	Building building = Building(type);
+	building.move(p);
 	this->buildings.push_back(building);
 }
 

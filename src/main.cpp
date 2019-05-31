@@ -250,6 +250,7 @@ int main(int argc, char** argv){
         alienTest.move(Position(-500, 140));
         alienTest.drawEntity(textureAlienFatty);
 
+        /********** DRAW TOWERS IN GAME ***************/
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tour = game.getTowers()[i];
             //printf("Couleur tour %d --> %d\n", i, tour.getColor());
@@ -265,6 +266,23 @@ int main(int argc, char** argv){
                 default: ;
             }
         }
+        /************************************************/
+
+        /*********** DRAW BUILDINGS INGAME **************/
+        for(int i = 0; i < game.getBuildings().size(); i++){
+            Building batiment = game.getBuildings()[i];
+            printf("Batiment %d --> %d\n", i, batiment.getType());
+            switch (batiment.getType()){
+                case radar: batiment.drawEntity(textureRadar);
+                            break; 
+                case navette: batiment.drawEntity(textureNavette);
+                            break;
+                case robot: batiment.drawEntity(textureRobot);
+                            break;
+                default: ;
+            }
+        }
+        /*************************************************/
 
 
 
@@ -336,10 +354,6 @@ int main(int argc, char** argv){
                     tower2.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     tower3.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    /* Building */
-                    radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
             
             // TEST TOUR SUR CHEMIN        
             //         for(int i = 0; i < edges.size(); i++){
@@ -382,6 +396,31 @@ int main(int argc, char** argv){
                             printf("Achat tour 4\n");
                             game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
                             tower4.setIsClick(false);
+                        }
+                    }
+
+                    /* Building */
+                    radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(radarIHM.getPos()) > 25){
+                        if(radarIHM.getIsClick()) {
+                            printf("Achat radar\n");
+                            game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            radarIHM.setIsClick(false);
+                        }
+                    }
+                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(navetteIHM.getPos()) > 25){
+                        if(navetteIHM.getIsClick()) {
+                            printf("Achat navette\n");
+                            game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            navetteIHM.setIsClick(false);
+                        }
+                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(robotIHM.getPos()) > 25){
+                        if(robotIHM.getIsClick()) {
+                            printf("Achat tour 3\n");
+                            game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                            robotIHM.setIsClick(false);
                         }
                     }
                     break;
