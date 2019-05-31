@@ -18,8 +18,6 @@ InGame::InGame(){
 	this->buildings = vector<Building>();
 	this->aliens = vector<Alien>();
 
-
-
 	this->aliens.push_back(Alien(fatty));
 	this->aliens.push_back(Alien(fatty));
 	this->aliens.push_back(Alien(nervous));
