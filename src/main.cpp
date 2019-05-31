@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
 #include <vector>
 
 #include "../include/Entity.hpp"
@@ -21,13 +22,65 @@
 #include "../include/texture.hpp"
 #include "../include/Button.hpp"
 #include "../include/IHM.hpp"
+#include "../include/Graph.hpp"
 
 #include "../include/const.hpp"
 
 // Dimensions de la fenetre : 1180x750;
 
 
-int main()  {  
+int main(int argc, char** argv){
+
+    if(argc != 2){
+        fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
+        return EXIT_FAILURE;
+    } 
+
+    if(0 != strcmp(&(argv[1][strlen(argv[1])-4]), ".itd")){
+        fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
+        return EXIT_FAILURE;
+    }
+
+
+    Graph G = Graph();
+    int nbNodes;
+    vector<vector<int>> nodes = G.read_nodes(string(argv[1]), &nbNodes);
+    if(nodes.empty()){
+        fprintf(stderr, "Fail to read %s\n", argv[1]);
+        return EXIT_FAILURE;
+    }
+
+    // for (int i = 0; i < nodes.size(); i++){
+    //     cout << "node " << i << ": ";
+    //     for (int j = 0; j < nodes[i].size(); j++){
+    //         cout << nodes[i][j] << " ";
+    //     }
+    // cout << "\n";
+    // }
+    // printf("\n");
+    
+    for(int u = 0; u < nbNodes; u++){
+        G.addVertex(u);
+    }
+    for(int u = 0; u < nbNodes; u++){
+        for(int v = 3; v < nodes[u].size(); v++){
+            Position u_p = Position(float(nodes[u][1]),float(nodes[u][2]));
+            Position v_p = Position(float(nodes[nodes[u][v]][1]),float(nodes[nodes[u][v]][2]));
+            G.addEdge(u,nodes[u][v], u_p.dist(v_p));
+        }
+    }
+
+    // for (int i = 0; i < G.getAdj().size(); i++){
+    //     cout << "node " << i << ": ";
+    //     for (int j = 0; j < G.getAdj()[i].size(); j++){
+    //         cout << "(" << G.getAdj()[i][j].first << ", " << G.getAdj()[i][j].second << ") ";
+    //     }
+    //     cout << "\n";
+    // }
+    // cout << "\n";
+    
+
+
     
 /********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
@@ -184,7 +237,7 @@ int main()  {
         /*********************************************/
 
 
-       alienTest.move(Position(-500, 140));
+        alienTest.move(Position(-500, 140));
         alienTest.drawEntity(textureAlienFatty);
 
 

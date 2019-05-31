@@ -5,6 +5,8 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <fstream> 
+#include <cctype>
 
 using namespace std;
 
@@ -19,6 +21,8 @@ class Graph {
 	public:
 		Graph();
 		~Graph();
+
+		map<int,vector<pair<int,int>>> getAdj();		
 
 		void addVertex(int u);
 		
@@ -37,5 +41,7 @@ class Graph {
 		map<int,vector<pair<int,int>>> Dijkstra(int src);
 
 		bool exists_path(int src, int dest);
+
+		vector<vector<int>> read_nodes(string path, int* nbNodes);
 
 };
