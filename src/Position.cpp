@@ -37,6 +37,15 @@ float Position::dist(Position p){
 	return sqrt(
 		(pow(this->x-p.getX(), 2))+
 		(pow(this->y-p.getY(), 2))
-		);
-			
+		);			
+}
+
+//produit scalaire
+float Position::scalaire(Position p){
+	return this->x*p.getX()+this->y*p.getY();
+}
+
+//produit vectoriel
+float Position::vectoriel(Position p){
+	return this->x*p.getY()-this->y*p.getX();
 }

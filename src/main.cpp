@@ -84,6 +84,9 @@ int main(int argc, char** argv){
     InGame game = InGame();
     int nbTowers = 0;
     vector<pair<int,int>> edges = G.edges();
+    printf("nb edges %d\n", edges.size());
+    // for(int i = 0; i < edges.size(); i++)
+    //     printf("(%d,%d)\n", edges[i].first,edges[i].second);
 
 
     
@@ -199,6 +202,16 @@ int main(int argc, char** argv){
     /* Boucle principale */
     int loop = 1;
     while(loop) {   
+
+        //calcul risque random
+        for(int i = 0; i < edges.size(); i++){
+            int weight = random;
+            G.update_weight(edges[i].first,edges[i].second, weight);      
+        }
+
+        //Update chemins aliens
+
+        
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
@@ -239,7 +252,7 @@ int main(int argc, char** argv){
 
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tour = game.getTowers()[i];
-            printf("Couleur tour %d --> %d\n", i, tour.getColor());
+            //printf("Couleur tour %d --> %d\n", i, tour.getColor());
             switch (tour.getColor()){
                 case red: tour.drawEntity(textureTower1);
                             break; 
@@ -327,7 +340,24 @@ int main(int argc, char** argv){
                     radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    
+            
+            // TEST TOUR SUR CHEMIN        
+            //         for(int i = 0; i < edges.size(); i++){
+            //     Position pos_u, pos_v, pos_t;
+            //     pos_t = towers[towers.size()-1].getPos();
+            //     pos_u = Position(nodes[edges[i].first][1],nodes[edges[i].first][2]);
+            //     pos_v = Position(nodes[edges[i].second][1],nodes[edges[i].first][2]);
+            //     Position pos_ut = Position(t.getX()-u.getX(), t.getY()-u.getY());
+            //     Position pos_tv = Position(v.getX()-t.getX(), v.getY()-t.getY());
+            //     Position pos_uv = Position(v.getX()-u.getX(), v.getY()-u.getY());
+            //     if(0 == pos_ut.scalaire(pos_tv)){
+            //         if(0 < pos_uv.vectoriel(pos_ut) &&
+            //             pos_uv.vectoriel(pos_ut) < pos_uv.vectoriel(pos_uv) )
+            //             fprintf(stderr, "Zone non constructible\n");
+            //     }
+            // }
+
+
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
                         if(tower1.getIsClick()) {
                             printf("Achat tour 1\n");

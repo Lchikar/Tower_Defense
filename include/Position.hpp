@@ -22,5 +22,11 @@ class Position {
 		void setX(float x);
 		void setY(float Y);
 
-		float dist(Position p); /* calcule la distance entre this et p */
+		//calcule la distance entre this et p
+		float dist(Position p); 
+
+		//prduit scalaire
+		float scalaire(Position p);
+		//produit vectoriel
+		float vectoriel(Position p);
 };

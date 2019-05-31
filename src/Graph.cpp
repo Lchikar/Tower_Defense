@@ -233,6 +233,7 @@ vector<pair<int,int>> Graph::edges(){
 			edges_list.push_back(pair<int,int>(u,(*i).first));
 		}	
 	}
+	return edges_list;
 }
 
 vector<int> Graph::successors(int u){
