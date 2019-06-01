@@ -15,7 +15,9 @@ enum IHMType
 {
 	coins,
 	interface,
-	userGuide
+	userGuide,
+	winner,
+	gameover
 };
 
 class IHM {

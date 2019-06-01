@@ -13,6 +13,8 @@ using namespace std;
 const char* filenameCoins = "./img/assets/textCoins.png";
 const char* filenameInterface = "./img/assets/textInterfaceBG_100x552.png";
 const char* filenameUserGuide = "./img/assets/textUserGuide.png";
+const char* filenameWinner = "./img/assets/textWinner.png";
+const char* filenameGameOver = "./img/assets/textGameOver.png";
 
 /****************************************
 ************ CONSTRUCTOR ****************
@@ -43,8 +45,15 @@ GLuint IHM::setIHMTexture() {
 		textureID = setTexture(filenameCoins);
 		return textureID;
 	}
-	else{
+	if(type == interface) {
 		textureID = setTexture(filenameInterface);
+		return textureID;
+	}
+	if(type == winner) {
+		textureID = setTexture(filenameWinner);
+		return textureID;
+	} else {
+		textureID = setTexture(filenameGameOver);
 		return textureID;
 	}
 }
@@ -68,6 +77,18 @@ void IHM::drawIHM(GLuint textureID) {
 		y = 0;
 		w = 1000;
 		h = 700;
+	}
+	if(type == winner) {
+		x = 0;
+		y = 0;
+		w = 600;
+		h = 300;
+	}
+	if(type == gameover) {
+		x = 0;
+		y = 0;
+		w = 600;
+		h = 300;
 	}
 	glPushMatrix();
 	glTranslatef(x, y, 0);

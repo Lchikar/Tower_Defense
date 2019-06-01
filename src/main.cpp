@@ -189,6 +189,12 @@ int main(int argc, char** argv){
     // User Guide
     IHM guide = IHM(userGuide);
     GLuint textureGuide = guide.setIHMTexture();
+    // Window Winner
+    IHM win = IHM(winner);
+    GLuint textureWinner = win.setIHMTexture();
+    // Window Game over
+    IHM gameOver = IHM(gameover);
+    GLuint textureGameOver = gameOver.setIHMTexture();
 
     // Towers
     Tower tower1 = Tower(red);
@@ -309,7 +315,7 @@ int main(int argc, char** argv){
 
 
 
-        /***************** DRAW BUTTON ****************/
+        /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
             buttonInfo.drawButton(textureButtonInfo);
         } else {
@@ -321,8 +327,11 @@ int main(int argc, char** argv){
         } else {
             buttonPlay.drawButton(textureButtonPlay);
         }
-        /*********************************************/
+        /***************************************************/
 
+        /**************** DRAW WIN OR GAME OVER **************/
+        //win.drawIHM(textureWinner);
+        //gameOver.drawIHM(textureGameOver);
 
         /***********************************************************
         ************************************************************
@@ -485,6 +494,8 @@ int main(int argc, char** argv){
     glDeleteTextures(1, &textureIHMCoins);
     glDeleteTextures(1, &textureInterface);
     glDeleteTextures(1, &textureGuide);
+    glDeleteTextures(1, &textureWinner);
+    glDeleteTextures(1, &textureGameOver);
     // Aliens
 	glDeleteTextures(1, &textureAlienFatty);
     glDeleteTextures(1, &textureAlienNervous);
