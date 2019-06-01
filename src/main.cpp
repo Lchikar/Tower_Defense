@@ -202,13 +202,14 @@ int main(int argc, char** argv){
     /* Boucle principale */
     int loop = 1;
     while(loop) {   
-
+        /*
         //calcul risque random
         for(int i = 0; i < edges.size(); i++){
             int weight = random;
             G.update_weight(edges[i].first,edges[i].second, weight);      
         }
-
+        */
+        
         //Update chemins aliens
 
         
