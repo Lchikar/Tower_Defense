@@ -324,6 +324,13 @@ int main(int argc, char** argv){
         /*************************************************/
 
         /*********** DRAW ALIENS INGAME **************/
+        for(int i = 0; i < game.getAliens().size(); i++){
+            Alien curr_alien = game.getAliens()[i];
+            if(curr_alien.getAlienType() == fatty)
+                curr_alien.drawEntity(textureAlienFatty);
+            else
+                curr_alien.drawEntity(textureAlienNervous);
+        }
         /*********************************************/
 
 
