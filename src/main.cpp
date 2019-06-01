@@ -78,6 +78,10 @@ int main(int argc, char** argv){
         G.addVertex(u);
     }
     for(int u = 0; u < nbNodes; u++){
+        printf("Node %d (%d,%d) ---> ", u, nodes[u][1], nodes[u][2]);
+        nodes[u][1] = nodes[u][1]-(GL_VIEW_WIDTH/2);
+        nodes[u][2] = -(nodes[u][2]-(GL_VIEW_HEIGHT/2));
+        printf("Node %d (%d,%d)\n", u, nodes[u][1], nodes[u][2]);
         for(int v = 3; v < nodes[u].size(); v++){
             Position u_p = Position(float(nodes[u][1]),float(nodes[u][2]));
             Position v_p = Position(float(nodes[nodes[u][v]][1]),float(nodes[nodes[u][v]][2]));
@@ -96,6 +100,10 @@ int main(int argc, char** argv){
     
 
     InGame game = InGame(G);
+    for(int i = 0; i < game.getAliens().size(); i++){
+        Alien alien = game.getAliens()[i];
+        game.getAliens()[i].move(Position(float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2])));
+    }
     int nbTowers = 0;
     vector<pair<int,int>> edges = G.edges();
     //printf("nb edges %d\n", edges.size());

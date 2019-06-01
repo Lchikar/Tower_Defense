@@ -213,13 +213,13 @@ void Graph::addEdge(int u, int v, int w){
 
 	for(auto i = this->adj[u].begin(); i != this->adj[u].end(); i++){
 		if((*i).first == v){
-			fprintf(stderr, "Edge %d--%d already existing\n", u, v);
+			//fprintf(stderr, "Edge %d--%d already existing\n", u, v);
 			return;
 		}
 	}
 	for(auto i = this->adj[v].begin(); i != this->adj[v].end(); i++){
 		if((*i).first == u){
-			fprintf(stderr, "Edge %d--%d already existing\n", u, v);
+			//fprintf(stderr, "Edge %d--%d already existing\n", u, v);
 			return;
 		}
 	}
