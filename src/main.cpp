@@ -12,6 +12,8 @@
 #include <string>
 #include <string.h>
 #include <vector>
+#include <cstdlib>
+#include <unistd.h>
 
 #include "../include/Entity.hpp"
 #include "../include/Map.hpp"
@@ -93,10 +95,10 @@ int main(int argc, char** argv){
     // cout << "\n";
     
 
-    InGame game = InGame();
+    InGame game = InGame(G);
     int nbTowers = 0;
     vector<pair<int,int>> edges = G.edges();
-    printf("nb edges %d\n", edges.size());
+    //printf("nb edges %d\n", edges.size());
     // for(int i = 0; i < edges.size(); i++)
     //     printf("(%d,%d)\n", edges[i].first,edges[i].second);
 
@@ -175,7 +177,7 @@ int main(int argc, char** argv){
     Button buttonCross = Button(cros);
     GLuint textureButtonCross = buttonCross.setButtonTexture();
     // Button Pause
-    Button buttonPause = Button(pause);
+    Button buttonPause = Button(pause_game);
     GLuint textureButtonPause = buttonPause.setButtonTexture();
     // Button Play
     Button buttonPlay = Button(play);
@@ -211,23 +213,31 @@ int main(int argc, char** argv){
 
 /****************** TEST NEW ELEMENTS *******************/
     // New alien
-    Alien alienTest = Alien(fatty);
+    Alien alienTest = Alien(fatty, G);
 /*******************************************************/
 
 
    
     /* Boucle principale */
     int loop = 1;
-    while(loop) {   
-        /*
+    while(loop){   
+        sleep(1/100);
         //calcul risque random
         for(int i = 0; i < edges.size(); i++){
-            int weight = random;
-            G.update_weight(edges[i].first,edges[i].second, weight);      
+            int weight = rand()%10 +1;
+            G.update_weight(edges[i].first,edges[i].second, 
+                G.weight(edges[i].first,edges[i].second)*weight);      
         }
-        */
+        
 
         //Update chemins aliens
+        for(int i = 0; i < game.getAliens().size(); i++){
+            Alien curr_alien = game.getAliens()[i];
+            int curr_node = curr_alien.getPath()[0].first;
+            Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2])); 
+            if(curr_alien.getPos().dist(pos_curr_node) <= 4)
+                curr_alien.updatePath(G);
+        }
 
         
         /* Recuperation du temps au debut de la boucle */
@@ -300,7 +310,7 @@ int main(int argc, char** argv){
         /*********** DRAW BUILDINGS INGAME **************/
         for(int i = 0; i < game.getBuildings().size(); i++){
             Building batiment = game.getBuildings()[i];
-            printf("Batiment %d --> %d\n", i, batiment.getType());
+            //printf("Batiment %d --> %d\n", i, batiment.getType());
             switch (batiment.getType()){
                 case radar: batiment.drawEntity(textureRadar);
                             break; 
@@ -313,6 +323,8 @@ int main(int argc, char** argv){
         }
         /*************************************************/
 
+        /*********** DRAW ALIENS INGAME **************/
+        /*********************************************/
 
 
         /****************** DRAW BUTTON ******************/
@@ -345,8 +357,6 @@ int main(int argc, char** argv){
 
         /*************** Boucle traitant les evenements ***************/
         SDL_Event e;
-        
-
         while(SDL_PollEvent(&e)) {
             /* L'utilisateur ferme la fenetre : */
             if(e.type == SDL_QUIT) {
@@ -472,6 +482,21 @@ int main(int argc, char** argv){
         }
         /****************************************************************************/
 
+        /*********** UPDATE ALIENS POSITION **************/
+        for(int i = 0; i < game.getAliens().size(); i++){
+            Alien curr_alien = game.getAliens()[i];
+            Position curr_pos = curr_alien.getPos();
+            int dest = curr_alien.dest();
+            Position pos_dest = Position(float(nodes[dest][1]),float(nodes[dest][2]));
+            if(pos_dest.getX() < curr_pos.getX())
+                curr_alien.move(Position(curr_pos.getX()-curr_alien.getSpeed(), curr_pos.getY()));
+            else if(pos_dest.getX() > curr_pos.getX())
+                curr_alien.move(Position(curr_pos.getX()+curr_alien.getSpeed(), curr_pos.getY()));
+            if(pos_dest.getY() < curr_pos.getY())
+                curr_alien.move(Position(curr_pos.getX(), curr_pos.getY()-curr_alien.getSpeed()));
+            else if(pos_dest.getY() > curr_pos.getY())
+                curr_alien.move(Position(curr_pos.getX(), curr_pos.getY()+curr_alien.getSpeed()));                                    
+        }
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;

@@ -7,8 +7,9 @@
 #include "../include/Tower.hpp"
 #include "../include/Building.hpp"
 #include "../include/InGame.hpp"
+#include "../include/Graph.hpp"
 
-InGame::InGame(){
+InGame::InGame(Graph G){
 	this->life = 100;
 	this->money = 150;
 	this->waves = 1;
@@ -18,10 +19,10 @@ InGame::InGame(){
 	this->buildings = vector<Building>();
 	this->aliens = vector<Alien>();
 
-	this->aliens.push_back(Alien(fatty));
-	this->aliens.push_back(Alien(fatty));
-	this->aliens.push_back(Alien(nervous));
-	this->aliens.push_back(Alien(nervous));
+	this->aliens.push_back(Alien(fatty, G));
+	this->aliens.push_back(Alien(fatty, G));
+	this->aliens.push_back(Alien(nervous, G));
+	this->aliens.push_back(Alien(nervous, G));
 }
 
 InGame::~InGame(){;}

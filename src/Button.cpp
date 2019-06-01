@@ -48,7 +48,7 @@ GLuint Button::setButtonTexture() {
 		textureID = setTexture(filenameButtonPlay);
 		return textureID;
 	}
-	if(type == pause) {
+	if(type == pause_game) {
 		textureID = setTexture(filenameButtonPause);
 		return textureID;
 	}
@@ -64,7 +64,7 @@ void Button::drawButton(GLuint textureID) {
 		x = 560;
 		y = 345;
 	}
-	if(type == pause) {
+	if(type == pause_game) {
 		x = 500;
 		y = 345;
 	}

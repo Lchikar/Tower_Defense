@@ -18,19 +18,21 @@ using namespace std;
 ************ CONSTRUCTOR ****************
 *****************************************/
 /* Contructor */
-Alien::Alien(AlienType type){
+Alien::Alien(AlienType type, Graph G){
 	this->type = type;
 	if(type == fatty){
 		pv =  150;
 		reward = 100;
-		speed = 20;
+		speed = 10;
 	} else {
 		pv =  50;
 		reward = 50;
-		speed = 100;
+		speed = 20;
 	}
 	setWidth(35);
 	setHeight(35);
+	map<int,vector<pair<int,int>>> paths = G.Dijkstra(0); 
+	this->path = paths[paths.size()-1];
 }
 /* Destructor */
 Alien::~Alien(){};
@@ -98,4 +100,18 @@ void Alien::setSpeed(int speed) {
 
 void Alien::setAlienType(AlienType type) {
 	this->type = type;
+}
+
+vector<pair<int,int>> Alien::getPath(){
+	return this->path;
+}
+
+void Alien::updatePath(Graph G){
+    this->path.erase(this->path.begin());
+    map<int,vector<pair<int,int>>> new_paths = G.Dijkstra(this->path[0].first); 
+	this->path = new_paths[new_paths.size()-1];
+}
+
+int Alien::dest(){
+	return this->path[0].second;
 }

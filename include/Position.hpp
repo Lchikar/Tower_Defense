@@ -23,7 +23,7 @@ class Position {
 		void setY(float Y);
 
 		//calcule la distance entre this et p
-		float dist(Position p); 
+		float dist(Position p);
 
 		//prduit scalaire
 		float scalaire(Position p);

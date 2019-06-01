@@ -8,6 +8,7 @@
 #include "Alien.hpp"
 #include "Tower.hpp"
 #include "Building.hpp"
+#include "Graph.hpp"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ class InGame{
 		int waves;
 
 	public:
-		InGame();
+		InGame(Graph G);
 		~InGame();
 
 		vector<Alien> getAliens();

@@ -16,7 +16,7 @@ enum ButtonType
 {
 	info,
 	play,
-	pause,
+	pause_game,
 	cros,
 };
 

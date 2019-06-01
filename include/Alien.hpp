@@ -25,9 +25,10 @@ class Alien : public Entity {
 		int reward; /* argent laisse apres la mort */
 		int speed; /* vitesse de deplacement en unite de temps */
 		AlienType type; /* type d'alien */
+		vector<pair<int,int>> path; //chemin jusqu'à la sortie
 
 	public:
-		Alien(AlienType type);
+		Alien(AlienType type, Graph G);
 		~Alien();
 
 		/* initialisation de la texture */
@@ -41,12 +42,15 @@ class Alien : public Entity {
 		int getReward();
 		int getSpeed();
 		AlienType getAlienType();
+		vector<pair<int,int>> getPath();
 
 		/* set */
 		void setPv(int pv);
 		void setReward(int reward);
 		void setSpeed(int speed);
 		void setAlienType(AlienType type);
+		void updatePath(Graph G);
+		int dest();
 
-		//Path choosePath(); /* choisit un chemin à suivre selon le risque */
+
 };

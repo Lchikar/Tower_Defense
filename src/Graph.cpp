@@ -265,6 +265,7 @@ void Graph::update_weight(int u, int v, int w){
 			if((*it).first == v)
 				(*it).second = w;
 		}
+		return;
 	}
 	fprintf(stderr, "Invalid nodes\n");
 }
