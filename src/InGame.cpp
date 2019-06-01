@@ -10,7 +10,7 @@
 
 InGame::InGame(){
 	this->life = 100;
-	this->money = 50;
+	this->money = 150;
 	this->waves = 1;
 	this->time = clock();
 

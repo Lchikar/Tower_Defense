@@ -259,9 +259,10 @@ int main(int argc, char** argv){
         /*********************************************/
 
 
-        /************** AFFICHER ARGENT **************/
-        char *moneey = "50 $";
-        vBitmapOutput(510, 275, moneey, GLUT_BITMAP_HELVETICA_18);
+        /************** DRAW MONEY INGAME **************/
+        char argent[10];
+        sprintf(argent, "%d $", game.getMoney());
+        vBitmapOutput(510, 275, argent, GLUT_BITMAP_HELVETICA_18);
         /*********************************************/
 
 
