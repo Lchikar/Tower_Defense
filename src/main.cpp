@@ -2,6 +2,7 @@
 #include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <GL/glut.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -28,6 +29,17 @@
 #include "../include/const.hpp"
 
 // Dimensions de la fenetre : 1180x750;
+
+/******** FONCTIONS AFFICHER CHAÎNE DE CARATERE ***********/
+void vBitmapOutput(int x, int y, char *string, void *font) {
+    int len, i; // longueur de la chaîne de caractère
+    glRasterPos2f(x,y); // Positionne le premier caratère de la chaîne
+    len = (int) strlen(string); // Calcule la longueur de la chaîne
+    for (i = 0; i < len; i++) {
+        glutBitmapCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
+    }
+}
+/********************************************************/
 
 
 int main(int argc, char** argv){
@@ -125,6 +137,9 @@ int main(int argc, char** argv){
     /* Activation de la transparence des textures */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+    /* Initialisation de GLUT pour l'affichage de texte */
+    glutInit(&argc, argv);
 /********************************************************/
 
 
@@ -145,13 +160,11 @@ int main(int argc, char** argv){
 /*******************************************************/
 
 
-
 /********************** MAP ***************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
 /******************************************************/
-
 
 
 /************** Initialisation de l'IHM ****************/
@@ -176,29 +189,27 @@ int main(int argc, char** argv){
     // User Guide
     IHM guide = IHM(userGuide);
     GLuint textureGuide = guide.setIHMTexture();
-/********************************************************/
+
+    // Towers
+    Tower tower1 = Tower(red);
+    Tower tower2 = Tower(green);
+    Tower tower3 = Tower(blue);
+    Tower tower4 = Tower(yellow);
+    // Buildings
+    Building radarIHM = Building(radar);
+    Building navetteIHM = Building(navette);
+    Building robotIHM = Building(robot);
+/*************************************************************/
 
 
 
 /****************** TEST NEW ELEMENTS *******************/
     // New alien
     Alien alienTest = Alien(fatty);
-
-    // New tower
-    Tower tower1 = Tower(red);
-    Tower tower2 = Tower(green);
-    Tower tower3 = Tower(blue);
-    Tower tower4 = Tower(yellow);
-
-    // New Building
-    Building radarIHM = Building(radar);
-    Building navetteIHM = Building(navette);
-    Building robotIHM = Building(robot);
 /*******************************************************/
 
 
    
-
     /* Boucle principale */
     int loop = 1;
     while(loop) {   
@@ -209,16 +220,18 @@ int main(int argc, char** argv){
             G.update_weight(edges[i].first,edges[i].second, weight);      
         }
         */
-        
+
         //Update chemins aliens
 
         
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
         
-        /****************************************
-        *************** DRAW ********************
-        *****************************************/
+        
+        /***********************************************************
+        ************************* DRAW *****************************
+        ***********************************************************/
+        glClearColor(0,0,0,0);
         glClear(GL_COLOR_BUFFER_BIT);
 
 
@@ -239,8 +252,6 @@ int main(int argc, char** argv){
         tower3.drawTowerIHM(textureTower3);
         tower4.drawTowerIHM(textureTower4);
         /********************************************/
-    
-
         /************ DRAW BUILDING IHM *************/
         radarIHM.drawBuildingIHM(textureRadar);
         navetteIHM.drawBuildingIHM(textureNavette);
@@ -248,8 +259,18 @@ int main(int argc, char** argv){
         /*********************************************/
 
 
+        /************** AFFICHER ARGENT **************/
+        char *moneey = "50 $";
+        vBitmapOutput(510, 275, moneey, GLUT_BITMAP_HELVETICA_18);
+        /*********************************************/
+
+
+        /************** TEST ALIEN *******************/
         alienTest.move(Position(-500, 140));
         alienTest.drawEntity(textureAlienFatty);
+        /*********************************************/
+
+
 
         /********** DRAW TOWERS IN GAME ***************/
         for(int i = 0; i < game.getTowers().size(); i++){
@@ -301,6 +322,10 @@ int main(int argc, char** argv){
         }
         /*********************************************/
 
+
+        /***********************************************************
+        ************************************************************
+        ***********************************************************/
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();

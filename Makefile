@@ -1,6 +1,6 @@
 CC     = g++
 CFLAGS = -Wall -Wextra -O2 -Wno-unused-result -g
-LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lm
+LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lglut -lm
 LIB    = -lm
 OBJ    = bin/main.o bin/texture.o bin/Button.o bin/IHM.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o bin/Graph.o bin/InGame.o
 RM     = rm -f
