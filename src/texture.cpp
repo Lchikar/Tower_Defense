@@ -3,6 +3,7 @@
 #include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <GL/glut.h>
 
 #include "../include/texture.hpp"
 
@@ -63,3 +64,14 @@ void drawTexture(GLuint textureID, float x, float y) {
 		glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+/******** FONCTIONS AFFICHER CHAÎNE DE CARATERE ***********/
+void vBitmapOutput(int x, int y, char *string, void *font) {
+    int len, i; // longueur de la chaîne de caractère
+    glRasterPos2f(x,y); // Positionne le premier caratère de la chaîne
+    len = (int) strlen(string); // Calcule la longueur de la chaîne
+    for (i = 0; i < len; i++) {
+        glutBitmapCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
+    }
+}
+/********************************************************/

@@ -32,16 +32,6 @@
 
 // Dimensions de la fenetre : 1180x750;
 
-/******** FONCTIONS AFFICHER CHAÎNE DE CARATERE ***********/
-void vBitmapOutput(int x, int y, char *string, void *font) {
-    int len, i; // longueur de la chaîne de caractère
-    glRasterPos2f(x,y); // Positionne le premier caratère de la chaîne
-    len = (int) strlen(string); // Calcule la longueur de la chaîne
-    for (i = 0; i < len; i++) {
-        glutBitmapCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
-    }
-}
-/********************************************************/
 
 
 int main(int argc, char** argv){
@@ -229,6 +219,9 @@ int main(int argc, char** argv){
     /* Boucle principale */
     int loop = 1;
     while(loop){   
+        /* Recuperation du temps au debut de la boucle */
+        Uint32 startTime = SDL_GetTicks();
+
         sleep(1/100);
         //calcul risque random
         for(int i = 0; i < edges.size(); i++){
@@ -247,9 +240,6 @@ int main(int argc, char** argv){
                 curr_alien.updatePath(G);
         }
 
-        
-        /* Recuperation du temps au debut de la boucle */
-        Uint32 startTime = SDL_GetTicks();
         
         
         /***********************************************************
@@ -291,8 +281,8 @@ int main(int argc, char** argv){
 
 
         /************** TEST ALIEN *******************/
-        alienTest.move(Position(-500, 140));
-        alienTest.drawEntity(textureAlienFatty);
+        //alienTest.move(Position(-500, 140));
+        //alienTest.drawEntity(textureAlienFatty);
         /*********************************************/
 
 
@@ -497,6 +487,7 @@ int main(int argc, char** argv){
         }
         /****************************************************************************/
 
+        
         /*********** UPDATE ALIENS POSITION **************/
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien curr_alien = game.getAliens()[i];
@@ -512,6 +503,7 @@ int main(int argc, char** argv){
             else if(pos_dest.getY() > curr_pos.getY())
                 curr_alien.move(Position(curr_pos.getX(), curr_pos.getY()+curr_alien.getSpeed()));                                    
         }
+        
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;

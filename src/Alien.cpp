@@ -11,9 +11,6 @@
 
 using namespace std;
 
-// const char* filenameNervous = "./img/assets/textAlienNervous.png";
-// const char* filenameFatty = "./img/assets/textAlienFatty.png";
-
 /****************************************
 ************ CONSTRUCTOR ****************
 *****************************************/

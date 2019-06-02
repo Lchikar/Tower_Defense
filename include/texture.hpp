@@ -13,3 +13,5 @@ int isLoaded (SDL_Surface* image);
 GLuint setTexture(const char* filename);
 
 void drawTexture(GLuint textureID, float x, float y);
+
+void vBitmapOutput(int x, int y, char *string, void *font);
