@@ -76,7 +76,7 @@ void Button::drawButton(GLuint textureID) {
 		x = 560;
 		y = 345;
 	}
-	this->move(Position(x, y));
+	this->setPos(Position(x, y));
 	glPushMatrix();
 	drawEntity(textureID);
 	glPopMatrix();

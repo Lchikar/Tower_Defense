@@ -33,7 +33,6 @@
 // Dimensions de la fenetre : 1180x750;
 
 
-
 int main(int argc, char** argv){
 
     if(argc != 2){
@@ -68,10 +67,10 @@ int main(int argc, char** argv){
         G.addVertex(u);
     }
     for(int u = 0; u < nbNodes; u++){
-        printf("Node %d (%d,%d) ---> ", u, nodes[u][1], nodes[u][2]);
+        //printf("Node %d (%d,%d) ---> ", u, nodes[u][1], nodes[u][2]);
         nodes[u][1] = nodes[u][1]-(GL_VIEW_WIDTH/2);
         nodes[u][2] = -(nodes[u][2]-(GL_VIEW_HEIGHT/2));
-        printf("Node %d (%d,%d)\n", u, nodes[u][1], nodes[u][2]);
+        //printf("Node %d (%d,%d)\n", u, nodes[u][1], nodes[u][2]);
         for(int v = 3; v < nodes[u].size(); v++){
             Position u_p = Position(float(nodes[u][1]),float(nodes[u][2]));
             Position v_p = Position(float(nodes[nodes[u][v]][1]),float(nodes[nodes[u][v]][2]));
@@ -89,11 +88,16 @@ int main(int argc, char** argv){
     // cout << "\n";
     
 
-    InGame game = InGame(G);
+    Position pos_init_aliens = Position(float(nodes[0][1]),float(nodes[0][2]));
+    InGame game = InGame(G, pos_init_aliens);
     for(int i = 0; i < game.getAliens().size(); i++){
-        Alien alien = game.getAliens()[i];
-        game.getAliens()[i].move(Position(float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2])));
+        game.getAliens()[i].move(&(game.getAliens()[i]), Position(float(nodes[game.getAliens()[i].getPath()[0].first][1]),float(nodes[game.getAliens()[i].getPath()[0].first][2])));
     }
+    // for(int i = 0; i < game.getAliens().size(); i++){
+    //     Alien alien = game.getAliens()[i];
+    //     printf("Noeud %d (%f,%f)\n", alien.getPath()[0].first,float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2]));
+    //     printf("Position alien %d --> (%f,%f)\n", i, alien.getPos().getX(), alien.getPos().getY());
+    // }
     int nbTowers = 0;
     vector<pair<int,int>> edges = G.edges();
     //printf("nb edges %d\n", edges.size());
@@ -207,22 +211,36 @@ int main(int argc, char** argv){
     Building robotIHM = Building(robot);
 /*************************************************************/
 
-
-
-/****************** TEST NEW ELEMENTS *******************/
-    // New alien
-    Alien alienTest = Alien(fatty, G);
-/*******************************************************/
-
-
    
     /* Boucle principale */
     int loop = 1;
-    while(loop){   
+    
+    while(loop){ 
+        for(int i = 0; i < game.getAliens().size(); i++){
+            Alien alien = (game.getAliens()[i]);
+            printf("\tPosition alien %d --> (%f,%f)\n", i, alien.getPos().getX(), alien.getPos().getY());
+        }
+  
+
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
 
         sleep(1/100);
+
+        /**************** DRAW WIN OR GAME OVER **************/
+        if(game.getWaves() == 50){
+            win.drawIHM(textureWinner);
+            break;
+        }
+        if(game.getLife() <= 0){
+            gameOver.drawIHM(textureGameOver);
+            break;
+        }
+        /***********************************************************
+        ************************************************************
+        ***********************************************************/
+
+
         //calcul risque random
         for(int i = 0; i < edges.size(); i++){
             int weight = rand()%10 +1;
@@ -233,7 +251,7 @@ int main(int argc, char** argv){
 
         //Update chemins aliens
         for(int i = 0; i < game.getAliens().size(); i++){
-            Alien curr_alien = game.getAliens()[i];
+            Alien curr_alien = (game.getAliens()[i]);
             int curr_node = curr_alien.getPath()[0].first;
             Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2])); 
             if(curr_alien.getPos().dist(pos_curr_node) <= 4)
@@ -275,16 +293,9 @@ int main(int argc, char** argv){
 
         /************** DRAW MONEY INGAME **************/
         char argent[10];
-        sprintf(argent, "%d $", game.getMoney());
+        sprintf(argent, "%d $", game.getMoney()); 
         vBitmapOutput(510, 275, argent, GLUT_BITMAP_HELVETICA_18);
         /*********************************************/
-
-
-        /************** TEST ALIEN *******************/
-        //alienTest.move(Position(-500, 140));
-        //alienTest.drawEntity(textureAlienFatty);
-        /*********************************************/
-
 
 
         /********** DRAW TOWERS IN GAME ***************/
@@ -302,7 +313,7 @@ int main(int argc, char** argv){
                             break;
                 default: ;
             }
-        }
+        } 
         /************************************************/
 
         /*********** DRAW BUILDINGS INGAME **************/
@@ -318,12 +329,12 @@ int main(int argc, char** argv){
                             break;
                 default: ;
             }
-        }
+        } 
         /*************************************************/
 
         /*********** DRAW ALIENS INGAME **************/
         for(int i = 0; i < game.getAliens().size(); i++){
-            Alien curr_alien = game.getAliens()[i];
+            Alien curr_alien = (game.getAliens()[i]);
             if(curr_alien.getAlienType() == fatty)
                 curr_alien.drawEntity(textureAlienFatty);
             else
@@ -346,13 +357,6 @@ int main(int argc, char** argv){
         }
         /***************************************************/
 
-        /**************** DRAW WIN OR GAME OVER **************/
-        //win.drawIHM(textureWinner);
-        //gameOver.drawIHM(textureGameOver);
-
-        /***********************************************************
-        ************************************************************
-        ***********************************************************/
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
@@ -426,27 +430,39 @@ int main(int argc, char** argv){
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
                         if(tower1.getIsClick()) {
                             printf("Achat tour 1\n");
-                            game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            tower1.setIsClick(false);
-                        }
+                            if(game.getMoney() >= tower1.getPrice()){
+                                game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                tower1.setIsClick(false);
+                                game.setMoney(-tower1.getPrice());
+                            }                        }
+
                     }
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
                         if(tower2.getIsClick()) {
                             printf("Achat tour 2\n");
-                            game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            tower2.setIsClick(false);
+                            if(game.getMoney() >= tower2.getPrice()){
+                                game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                tower2.setIsClick(false);
+                                game.setMoney(-tower2.getPrice());
+                            }
                         }
                     }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
                         if(tower3.getIsClick()) {
                             printf("Achat tour 3\n");
-                            game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            tower3.setIsClick(false);
+                            if(game.getMoney() >= tower3.getPrice()){
+                                game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                tower3.setIsClick(false);
+                                game.setMoney(-tower3.getPrice());
+                            }
                         }
                     }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
                         if(tower4.getIsClick()) {
                             printf("Achat tour 4\n");
-                            game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            tower4.setIsClick(false);
+                            if(game.getMoney() >= tower4.getPrice()){
+                                game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                tower4.setIsClick(false);
+                                game.setMoney(-tower4.getPrice());
+                            }
                         }
                     }
 
@@ -457,21 +473,30 @@ int main(int argc, char** argv){
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(radarIHM.getPos()) > 25){
                         if(radarIHM.getIsClick()) {
                             printf("Achat radar\n");
-                            game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            radarIHM.setIsClick(false);
+                            if(game.getMoney() >= radarIHM.getPrice()){
+                                game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                radarIHM.setIsClick(false);
+                                game.setMoney(-radarIHM.getPrice());
+                            }
                         }
                     }
                     if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(navetteIHM.getPos()) > 25){
                         if(navetteIHM.getIsClick()) {
                             printf("Achat navette\n");
-                            game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            navetteIHM.setIsClick(false);
+                            if(game.getMoney() >= navetteIHM.getPrice()){
+                                game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                navetteIHM.setIsClick(false);
+                                game.setMoney(- navetteIHM.getPrice());
+                            }
                         }
                     }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(robotIHM.getPos()) > 25){
                         if(robotIHM.getIsClick()) {
-                            printf("Achat tour 3\n");
-                            game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                            robotIHM.setIsClick(false);
+                            printf("Achat robot\n");
+                            if(game.getMoney() >= robotIHM.getPrice()){
+                                game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                robotIHM.setIsClick(false);
+                                game.setMoney(-robotIHM.getPrice());
+                            }
                         }
                     }
                     break;
@@ -485,23 +510,45 @@ int main(int argc, char** argv){
                     break;
             }
         }
+
         /****************************************************************************/
 
         
         /*********** UPDATE ALIENS POSITION **************/
         for(int i = 0; i < game.getAliens().size(); i++){
-            Alien curr_alien = game.getAliens()[i];
-            Position curr_pos = curr_alien.getPos();
-            int dest = curr_alien.dest();
+            printf("CURRENT ALIEN %p\n", (game.getAliens()[i]));
+            Position curr_pos = (game.getAliens()[i]).getPos();
+            int dest = (game.getAliens()[i]).dest();
+            int speed = (game.getAliens()[i]).getSpeed();
+
+            printf("Actuelle position (%f,%f)\n", curr_pos.getX(), curr_pos.getY());
+            printf("Destination %d (%f,%f)\n", dest, float(nodes[dest][1]),float(nodes[dest][2]));
+            printf("Speed %d\n", speed);
+
             Position pos_dest = Position(float(nodes[dest][1]),float(nodes[dest][2]));
-            if(pos_dest.getX() < curr_pos.getX())
-                curr_alien.move(Position(curr_pos.getX()-curr_alien.getSpeed(), curr_pos.getY()));
-            else if(pos_dest.getX() > curr_pos.getX())
-                curr_alien.move(Position(curr_pos.getX()+curr_alien.getSpeed(), curr_pos.getY()));
-            if(pos_dest.getY() < curr_pos.getY())
-                curr_alien.move(Position(curr_pos.getX(), curr_pos.getY()-curr_alien.getSpeed()));
-            else if(pos_dest.getY() > curr_pos.getY())
-                curr_alien.move(Position(curr_pos.getX(), curr_pos.getY()+curr_alien.getSpeed()));                                    
+            if(pos_dest.getX() < curr_pos.getX()){
+                printf("\tGO WEST\n");
+                printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()-float(speed)), float(curr_pos.getY()));
+                (game.getAliens()[i]).setPos(Position(float(curr_pos.getX()-float(speed)), float(curr_pos.getY())));
+            }
+            else if(pos_dest.getX() > curr_pos.getX()){
+                printf("\tGO EAST\n");
+                printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()+float(speed)), float(curr_pos.getY()));
+                (game.getAliens()[i]).setPos(Position(float(curr_pos.getX()+float(speed)), float(curr_pos.getY())));
+            }
+            if(pos_dest.getY() < curr_pos.getY()){
+                printf("\tGO NORTH\n");
+                printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()), float(curr_pos.getY()-float(speed)));
+                (game.getAliens()[i]).setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()-float(speed))));
+            }
+            else if(pos_dest.getY() > curr_pos.getY()){
+                printf("\tGO SOUTH\n");
+                printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()), float(curr_pos.getY()+float(speed)));
+                (game.getAliens()[i]).setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()+float(speed)))); 
+            }
+            
+            printf("Nouvelle position alien %d --> (%f,%f)\n\n", i, game.getAliens()[i].getPos().getX(), game.getAliens()[i].getPos().getY());
+                                               
         }
         
 

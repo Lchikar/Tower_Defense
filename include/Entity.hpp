@@ -33,7 +33,7 @@ class Entity {
 		
 		Position getPos();
 		//set position
-		void move(Position p);
+		void setPos(Position p);
 
 		GLuint getTextureID();
 		void setTextureID(GLuint textureID);

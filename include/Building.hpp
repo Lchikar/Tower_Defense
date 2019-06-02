@@ -24,6 +24,7 @@ class Building : public Entity{
 		int value; /* valeur de l'upgrade */
 		TypeBuild type; /* type d'upgrade */
 		bool isClick;
+		int price;
 
 	public:
 		Building(TypeBuild type);
@@ -38,6 +39,7 @@ class Building : public Entity{
 		int getValue();
 		TypeBuild getType();
 		bool getIsClick();
+		int getPrice();
 
 		void setValue(int value);
 		void setType(TypeBuild type);

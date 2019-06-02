@@ -1,7 +1,6 @@
 #include <iostream> 
 #include <algorithm>
 #include <vector> 
-#include <ctime>
 
 #include "../include/Alien.hpp"
 #include "../include/Tower.hpp"
@@ -9,20 +8,19 @@
 #include "../include/InGame.hpp"
 #include "../include/Graph.hpp"
 
-InGame::InGame(Graph G){
+InGame::InGame(Graph G, Position pos_init_aliens){
 	this->life = 100;
 	this->money = 150;
 	this->waves = 1;
-	this->time = clock();
 
 	this->towers = vector<Tower>();
 	this->buildings = vector<Building>();
 	this->aliens = vector<Alien>();
 
-	this->aliens.push_back(Alien(fatty, G));
-	this->aliens.push_back(Alien(fatty, G));
-	this->aliens.push_back(Alien(nervous, G));
-	this->aliens.push_back(Alien(nervous, G));
+	this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
+	this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
+	this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
+	this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
 }
 
 InGame::~InGame(){;}
@@ -54,12 +52,12 @@ void InGame::addAliens(Alien alien){
 }
 void InGame::addTowers(ColorType type, Position p){
 	Tower tower = Tower(type);
-	tower.move(p);
+	tower.setPos(p);
 	this->towers.push_back(tower);
 }
 void InGame::addBuildings(TypeBuild type, Position p){
 	Building building = Building(type);
-	building.move(p);
+	building.setPos(p);
 	this->buildings.push_back(building);
 }
 
@@ -79,13 +77,6 @@ void InGame::setLife(int pv){
 	this->life -= pv;
 }
 
-clock_t InGame::getTime(){
-	return this->time;
-}
-//no setter for time just need to update it
-void InGame::updateTime(){
-	this->time = clock() - this->time;
-}
 
 int InGame::getMoney(){
 	return this->money;

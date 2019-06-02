@@ -15,8 +15,9 @@ using namespace std;
 ************ CONSTRUCTOR ****************
 *****************************************/
 /* Contructor */
-Alien::Alien(AlienType type, Graph G){
+Alien::Alien(AlienType type, Graph G, Position pos){
 	this->type = type;
+	this->setPos(pos);
 	if(type == fatty){
 		pv =  150;
 		reward = 100;
@@ -34,6 +35,11 @@ Alien::Alien(AlienType type, Graph G){
 /* Destructor */
 Alien::~Alien(){};
 
+void Alien::move(Alien* alien, Position p){
+	printf("Move alien %p\n", this);
+	this->setPos(p);
+	printf("new pos (%f,%f)\n", this->getPos().getX(),this->getPos().getY());
+}
 
 /****************************************
 *************** DRAW ********************

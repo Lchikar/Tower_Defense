@@ -28,7 +28,7 @@ class Alien : public Entity {
 		vector<pair<int,int>> path; //chemin jusqu'à la sortie
 
 	public:
-		Alien(AlienType type, Graph G);
+		Alien(AlienType type, Graph G, Position pos);
 		~Alien();
 
 		/* initialisation de la texture */
@@ -51,6 +51,8 @@ class Alien : public Entity {
 		void setAlienType(AlienType type);
 		void updatePath(Graph G);
 		int dest();
+		void move(Alien* alien, Position p);
+
 
 
 };

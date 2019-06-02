@@ -22,25 +22,25 @@ Tower::Tower(ColorType type) {
 		damage = 3;
 		range = 2;
 		shotRate = 1;
-		price = 5;
+		price = 10;
 	}
 	if(type == green){
 		damage = 2;
 		range = 1;
 		shotRate = 3;
-		price = 5;
+		price = 10;
 	}
 	if(type == blue){
 		damage = 1;
 		range = 3;
 		shotRate = 2;
-		price = 5;
+		price = 10;
 	}
 	if(type == yellow){
 		damage = 1;
 		range = 1;
 		shotRate = 2;
-		price = 5;
+		price = 20;
 	}
 	setWidth(50);
 	setHeight(50);
@@ -66,7 +66,7 @@ void Tower::drawTowerIHM(GLuint textureID) {
 	if(type == yellow) {
 		y = -55;
 	}
-	this->move(Position(x, y));
+	this->setPos(Position(x, y));
 	glPushMatrix();
 	drawEntity(textureID);
 	glPopMatrix();

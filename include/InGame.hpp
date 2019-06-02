@@ -3,7 +3,6 @@
 #include <iostream> 
 #include <algorithm>
 #include <vector> 
-#include <ctime>
 
 #include "Alien.hpp"
 #include "Tower.hpp"
@@ -18,12 +17,11 @@ class InGame{
 		vector<Tower> towers;
 		vector<Building> buildings;
 		int life;
-		clock_t time;
 		int money;
 		int waves;
 
 	public:
-		InGame(Graph G);
+		InGame(Graph G, Position pos_init_aliens);
 		~InGame();
 
 		vector<Alien> getAliens();

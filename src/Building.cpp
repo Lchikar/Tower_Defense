@@ -19,6 +19,7 @@ Building::Building(TypeBuild type) {
 	this->value = value;
 	this->type = type;
 	this->isClick = false;
+	this->price = 15;
 	setWidth(50);
 	setHeight(50);
 }
@@ -41,7 +42,7 @@ void Building::drawBuildingIHM(GLuint textureID) {
 	if(type == robot) {
 		y = -310;
 	}
-	this->move(Position(x, y));
+	this->setPos(Position(x, y));
 	glPushMatrix();
 	drawEntity(textureID);
 	glPopMatrix();
@@ -73,6 +74,11 @@ TypeBuild Building::getType() {
 bool Building::getIsClick() {
 	bool isClick = this->isClick;
 	return isClick;
+}
+
+int Building::getPrice(){
+	int price = this->price;
+	return price;
 }
 
 void Building::setValue(int value) {
