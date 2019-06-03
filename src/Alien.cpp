@@ -86,10 +86,9 @@ pair<int,int>* Alien::getNextStep(int i){
 }
 
 void Alien::updatePath(Graph G){
-	// if(this->path.size() == 1){
-	// 	this->path = vector<pair<int,int>>(this->path[0].second, this->path[0].second);
-	// 	return;
-	// }
+	if(this->path.size() == 1){
+		this->path.push_back(pair<int,int>(this->path[0].second, this->path[0].second));
+	}
     this->path.erase(this->path.begin(), this->path.begin()+1);
 	// printf("après pop first path : ");
  //    for(int j = 0; j < this->path.size(); j++)

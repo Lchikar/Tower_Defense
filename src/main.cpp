@@ -218,8 +218,8 @@ int main(int argc, char** argv){
     while(loop){ 
         nbloop++;
         if(game.getAliens().size() == 0){
+            printf("*****NEW WAVE*****\n");
             game.updateWaves();
-
         }
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* alien = (game.getAlien(i));
@@ -234,15 +234,19 @@ int main(int argc, char** argv){
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
 
-        usleep(500000);
+        usleep(100000);
 
         /**************** DRAW WIN OR GAME OVER **************/
-        if(game.getWaves() == 50){
+        if(game.getWaves() == 2){
+            printf("*****WIN*****\n");
             win.drawIHM(textureWinner);
+            sleep(10);
             break;
         }
         if(game.getLife() <= 0){
+            printf("*****LOOSE*****\n");
             gameOver.drawIHM(textureGameOver);
+            sleep(10);
             break;
         }
         /***********************************************************
@@ -270,21 +274,19 @@ int main(int argc, char** argv){
             if(curr_alien->getPos().dist(pos_curr_node) <= 7){
                 printf("\tAlien %d a atteint le noeud %d\n", i, curr_node);
                 if(curr_node < nbNodes-1){
-                    printf("*****NODE %d *******\n", curr_node);
+                    // printf("*****NODE %d *******\n", curr_node);
                     curr_alien->updatePath(G);
                     curr_alien->setPos(pos_curr_node);
 
-                    printf("\tNew current node %d\n", curr_alien->getNextStep(0)->first);
-                    printf("\tPath : ");
-                    for(int j = 0; j < curr_alien->getPath().size(); j++)
-                        printf("(%d,%d) ", curr_alien->getNextStep(j)->first, curr_alien->getNextStep(j)->second);
-                    printf("\n");
+                    // printf("\tNew current node %d\n", curr_alien->getNextStep(0)->first);
+                    // printf("\tPath : ");
+                    // for(int j = 0; j < curr_alien->getPath().size(); j++)
+                    //     printf("(%d,%d) ", curr_alien->getNextStep(j)->first, curr_alien->getNextStep(j)->second);
+                    // printf("\n");
                 }
                 else {
                     printf("*********LOOSE LIFE***********\n");
-                    sleep(2);
                     game.deleteAliens(i);
-                    sleep(1);
                     break;
                 }
             }
