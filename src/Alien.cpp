@@ -19,10 +19,12 @@ Alien::Alien(AlienType type, Graph G, Position pos){
 	this->type = type;
 	this->setPos(pos);
 	if(type == fatty){
+		this->damage =	20;
 		pv =  150;
 		reward = 100;
 		speed = 10;
 	} else {
+		this->damage = 10;
 		pv =  50;
 		reward = 50;
 		speed = 20;
@@ -42,6 +44,10 @@ Alien::~Alien(){};
 int Alien::getPv() {
 	int pv = this->pv;
 	return pv;
+}
+
+int Alien::getDamage(){
+	return this->damage;
 }
 
 int Alien::getReward() {
