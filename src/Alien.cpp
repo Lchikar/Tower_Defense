@@ -35,36 +35,6 @@ Alien::Alien(AlienType type, Graph G, Position pos){
 /* Destructor */
 Alien::~Alien(){};
 
-void Alien::move(Alien* alien, Position p){
-	printf("Move alien %p\n", this);
-	this->setPos(p);
-	printf("new pos (%f,%f)\n", this->getPos().getX(),this->getPos().getY());
-}
-
-/****************************************
-*************** DRAW ********************
-*****************************************/
-/*
-//initialisation de la texture
-GLuint Alien::setAlien() {
-	GLuint textureID;
-	if(type == fatty) {
-		textureID = setTexture(filenameFatty);
-		return textureID;
-	} 
-	else{
-		textureID = setTexture(filenameNervous);
-		return textureID;
-	}
-}
-*/
-/* affichage de la texture 
-void Alien::drawAlien(GLuint textureID) {
-	drawTexture(textureID, 35, 35);
-}
-*/
-
-
 
 /****************************************
 ************** GET & SET ****************
@@ -109,12 +79,24 @@ vector<pair<int,int>> Alien::getPath(){
 	return this->path;
 }
 
+pair<int,int>* Alien::getNextStep(int i){
+	if(vector<pair<int,int>>() == this->path)
+		return NULL;
+	return &(this->path[i]);
+}
+
 void Alien::updatePath(Graph G){
-    this->path.erase(this->path.begin());
-    map<int,vector<pair<int,int>>> new_paths = G.Dijkstra(this->path[0].first); 
-	this->path = new_paths[new_paths.size()-1];
+	// if(this->path.size() == 1){
+	// 	this->path = vector<pair<int,int>>(this->path[0].second, this->path[0].second);
+	// 	return;
+	// }
+    this->path.erase(this->path.begin(), this->path.begin()+1);
+	// printf("après pop first path : ");
+ //    for(int j = 0; j < this->path.size(); j++)
+ //        printf("(%d,%d) ", this->path[j].first, this->path[j].second);
+ //    printf("\n");
 }
 
 int Alien::dest(){
-	return this->path[0].second;
+	return this->path[0].first;
 }

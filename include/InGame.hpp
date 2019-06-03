@@ -25,6 +25,7 @@ class InGame{
 		~InGame();
 
 		vector<Alien> getAliens();
+		Alien* getAlien(int i);
 		void reinitAliens();
 		void addAliens(Alien aliens);
 		void deleteAliens(int alien_index);

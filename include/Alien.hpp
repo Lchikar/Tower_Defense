@@ -43,7 +43,8 @@ class Alien : public Entity {
 		int getSpeed();
 		AlienType getAlienType();
 		vector<pair<int,int>> getPath();
-
+		pair<int,int>* getNextStep(int i);
+		
 		/* set */
 		void setPv(int pv);
 		void setReward(int reward);
@@ -51,7 +52,6 @@ class Alien : public Entity {
 		void setAlienType(AlienType type);
 		void updatePath(Graph G);
 		int dest();
-		void move(Alien* alien, Position p);
 
 
 

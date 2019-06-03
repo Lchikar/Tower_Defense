@@ -28,6 +28,10 @@ InGame::~InGame(){;}
 vector<Alien> InGame::getAliens(){
 	return this->aliens;
 }
+Alien* InGame::getAlien(int i){
+	return &(this->aliens[i]); 
+}
+
 vector<Tower> InGame::getTowers(){
 	return this->towers;
 }
@@ -66,7 +70,7 @@ void InGame::deleteAliens(int alien_index){
 		fprintf(stderr, "Cannot erase non-existent alien\n");
 		return;
 	}
-	this->aliens.erase(this->aliens.begin()+alien_index);
+	this->aliens.erase(this->aliens.begin()+alien_index, this->aliens.begin()+alien_index+1);
 }
 
 int InGame::getLife(){

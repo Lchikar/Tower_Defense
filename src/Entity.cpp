@@ -49,8 +49,6 @@ Position Entity::getPos() {
 }
 
 void Entity::setPos(Position p) {
-	printf("Set Pos de %p\n", this);
-	printf("Position (%f,%f)\n", p.getX(), p.getY());
 	this->pos = p;
 }
 
