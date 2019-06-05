@@ -9,7 +9,6 @@
 #include "../include/Graph.hpp"
 
 InGame::InGame(Graph G, Position pos_init_aliens){
-	this->life = 100;
 	this->money = 80;
 	this->waves = 1;
 
@@ -17,10 +16,10 @@ InGame::InGame(Graph G, Position pos_init_aliens){
 	this->buildings = vector<Building>();
 	this->aliens = vector<Alien>();
 
-	this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
-	this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
-	this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
-	this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
+	for(int i = 0; i < 5; i++){
+		this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
+		this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
+	}
 }
 
 InGame::~InGame(){;}
@@ -71,14 +70,6 @@ void InGame::deleteAliens(int alien_index){
 		return;
 	}
 	this->aliens.erase(this->aliens.begin()+alien_index, this->aliens.begin()+alien_index+1);
-}
-
-int InGame::getLife(){
-	return this->life;
-}
-//in this version you can't be healed
-void InGame::setLife(int pv){
-	this->life -= pv;
 }
 
 

@@ -118,7 +118,7 @@ int main(int argc, char** argv){
     Position pos_init_aliens = Position(float(nodes[0][1]),float(nodes[0][2]));
     InGame game = InGame(G, pos_init_aliens);
     for(int i = 0; i < game.getAliens().size(); i++){
-        game.getAlien(i)->setPos(Position(float(nodes[game.getAlien(i)->getNextStep(0)->first][1]),float(nodes[game.getAlien(i)->getNextStep(0)->first][2])));
+        game.getAlien(i)->setPos(Position(float(nodes[game.getAlien(i)->getNextStep(0)->first][1])-((rand()%100*i+20*i)*(i%5)),float(nodes[game.getAlien(i)->getNextStep(0)->first][2])));
     }
     // for(int i = 0; i < game.getAliens().size(); i++){
     //     Alien alien = game.getAliens()[i];
@@ -238,6 +238,7 @@ int main(int argc, char** argv){
     /* Boucle principale */
     int loop = 1;
     int nbloop = 0;
+    bool endWin = false, endLose = false;
     while(loop){ 
         nbloop++;
         if(game.getAliens().size() == 0){
@@ -245,22 +246,9 @@ int main(int argc, char** argv){
             game.updateWaves();
         }
         
-        /**************** DRAW WIN OR GAME OVER **************/
-        if(game.getWaves() == 50){
-            // printf("*****WIN*****\n");
-            win.drawIHM(textureWinner);
-            sleep(10);
-            break;
+        if(game.getWaves() == 2){
+            endWin = true;
         }
-        if(game.getLife() <= 0){
-            // printf("*****LOOSE*****\n");
-            gameOver.drawIHM(textureGameOver);
-            sleep(10);
-            break;
-        }
-        /***********************************************************
-        ************************************************************
-        ***********************************************************/
         
         // for(int i = 0; i < game.getAliens().size(); i++){
         //     Alien* alien = (game.getAlien(i));
@@ -309,10 +297,8 @@ int main(int argc, char** argv){
                     // printf("\n");
                 }
                 else {
-                    // printf("*********LOOSE LIFE***********\n");
-                    game.setLife(-curr_alien->getDamage());
                     game.deleteAliens(i);
-                    break;
+                    endLose = true;
                 }
             }
 
@@ -395,6 +381,22 @@ int main(int argc, char** argv){
                 curr_alien->drawEntity(textureAlienNervous);
         }
         /*********************************************/
+
+        /**************** DRAW WIN **************/
+        if(endWin){
+            win.drawIHM(textureWinner);
+            sleep(4);
+            goto endGame;
+        } 
+        /********************************************/
+
+        /**************** DRAW LOSE **************/
+        if(endLose){
+            gameOver.drawIHM(textureGameOver);
+            sleep(4);
+            goto endGame;
+        } 
+        /***************************************/    
 
         /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
@@ -594,36 +596,37 @@ int main(int argc, char** argv){
         }
     }
 
-    /************ Libération des données GPU *****************/
-    // Delete textures
-    // Map
-	glDeleteTextures(1, &textureMap);
-    // Delete IHM
-    glDeleteTextures(1, &textureButtonInfo);
-    glDeleteTextures(1, &textureButtonPause);
-    glDeleteTextures(1, &textureButtonPlay);
-    glDeleteTextures(1, &textureButtonCross);
-    glDeleteTextures(1, &textureIHMCoins);
-    glDeleteTextures(1, &textureInterface);
-    glDeleteTextures(1, &textureGuide);
-    glDeleteTextures(1, &textureWinner);
-    glDeleteTextures(1, &textureGameOver);
-    // Aliens
-	glDeleteTextures(1, &textureAlienFatty);
-    glDeleteTextures(1, &textureAlienNervous);
-    // Towers
-	glDeleteTextures(1, &textureTower1);
-    glDeleteTextures(1, &textureTower2);
-    glDeleteTextures(1, &textureTower3);
-    glDeleteTextures(1, &textureTower4);
-    // Buildings
-    glDeleteTextures(1, &textureRadar);
-    glDeleteTextures(1, &textureNavette);
-    glDeleteTextures(1, &textureRobot);
-	/**********************************************************/
+    endGame: 
+        /************ Libération des données GPU *****************/
+        // Delete textures
+        // Map
+    	glDeleteTextures(1, &textureMap);
+        // Delete IHM
+        glDeleteTextures(1, &textureButtonInfo);
+        glDeleteTextures(1, &textureButtonPause);
+        glDeleteTextures(1, &textureButtonPlay);
+        glDeleteTextures(1, &textureButtonCross);
+        glDeleteTextures(1, &textureIHMCoins);
+        glDeleteTextures(1, &textureInterface);
+        glDeleteTextures(1, &textureGuide);
+        glDeleteTextures(1, &textureWinner);
+        glDeleteTextures(1, &textureGameOver);
+        // Aliens
+    	glDeleteTextures(1, &textureAlienFatty);
+        glDeleteTextures(1, &textureAlienNervous);
+        // Towers
+    	glDeleteTextures(1, &textureTower1);
+        glDeleteTextures(1, &textureTower2);
+        glDeleteTextures(1, &textureTower3);
+        glDeleteTextures(1, &textureTower4);
+        // Buildings
+        glDeleteTextures(1, &textureRadar);
+        glDeleteTextures(1, &textureNavette);
+        glDeleteTextures(1, &textureRobot);
+    	/**********************************************************/
 
-    /* Liberation des ressources associees a la SDL */ 
-    SDL_Quit();
-    
-    return EXIT_SUCCESS;
+        /* Liberation des ressources associees a la SDL */ 
+        SDL_Quit();
+        
+        return EXIT_SUCCESS;
 }

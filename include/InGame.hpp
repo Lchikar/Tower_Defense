@@ -16,7 +16,6 @@ class InGame{
 		vector<Alien> aliens;
 		vector<Tower> towers;
 		vector<Building> buildings;
-		int life;
 		int money;
 		int waves;
 
@@ -39,12 +38,6 @@ class InGame{
 		void reinitBuildings();
 		void addBuildings(TypeBuild type, Position p);
 		//buildings can't be deleted
-
-		int getLife();
-		void setLife(int pv);
-
-		clock_t getTime();
-		void updateTime();
 
 		int getMoney();
 		void setMoney(int price);
