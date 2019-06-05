@@ -442,106 +442,100 @@ int main(int argc, char** argv){
                     buttonPause.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     buttonPlay.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     
-                    /* Tower */
-                    tower1.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    tower2.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    tower3.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-            
+                    if(!buttonInfo.getIsClick() && !buttonPause.getIsClick()){
+                        /* Tower */
+                        tower1.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        tower2.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        tower3.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
+                            if(tower1.getIsClick()) {
+                                printf("Achat tour 1\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
+                                    if(game.getMoney() >= tower1.getPrice()){
+                                        game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        tower1.setIsClick(false);
+                                        game.setMoney(-tower1.getPrice());
+                                    }                        }
+                                }
 
-                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
-                        if(tower1.getIsClick()) {
-                            printf("Achat tour 1\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
-                                if(game.getMoney() >= tower1.getPrice()){
-                                    game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    tower1.setIsClick(false);
-                                    game.setMoney(-tower1.getPrice());
-                                }                        }
+                        }
+                        if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
+                            if(tower2.getIsClick()) {
+                                printf("Achat tour 2\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
+                                    if(game.getMoney() >= tower2.getPrice()){
+                                        game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        tower2.setIsClick(false);
+                                        game.setMoney(-tower2.getPrice());
+                                    }
+                                }
                             }
+                        }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
+                            if(tower3.getIsClick()) {
+                                printf("Achat tour 3\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
+                                    if(game.getMoney() >= tower3.getPrice()){
+                                        game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        tower3.setIsClick(false);
+                                        game.setMoney(-tower3.getPrice());
+                                    }
+                                }
+                            }
+                        }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
+                            if(tower4.getIsClick()) {
+                                printf("Achat tour 4\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
+                                    if(game.getMoney() >= tower4.getPrice()){
+                                        game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        tower4.setIsClick(false);
+                                        game.setMoney(-tower4.getPrice());
+                                    }
+                                }
+                            }
+                        }
 
-                    }
-                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
-                        if(tower2.getIsClick()) {
-                            printf("Achat tour 2\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
-                                if(game.getMoney() >= tower2.getPrice()){
-                                    game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    tower2.setIsClick(false);
-                                    game.setMoney(-tower2.getPrice());
+                        /* Building */
+                        radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
+                        if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(radarIHM.getPos()) > 25){
+                            if(radarIHM.getIsClick()) {
+                                printf("Achat radar\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
+                                    if(game.getMoney() >= radarIHM.getPrice()){
+                                        game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        radarIHM.setIsClick(false);
+                                        game.setMoney(-radarIHM.getPrice());
+                                    }
                                 }
                             }
                         }
-                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
-                        if(tower3.getIsClick()) {
-                            printf("Achat tour 3\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
-                                if(game.getMoney() >= tower3.getPrice()){
-                                    game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    tower3.setIsClick(false);
-                                    game.setMoney(-tower3.getPrice());
+                        if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(navetteIHM.getPos()) > 25){
+                            if(navetteIHM.getIsClick()) {
+                                printf("Achat navette\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
+                                    if(game.getMoney() >= navetteIHM.getPrice()){
+                                        game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        navetteIHM.setIsClick(false);
+                                        game.setMoney(- navetteIHM.getPrice());
+                                    }
                                 }
                             }
-                        }
-                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
-                        if(tower4.getIsClick()) {
-                            printf("Achat tour 4\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
-                                if(game.getMoney() >= tower4.getPrice()){
-                                    game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    tower4.setIsClick(false);
-                                    game.setMoney(-tower4.getPrice());
-                                }
-                            }
-                        }
-                    }
-
-                    /* Building */
-                    radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    robotIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(radarIHM.getPos()) > 25){
-                        if(radarIHM.getIsClick()) {
-                            printf("Achat radar\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
-                                if(game.getMoney() >= radarIHM.getPrice()){
-                                    game.addBuildings(radar, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    radarIHM.setIsClick(false);
-                                    game.setMoney(-radarIHM.getPrice());
-                                }
-                            }
-                        }
-                    }
-                    if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(navetteIHM.getPos()) > 25){
-                        if(navetteIHM.getIsClick()) {
-                            printf("Achat navette\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
-                                if(game.getMoney() >= navetteIHM.getPrice()){
-                                    game.addBuildings(navette, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    navetteIHM.setIsClick(false);
-                                    game.setMoney(- navetteIHM.getPrice());
-                                }
-                            }
-                        }
-                    }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(robotIHM.getPos()) > 25){
-                        if(robotIHM.getIsClick()) {
-                            printf("Achat robot\n");
-                            if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
-                                if(game.getMoney() >= robotIHM.getPrice()){
-                                    game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
-                                    robotIHM.setIsClick(false);
-                                    game.setMoney(-robotIHM.getPrice());
+                        }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(robotIHM.getPos()) > 25){
+                            if(robotIHM.getIsClick()) {
+                                printf("Achat robot\n");
+                                if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
+                                    if(game.getMoney() >= robotIHM.getPrice()){
+                                        game.addBuildings(robot, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
+                                        robotIHM.setIsClick(false);
+                                        game.setMoney(-robotIHM.getPrice());
+                                    }
                                 }
                             }
                         }
                     }
                     break;
-                
-                /* Touche clavier */
-                case SDL_KEYDOWN:
-                    printf("touche pressee (code = %d)\n", e.key.keysym.sym);
-                    break;
-                    
                 default:
                     break;
             }
@@ -607,7 +601,7 @@ int main(int argc, char** argv){
             shot = 0;
         }
 /**************************************************************************/
-        
+
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
         /* Si trop peu de temps s'est ecoule, on met en pause le programme */
