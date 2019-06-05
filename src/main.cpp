@@ -382,21 +382,6 @@ int main(int argc, char** argv){
         }
         /*********************************************/
 
-        /**************** DRAW WIN **************/
-        if(endWin){
-            win.drawIHM(textureWinner);
-            sleep(4);
-            goto endGame;
-        } 
-        /********************************************/
-
-        /**************** DRAW LOSE **************/
-        if(endLose){
-            gameOver.drawIHM(textureGameOver);
-            sleep(4);
-            goto endGame;
-        } 
-        /***************************************/    
 
         /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
@@ -412,6 +397,25 @@ int main(int argc, char** argv){
         }
         /***************************************************/
 
+        /**************** DRAW WIN **************/
+        if(endWin){
+            printf("GAME OVER WIN\n");
+            win.drawIHM(textureWinner);
+            SDL_GL_SwapBuffers();
+            sleep(4);
+            goto endGame;
+        } 
+        /********************************************/
+
+        /**************** DRAW LOSE **************/
+        if(endLose){
+            printf("GAME OVER LOSE\n");
+            gameOver.drawIHM(textureGameOver);
+            SDL_GL_SwapBuffers();
+            sleep(4);
+            goto endGame;
+        } 
+        /***************************************/    
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
@@ -587,6 +591,11 @@ int main(int argc, char** argv){
             
             // printf("Nouvelle position alien %d --> (%f,%f)\n\n", i, curr_alien->getPos().getX(), curr_alien->getPos().getY());                       
         } 
+
+        for(int i = 0; i < game.getTowers().size(); i++){
+            Tower tower = game.getTowers()[i];
+            Position target = tower.target(game.getAliens());
+        }
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
