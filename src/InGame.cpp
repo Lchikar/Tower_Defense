@@ -40,14 +40,16 @@ vector<Building> InGame::getBuildings(){
 
 //we can change the tables entirely for each wave
 //or add/delete an entity to it
-void InGame::reinitAliens(){
-	this->aliens = vector<Alien>();
-}
-void InGame::reinitTowers(){
-	this->towers = vector<Tower>();
-}
-void InGame::reinitBuildings(){
-	this->buildings = vector<Building>();
+void InGame::initAliens(vector<vector<int>> nodes, Graph G){
+	this->aliens.clear();
+	Position pos_init_aliens = Position(float(nodes[0][1]),float(nodes[0][2]));		
+	for(int i = 0; i < 10; i++){
+		if(0 == i%2)
+			this->aliens.push_back(Alien(fatty, G, pos_init_aliens));
+		else
+			this->aliens.push_back(Alien(nervous, G, pos_init_aliens));
+        this->aliens[i].setPos(Position(float(nodes[this->aliens[i].getNextStep(0)->first][1])-((rand()%10*i+20*i)*(i%5)),float(nodes[this->aliens[i].getNextStep(0)->first][2])));
+    }	
 }
 
 void InGame::addAliens(Alien alien){

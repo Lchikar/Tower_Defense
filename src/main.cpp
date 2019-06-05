@@ -34,9 +34,9 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
     for(int i = 0; i < edges.size(); i++){
         int u = edges[i].first;
         int v = edges[i].second;
-        printf("\tEDGE(%d,%d)\n", u, v);
+        // printf("\tEDGE(%d,%d)\n", u, v);
 
-        printf("Position %d (%f,%f) --- %d (%f,%f)\n", u, nodes[u][1] ,nodes[u][2], v, nodes[v][1],nodes[v][2]);
+        // printf("Position %d (%f,%f) --- %d (%f,%f)\n", u, nodes[u][1] ,nodes[u][2], v, nodes[v][1],nodes[v][2]);
 
         Position pos_u, pos_v, pos_e;
 
@@ -117,9 +117,7 @@ int main(int argc, char** argv){
 
     Position pos_init_aliens = Position(float(nodes[0][1]),float(nodes[0][2]));
     InGame game = InGame(G, pos_init_aliens);
-    for(int i = 0; i < game.getAliens().size(); i++){
-        game.getAlien(i)->setPos(Position(float(nodes[game.getAlien(i)->getNextStep(0)->first][1])-((rand()%100*i+20*i)*(i%5)),float(nodes[game.getAlien(i)->getNextStep(0)->first][2])));
-    }
+    game.initAliens(nodes, G);
     // for(int i = 0; i < game.getAliens().size(); i++){
     //     Alien alien = game.getAliens()[i];
     //     printf("Noeud %d (%f,%f)\n", alien.getPath()[0].first,float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2]));
@@ -239,25 +237,27 @@ int main(int argc, char** argv){
     int loop = 1;
     int nbloop = 0;
     bool endWin = false, endLose = false;
+    int nbAliens = game.getAliens().size();
     while(loop){ 
         nbloop++;
-        if(game.getAliens().size() == 0){
-            // printf("*****NEW WAVE*****\n");
+
+        // if(!game.getAliens().empty()){  
+        //     for(int i = 0; i < game.getAliens().size(); i++){
+        //         Alien* alien = game.getAlien(i);
+        //         printf("Alien %d (%f,%f)\n", i, alien->getPos().getX(), alien->getPos().getY());
+        //     } 
+        // }
+
+        if(nbAliens == 0){
             game.updateWaves();
+            game.initAliens(nodes, G);
+            nbAliens = game.getAliens().size(); 
+            sleep(1);
         }
         
-        if(game.getWaves() == 2){
+        if(game.getWaves() == 50){
             endWin = true;
         }
-        
-        // for(int i = 0; i < game.getAliens().size(); i++){
-        //     Alien* alien = (game.getAlien(i));
-        //     printf("\tPosition alien %d --> (%f,%f)\n", i, alien->getPos().getX(), alien->getPos().getY());
-        //     printf("\tPath : ");
-        //     for(int j = 0; j < alien->getPath().size(); j++)
-        //         printf("(%d,%d) ", alien->getNextStep(j)->first, alien->getNextStep(j)->second);
-        //     printf("\n");
-        // }
   
 
         /* Recuperation du temps au debut de la boucle */
@@ -280,21 +280,12 @@ int main(int argc, char** argv){
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* curr_alien = (game.getAlien(i));
             int curr_node = curr_alien->getNextStep(0)->first;
-            // printf("\tCurrent node %d\n", curr_node);
             Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2])); 
             
             if(curr_alien->getPos().dist(pos_curr_node) <= 7){
-                // printf("\tAlien %d a atteint le noeud %d\n", i, curr_node);
                 if(curr_node < nbNodes-1){
-                    // printf("*****NODE %d *******\n", curr_node);
                     curr_alien->updatePath(G);
                     curr_alien->setPos(pos_curr_node);
-
-                    // printf("\tNew current node %d\n", curr_alien->getNextStep(0)->first);
-                    // printf("\tPath : ");
-                    // for(int j = 0; j < curr_alien->getPath().size(); j++)
-                    //     printf("(%d,%d) ", curr_alien->getNextStep(j)->first, curr_alien->getNextStep(j)->second);
-                    // printf("\n");
                 }
                 else {
                     game.deleteAliens(i);
@@ -305,9 +296,9 @@ int main(int argc, char** argv){
         }
 
         
-        /***********************************************************
-        ************************* DRAW *****************************
-        ***********************************************************/
+/***********************************************************
+************************* DRAW *****************************
+***********************************************************/
         glClearColor(0,0,0,0);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -416,6 +407,9 @@ int main(int argc, char** argv){
             goto endGame;
         } 
         /***************************************/    
+/************************************************
+*************************************************
+**************************************************/
 
         /* Echange du front et du back buffer : mise a jour de la fenetre */
         SDL_GL_SwapBuffers();
@@ -423,7 +417,7 @@ int main(int argc, char** argv){
 
 
 
-        /*************** Boucle traitant les evenements ***************/
+/*************** Boucle traitant les evenements ***************/
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
             /* L'utilisateur ferme la fenetre : */
@@ -553,7 +547,7 @@ int main(int argc, char** argv){
             }
         }
 
-        /****************************************************************************/
+/****************************************************************************/
 
         
         /*********** UPDATE ALIENS POSITION **************/
@@ -563,38 +557,51 @@ int main(int argc, char** argv){
             int dest = curr_alien->dest();
             int speed = curr_alien->getSpeed();
 
-            // printf("Actuelle position (%f,%f)\n", curr_pos.getX(), curr_pos.getY());
-            // printf("Destination %d (%f,%f)\n", dest, float(nodes[dest][1]),float(nodes[dest][2]));
-            // printf("Speed %d\n", speed);
-
             Position pos_dest = Position(float(nodes[dest][1]),float(nodes[dest][2]));
             if(pos_dest.getX() < curr_pos.getX()){
-                // printf("\tGO WEST\n");
-                // printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()-float(speed)), float(curr_pos.getY()));
                 curr_alien->setPos(Position(float(curr_pos.getX()-float(speed)), float(curr_pos.getY())));
             }
             else if(pos_dest.getX() > curr_pos.getX()){
-                // printf("\tGO EAST\n");
-                // printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()+float(speed)), float(curr_pos.getY()));
                 curr_alien->setPos(Position(float(curr_pos.getX()+float(speed)), float(curr_pos.getY())));
             }
             if(pos_dest.getY() < curr_pos.getY()){
-                // printf("\tGO SOUTH\n");
-                // printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()), float(curr_pos.getY()-float(speed)));
                 curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()-float(speed))));
             }
             else if(pos_dest.getY() > curr_pos.getY()){
-                // printf("\tGO NORTH\n");
-                // printf("\tMOVE to (%f,%f)\n", float(curr_pos.getX()), float(curr_pos.getY()+float(speed)));
                 curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()+float(speed)))); 
             }
             
-            // printf("Nouvelle position alien %d --> (%f,%f)\n\n", i, curr_alien->getPos().getX(), curr_alien->getPos().getY());                       
         } 
 
+            
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tower = game.getTowers()[i];
-            Position target = tower.target(game.getAliens());
+            if(0 == nbloop%tower.getShotRate()){
+                Position target = tower.target(game.getAliens());
+                for(int j = 0; j < game.getAliens().size(); j++){
+                    Alien *alien = game.getAlien(i);
+                    if(alien->getPos().dist(target) <= tower.getRange()){
+                        alien->setPv(-tower.getDamage());
+                    }
+                }
+            }
+        }
+
+        int shot = 0;
+        for(int i = 0; i < game.getAliens().size(); i++){
+            Alien *alien = game.getAlien(i);
+            if(alien->getPv() <= 0){
+                printf("Alien %d died : You've earned %d$\n",i, alien->getReward());
+                game.setMoney(alien->getReward());
+                game.deleteAliens(i);
+                sleep(1);
+                shot++;
+                nbAliens--;
+            }
+        }
+        if(shot > 0){
+            printf("%d shot, %d aliens left\n", shot, game.getAliens().size());
+            shot = 0;
         }
 
         /* Calcul du temps ecoule */

@@ -22,7 +22,6 @@ enum AlienType
 class Alien : public Entity {
 	private :
 		int pv; /* points de vie */
-		int damage; // dégats
 		int reward; /* argent laisse apres la mort */
 		int speed; /* vitesse de deplacement en unite de temps */
 		AlienType type; /* type d'alien */
@@ -34,7 +33,6 @@ class Alien : public Entity {
 
 		/* get & set*/
 		int getPv();
-		int getDamage();
 		int getReward();
 		int getSpeed();
 		AlienType getAlienType();
