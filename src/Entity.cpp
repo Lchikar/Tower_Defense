@@ -10,7 +10,6 @@
 #include "../include/Entity.hpp"
 #include "../include/texture.hpp"
 
-#include "../include/const.hpp"
 
 /****************************************
 ************ CONSTRUCTOR ****************

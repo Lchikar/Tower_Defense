@@ -20,7 +20,6 @@
 #include "../include/Building.hpp"
 #include "../include/Tower.hpp"
 #include "../include/Alien.hpp"
-#include "../include/Path.hpp"
 #include "../include/Position.hpp"
 #include "../include/texture.hpp"
 #include "../include/Button.hpp"
@@ -53,9 +52,10 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
 
         if(0 == pos_ut.scalaire(pos_ev)){
             if(0 < pos_uv.vectoriel(pos_ut) &&
-                pos_uv.vectoriel(pos_ut) < pos_uv.vectoriel(pos_uv) )
-                fprintf(stderr, "Zone non constructible\n");
-                return false;
+                pos_uv.vectoriel(pos_ut) < pos_uv.vectoriel(pos_uv) ){
+                    fprintf(stderr, "Zone non constructible\n");
+                    return false;
+            }
         }
     }
 

@@ -52,10 +52,10 @@ GLuint Button::setButtonTexture() {
 		textureID = setTexture(filenameButtonPause);
 		return textureID;
 	}
-	if(type == cros) {
-		textureID = setTexture(filenameButtonCross);
-		return textureID;
-	}
+
+	textureID = setTexture(filenameButtonCross);
+	return textureID;
+	
 }
 
 void Button::drawButton(GLuint textureID) {

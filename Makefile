@@ -2,7 +2,7 @@ CC     = g++
 CFLAGS = -Wall -Wextra -O2 -Wno-unused-result -g
 LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lglut -lm
 LIB    = -lm
-OBJ    = bin/main.o bin/texture.o bin/Button.o bin/IHM.o bin/Map.o bin/Path.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o bin/Graph.o bin/InGame.o
+OBJ    = bin/main.o bin/texture.o bin/Button.o bin/IHM.o bin/Map.o bin/Position.o bin/Entity.o bin/Tower.o bin/Building.o bin/Alien.o bin/Graph.o bin/InGame.o
 RM     = rm -f
 BIN    = bin/itd
 DIRNAME = $(shell basename $$PWD)
@@ -12,7 +12,7 @@ STDNAME = $(DIRNAME).zip
 all : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(BIN) $(LDFLAGS)
 	@echo "--------------------------------------------------------------"
-	@echo "            to execute type: $(BIN) "
+	@echo "            to execute type: $(BIN) data/testmap.itd"
 	@echo "--------------------------------------------------------------"
 
 bin/texture.o : src/texture.cpp
@@ -35,10 +35,6 @@ bin/Map.o : src/Map.cpp
 	$(CC) $(CFLAGS) -c -o $@  $<
 	@echo "done..."
 
-bin/Path.o : src/Path.cpp
-	@echo "compile Path"
-	$(CC) $(CFLAGS) -c -o $@  $<
-	@echo "done..."
 
 bin/Position.o : src/Position.cpp
 	@echo "compile Position"
