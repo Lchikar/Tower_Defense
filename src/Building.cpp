@@ -54,7 +54,6 @@ void Building::drawBuildingIHM(GLuint textureID) {
 void Building::click(float mouseX, float mouseY) {
 	if (this->getPos().dist(Position(mouseX, mouseY)) <= 25) {
 		this->isClick = !this->isClick;
-		printf("J'ai cliqué sur un batiment\n");
 	}
 } 
 
@@ -93,5 +92,7 @@ void Building::setIsClick(bool isClick){
 	this->isClick = isClick;
 }
 
-//bool Building::isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */
+/****************************************
+**************** UPGRADE ****************
+*****************************************/
 //void Building::upgrade(Tower tower); /* améliore la tour 'tower' */

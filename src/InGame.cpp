@@ -10,7 +10,7 @@
 
 InGame::InGame(Graph G, Position pos_init_aliens){
 	this->life = 100;
-	this->money = 150;
+	this->money = 80;
 	this->waves = 1;
 
 	this->towers = vector<Tower>();

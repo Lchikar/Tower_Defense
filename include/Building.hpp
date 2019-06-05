@@ -30,12 +30,13 @@ class Building : public Entity{
 		Building(TypeBuild type);
 		~Building();
 
-		/* draw building IHM */
+		/* Affichage des bâtiments déjà présents sur l'interface */
 		void drawBuildingIHM(GLuint textureID);
 
 		/* is click */
 		void click(float mouseX, float mouseY);
 
+		/* get & set */
 		int getValue();
 		TypeBuild getType();
 		bool getIsClick();
@@ -45,7 +46,5 @@ class Building : public Entity{
 		void setType(TypeBuild type);
 		void setIsClick(bool isClick);
 
-
-		//bool isBuildable(Position pos); /* vérifie si le batiment peut etre construit a la position 'pos' */
 		//void upgrade(Tower tower); /* améliore la tour 'tower' */
 };

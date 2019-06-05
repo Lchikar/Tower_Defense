@@ -22,7 +22,6 @@ const char* filenameGameOver = "./img/assets/textGameOver.png";
 /* Contructor */
 IHM::IHM() {};
 
-/*  */
 IHM::IHM(IHMType type){
 	this->type = type;
 }
@@ -58,6 +57,7 @@ GLuint IHM::setIHMTexture() {
 	}
 }
 
+/* Affichage de la texture */
 void IHM::drawIHM(GLuint textureID) {
 	float x, y, w, h;
 	if(type == coins) {

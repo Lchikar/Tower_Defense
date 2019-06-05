@@ -19,9 +19,8 @@ Entity::Entity() {
 	this->pos = Position();
 }
 
-Entity::Entity(Position pos, GLuint textureID, float width, float height) {
+Entity::Entity(Position pos, float width, float height) {
 	this->pos = pos;
-	this->textureID = textureID;
 	this->width = width;
 	this->height = height;
 }
@@ -49,15 +48,6 @@ Position Entity::getPos() {
 
 void Entity::setPos(Position p) {
 	this->pos = p;
-}
-
-GLuint Entity::getTextureID() {
-	GLuint textureID = this->textureID;
-	return textureID;
-}
-
-void Entity::setTextureID(GLuint textureID) {
-	this->textureID = textureID;
 }
 
 float Entity::getWidth() {

@@ -22,7 +22,6 @@ const char* filenameButtonCross = "./img/assets/textButtonCross.png";
 /* Contructor */
 Button::Button() {};
 
-/*  */
 Button::Button(ButtonType type){
 	this->type = type;
 	this->isClick = false;
@@ -58,6 +57,7 @@ GLuint Button::setButtonTexture() {
 	
 }
 
+/* Affichage de la texture */
 void Button::drawButton(GLuint textureID) {
 	float x, y;
 	if(type == info) {
@@ -89,7 +89,6 @@ void Button::drawButton(GLuint textureID) {
 void Button::click(float mouseX, float mouseY) {
 	if (this->getPos().dist(Position(mouseX, mouseY)) <= 20) {
 		this->isClick = !this->isClick;
-		printf("J'ai cliqué sur un bouton\n");
 	}
 } 
 

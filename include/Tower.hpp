@@ -26,17 +26,14 @@ class Tower : public Entity {
 		int range; /* portee */
 		int shotRate; /* cadence de tir */
 		int price; /* prix */
-		ColorType type; /* couleur de la tour */
+		ColorType type; /* TYPE de la tour */
 		bool isClick;
 
 	public:
 		Tower(ColorType type);
 		~Tower();
 
-		/* initialisation de la texture */
-		//GLuint setTower();
-
-		/* DRAW TOWER IHM */
+		/* Affichage des tours déjà présentes sur l'interface */
 		void drawTowerIHM(GLuint textureID);
 
 		/* is click */

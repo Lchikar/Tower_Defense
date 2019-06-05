@@ -31,7 +31,6 @@ class IHM {
 
 		GLuint setIHMTexture();
 		void drawIHM(GLuint textureID);
-
 };
 
 

@@ -11,8 +11,6 @@
 #include "Position.hpp"
 #include "texture.hpp"
 
-
-
 using namespace std;
 
 
@@ -20,13 +18,12 @@ class Entity {
 
 	private:
 		Position pos; /* position de l'entite */
-		GLuint textureID; /* nom de la forme representant l'entite <==> 'GL_forme' */
 		float width;
 		float height;
 
 	public:
 		Entity();
-		Entity(Position pos, GLuint textureID, float width, float height);
+		Entity(Position pos, float width, float height);
 		~Entity();
 
 		void drawEntity(GLuint textureID);
@@ -34,9 +31,6 @@ class Entity {
 		Position getPos();
 		//set position
 		void setPos(Position p);
-
-		GLuint getTextureID();
-		void setTextureID(GLuint textureID);
 
 		float getWidth();
 		void setWidth(float width);

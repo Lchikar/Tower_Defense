@@ -78,7 +78,6 @@ void Tower::drawTowerIHM(GLuint textureID) {
 void Tower::click(float mouseX, float mouseY) {
 	if (this->getPos().dist(Position(mouseX, mouseY)) <= 25) {
 		this->isClick = !this->isClick;
-		printf("J'ai cliqué sur une tour\n");
 	}
 } 
 
@@ -138,9 +137,17 @@ void Tower::setColor(ColorType type) {
 void Tower::setIsClick(bool isClick){
 	this->isClick = isClick;
 }	
+
+/****************************************
+********** IS CONSTRUCTIBLE *************
+*****************************************/
 //vérifie si la tour peut etre construite a la position 'pos'
 //bool Tower::isBuildable(Position pos); 
 
+
+/****************************************
+***************** TIR *******************
+*****************************************/
 //renvoie la position de l'alien le plus proche
 Position Tower::target(vector<Alien> aliens){
 	int dist_min = 9999999;

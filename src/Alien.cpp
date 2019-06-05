@@ -91,6 +91,10 @@ pair<int,int>* Alien::getNextStep(int i){
 	return &(this->path[i]);
 }
 
+
+/****************************************
+***************** PATH ******************
+*****************************************/
 void Alien::updatePath(Graph G){
 	if(this->path.size() == 1){
 		this->path.push_back(pair<int,int>(this->path[0].second, this->path[0].second));

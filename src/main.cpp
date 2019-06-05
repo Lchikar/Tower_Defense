@@ -29,8 +29,6 @@
 
 #include "../include/const.hpp"
 
-// Dimensions de la fenetre : 1180x750;
-
 
 bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int,int>> edges){
     for(int i = 0; i < edges.size(); i++){
@@ -44,7 +42,6 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
 
         pos_u = Position(nodes[u][1],nodes[u][2]);
         pos_v = Position(nodes[v][1],nodes[v][2]);
-
 
         Position pos_ut = Position(pos_e.getX()-pos_u.getX(), pos_e.getY()-pos_u.getY());
         Position pos_ev = Position(pos_v.getX()-pos_e.getX(), pos_v.getY()-pos_e.getY());
@@ -135,7 +132,6 @@ int main(int argc, char** argv){
     //     printf("(%d,%d)\n", edges[i].first,edges[i].second);
 
 
-    
 
 /********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
@@ -176,7 +172,6 @@ int main(int argc, char** argv){
     glutInit(&argc, argv);
 /********************************************************/
 
-
      
 /*********** Initialisation des textures ****************/
     // Aliens
@@ -193,13 +188,11 @@ int main(int argc, char** argv){
     GLuint textureRobot = setTexture(filenameRobot);
 /*******************************************************/
 
-
 /********************** MAP ***************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
 /******************************************************/
-
 
 /************** Initialisation de l'IHM ****************/
     // Button Info
@@ -326,7 +319,6 @@ int main(int argc, char** argv){
         }
 
         
-        
         /***********************************************************
         ************************* DRAW *****************************
         ***********************************************************/
@@ -337,14 +329,10 @@ int main(int argc, char** argv){
         /***************** DRAW MAP ******************/
         map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
         /*********************************************/
-
-
         /***************** DRAW IHM ****************/
         IHMCoins.drawIHM(textureIHMCoins);
         IHMInterface.drawIHM(textureInterface);
         /*********************************************/
-
-
         /************** DRAW TOWER IHM **************/
         tower1.drawTowerIHM(textureTower1);
         tower2.drawTowerIHM(textureTower2);
@@ -363,7 +351,6 @@ int main(int argc, char** argv){
         sprintf(argent, "%d $", game.getMoney()); 
         vBitmapOutput(510, 275, argent, GLUT_BITMAP_HELVETICA_18);
         /*********************************************/
-
 
         /********** DRAW TOWERS IN GAME ***************/
         for(int i = 0; i < game.getTowers().size(); i++){
@@ -409,7 +396,6 @@ int main(int argc, char** argv){
         }
         /*********************************************/
 
-
         /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
             buttonInfo.drawButton(textureButtonInfo);
@@ -448,23 +434,8 @@ int main(int argc, char** argv){
             
             /* Quelques exemples de traitement d'evenements : */
             switch(e.type) {
-                /* Clic souris */
-                
+                /* Clic souris */    
                 case SDL_MOUSEBUTTONUP:
-
-                    //printf("mouse (%d,%d)\n", e.button.x, e.button.y);
-                    //printf("mouse (%f,%f)\n", (e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
-                    //printf("position x de tower1: %f\n", tower1.getPos().getX());
-                	//printf("position y de tower1: %f\n", tower1.getPos().getY());
-					//printf("distance %f\n", buttonInfo.getPos().dist(Position(e.button.x-(GL_VIEW_WIDTH/2), e.button.y+(GL_VIEW_HEIGHT/2)-60)));
-					
-                    /*
-                    if (buttonInfo.getPos().dist(Position(mouseX, mouseY)) <= 20) {
-						printf("J'ai cliqué sur le bouton Info\n");
-						buttonCross.drawButton(textureButtonCross);
-					} 
-                    */
-
                     /* Buttons IHM */
                     buttonInfo.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                     buttonCross.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
@@ -613,8 +584,7 @@ int main(int argc, char** argv){
             }
             
             // printf("Nouvelle position alien %d --> (%f,%f)\n\n", i, curr_alien->getPos().getX(), curr_alien->getPos().getY());                       
-        }
-        
+        } 
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
@@ -623,7 +593,6 @@ int main(int argc, char** argv){
             SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
         }
     }
-
 
     /************ Libération des données GPU *****************/
     // Delete textures
@@ -653,14 +622,8 @@ int main(int argc, char** argv){
     glDeleteTextures(1, &textureRobot);
 	/**********************************************************/
 
-
     /* Liberation des ressources associees a la SDL */ 
     SDL_Quit();
     
-
-
-
-
-
     return EXIT_SUCCESS;
 }

@@ -32,13 +32,7 @@ class Alien : public Entity {
 		Alien(AlienType type, Graph G, Position pos);
 		~Alien();
 
-		/* initialisation de la texture */
-		//GLuint setAlien();
-
-		/* affichage de la texture */
-		//void drawAlien(GLuint textureID);
-
-		/* get */
+		/* get & set*/
 		int getPv();
 		int getDamage();
 		int getReward();
@@ -47,11 +41,12 @@ class Alien : public Entity {
 		vector<pair<int,int>> getPath();
 		pair<int,int>* getNextStep(int i);
 		
-		/* set */
 		void setPv(int pv);
 		void setReward(int reward);
 		void setSpeed(int speed);
 		void setAlienType(AlienType type);
+		
+		/* path */
 		void updatePath(Graph G);
 		int dest();
 
