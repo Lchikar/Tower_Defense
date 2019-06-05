@@ -551,29 +551,32 @@ int main(int argc, char** argv){
 
         
         /*********** UPDATE ALIENS POSITION **************/
-        for(int i = 0; i < game.getAliens().size(); i++){
-            Alien* curr_alien = game.getAlien(i);
-            Position curr_pos = curr_alien->getPos();
-            int dest = curr_alien->dest();
-            int speed = curr_alien->getSpeed();
+        if(!buttonInfo.getIsClick() && !buttonPause.getIsClick()){
+            for(int i = 0; i < game.getAliens().size(); i++){
+                Alien* curr_alien = game.getAlien(i);
+                Position curr_pos = curr_alien->getPos();
+                int dest = curr_alien->dest();
+                int speed = curr_alien->getSpeed();
 
-            Position pos_dest = Position(float(nodes[dest][1]),float(nodes[dest][2]));
-            if(pos_dest.getX() < curr_pos.getX()){
-                curr_alien->setPos(Position(float(curr_pos.getX()-float(speed)), float(curr_pos.getY())));
-            }
-            else if(pos_dest.getX() > curr_pos.getX()){
-                curr_alien->setPos(Position(float(curr_pos.getX()+float(speed)), float(curr_pos.getY())));
-            }
-            if(pos_dest.getY() < curr_pos.getY()){
-                curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()-float(speed))));
-            }
-            else if(pos_dest.getY() > curr_pos.getY()){
-                curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()+float(speed)))); 
-            }
-            
-        } 
+                Position pos_dest = Position(float(nodes[dest][1]),float(nodes[dest][2]));
+                if(pos_dest.getX() < curr_pos.getX()){
+                    curr_alien->setPos(Position(float(curr_pos.getX()-float(speed)), float(curr_pos.getY())));
+                }
+                else if(pos_dest.getX() > curr_pos.getX()){
+                    curr_alien->setPos(Position(float(curr_pos.getX()+float(speed)), float(curr_pos.getY())));
+                }
+                if(pos_dest.getY() < curr_pos.getY()){
+                    curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()-float(speed))));
+                }
+                else if(pos_dest.getY() > curr_pos.getY()){
+                    curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()+float(speed)))); 
+                }
+                
+            } 
+        }
 
-            
+
+/******************************* TIRS DES TOURS **************************/            
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tower = game.getTowers()[i];
             if(0 == nbloop%tower.getShotRate()){
@@ -603,7 +606,8 @@ int main(int argc, char** argv){
             printf("%d shot, %d aliens left\n", shot, game.getAliens().size());
             shot = 0;
         }
-
+/**************************************************************************/
+        
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
         /* Si trop peu de temps s'est ecoule, on met en pause le programme */
