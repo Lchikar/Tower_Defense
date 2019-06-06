@@ -32,7 +32,7 @@ Tower::Tower(ColorType type) {
 	}
 	if(type == blue){
 		damage = 5;
-		range = 400;
+		range = 300;
 		shotRate = 2;
 		price = 10;
 	}
@@ -160,4 +160,12 @@ Position Tower::target(vector<Alien> aliens){
 		}
 	}
 	return target;
+}
+
+/* draw tir */
+void Tower::drawShot(Position target) {
+	glBegin(GL_LINES);
+	glVertex2f(this->getPos().getX(),this->getPos().getY());
+	glVertex2f(target.getX(),target.getY());
+	glEnd();
 }

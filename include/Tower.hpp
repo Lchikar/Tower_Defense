@@ -57,4 +57,7 @@ class Tower : public Entity {
 
 		//bool isBuildable(Position pos); /* vérifie si la tour peut etre construite a la position 'pos' */
 		Position target(vector<Alien> aliens); 
+
+		/* draw tir */
+		void drawShot(Position target);
 };

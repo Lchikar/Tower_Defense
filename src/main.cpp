@@ -237,6 +237,7 @@ int main(int argc, char** argv){
     int loop = 1;
     int nbloop = 0;
     bool endWin = false, endLose = false;
+    bool shot = false;
     int nbAliens = game.getAliens().size();
     while(loop){ 
         nbloop++;
@@ -348,7 +349,7 @@ int main(int argc, char** argv){
         } 
         /************************************************/
 
-        /*********** DRAW BUILDINGS INGAME **************/
+        /************** DRAW BUILDINGS INGAME ***************/
         for(int i = 0; i < game.getBuildings().size(); i++){
             Building batiment = game.getBuildings()[i];
             //printf("Batiment %d --> %d\n", i, batiment.getType());
@@ -362,9 +363,9 @@ int main(int argc, char** argv){
                 default: ;
             }
         } 
-        /*************************************************/
+        /****************************************************/
 
-        /*********** DRAW ALIENS INGAME **************/
+        /*************** DRAW ALIENS INGAME *****************/
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* curr_alien = game.getAlien(i);
             if(curr_alien->getAlienType() == fatty)
@@ -372,8 +373,24 @@ int main(int argc, char** argv){
             else
                 curr_alien->drawEntity(textureAlienNervous);
         }
-        /*********************************************/
+        /*****************************************************/
 
+        /***************** DRAW SHOT TOWER ******************
+        if(shot) {
+            for(int i = 0; i < game.getTowers().size(); i++){
+            Tower tower = game.getTowers()[i];
+                Position target = tower.target(game.getAliens());
+                for(int j = 0; j < game.getAliens().size(); j++){
+                    Alien *alien = game.getAlien(i);
+                    
+                    if(alien->getPos().dist(target) <= tower.getRange()){
+                        tower.drawShot(alien->getPos());
+                        shot = !shot;
+                    }
+                }
+            }
+        }
+        ***************************************************/
 
         /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
@@ -580,6 +597,7 @@ int main(int argc, char** argv){
                     Alien *alien = game.getAlien(i);
                     if(alien->getPos().dist(target) <= tower.getRange()){
                         alien->setPv(-tower.getDamage());
+                        shot = !shot;
                     }
                 }
             }
