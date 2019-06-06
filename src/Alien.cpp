@@ -30,13 +30,13 @@ Alien::Alien(AlienType type, Graph G, Position pos){
 	setWidth(35);
 	setHeight(35);
 	map<int,vector<pair<int,int>>> paths = G.Dijkstra(0);
-	for(auto i = paths.begin(); i != paths.end(); i++){
-   		printf("TO %d : ", i->first);
-   		for(auto j = i->second.begin(); j != i->second.end(); j++)
-	   		printf("(%d,%d) ", j->first, 
-	   			j->second);
-	   	printf("\n");
-   	}
+	// for(auto i = paths.begin(); i != paths.end(); i++){
+ //   		printf("TO %d : ", i->first);
+ //   		for(auto j = i->second.begin(); j != i->second.end(); j++)
+	//    		printf("(%d,%d) ", j->first, 
+	//    			j->second);
+	//    	printf("\n");
+ //   	}
 	this->path = paths[paths.size()-1];
 
 }
