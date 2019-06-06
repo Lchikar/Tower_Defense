@@ -43,13 +43,13 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
         pos_u = Position(nodes[u][1],nodes[u][2]);
         pos_v = Position(nodes[v][1],nodes[v][2]);
 
-        Position pos_ut = Position(pos_e.getX()-pos_u.getX(), pos_e.getY()-pos_u.getY());
+        Position pos_ue = Position(pos_e.getX()-pos_u.getX(), pos_e.getY()-pos_u.getY());
         Position pos_ev = Position(pos_v.getX()-pos_e.getX(), pos_v.getY()-pos_e.getY());
         Position pos_uv = Position(pos_v.getX()-pos_u.getX(), pos_v.getY()-pos_u.getY());
 
-        if(0 == pos_ut.scalaire(pos_ev)){
-            if(0 < pos_uv.vectoriel(pos_ut) &&
-                pos_uv.vectoriel(pos_ut) < pos_uv.vectoriel(pos_uv) ){
+        if(0 == pos_ue.scalaire(pos_ev)){
+            if(0 < pos_uv.vectoriel(pos_ue) &&
+                pos_uv.vectoriel(pos_ue) < pos_uv.vectoriel(pos_uv) ){
                     fprintf(stderr, "Zone non constructible\n");
                     return false;
             }
@@ -236,7 +236,6 @@ int main(int argc, char** argv){
     int loop = 1;
     int nbloop = 0;
     bool endWin = false, endLose = false;
-    bool shot = false;
     int nbAliens = game.getAliens().size();
     while(loop){ 
         nbloop++;
@@ -245,11 +244,13 @@ int main(int argc, char** argv){
             game.updateWaves();
             printf("******WAVE %d**********\n", game.getWaves());
             game.initAliens(nodes, G);
-            nbAliens = game.getAliens().size(); 
+            printf("Init new wave\n");
+            nbAliens = game.getAliens().size();
+            printf("%d new aliens\n", nbAliens);
             sleep(1);
         }
         
-        if(game.getWaves() == 50){
+        if(game.getWaves() == 3){
             endWin = true;
         }
   
@@ -380,9 +381,10 @@ int main(int argc, char** argv){
             Tower tower = game.getTowers()[i];
             if(0 == nbloop%tower.getShotRate()){
                 Position target = tower.target(game.getAliens());
-                for(int j = 0; j < game.getAliens().size(); j++){
+                for(int j = 0; j < nbAliens; j++){
                     Alien *alien = game.getAlien(i);
                     if(alien->getPos().dist(target) <= tower.getRange()){
+
                         tower.drawShot(alien->getPos());
                         alien->setPv(-tower.getDamage());
                         if(alien->getPv() <= 0){
@@ -391,7 +393,6 @@ int main(int argc, char** argv){
                             game.deleteAliens(i);
                             nbAliens--;
                         }
-                        shot = !shot;
                     }
                 }
             }
