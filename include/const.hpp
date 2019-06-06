@@ -18,8 +18,7 @@
 /* Dimensions initiales et titre de la fenetre */
 static const unsigned int WINDOW_WIDTH = 1180;
 static const unsigned int WINDOW_HEIGHT = 750;
-static const char WINDOW_TITLE[] = "IMars Attak";
-
+static const char WINDOW_TITLE[] = "IMARS ATTACK";
 
 /* Espace fenetre virtuelle */
 static const float GL_VIEW_WIDTH = 1180;

@@ -34,10 +34,7 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
     for(int i = 0; i < edges.size(); i++){
         int u = edges[i].first;
         int v = edges[i].second;
-        // printf("\tEDGE(%d,%d)\n", u, v);
-
-        // printf("Position %d (%f,%f) --- %d (%f,%f)\n", u, nodes[u][1] ,nodes[u][2], v, nodes[v][1],nodes[v][2]);
-
+        
         Position pos_u, pos_v, pos_e;
 
         pos_u = Position(nodes[u][1],nodes[u][2]);
@@ -55,13 +52,13 @@ bool estConstructible(Position pos_e, vector<vector<int>> nodes, vector<pair<int
             }
         }
     }
-
     return true;
 }
 
 
 int main(int argc, char** argv){
 
+    /* Mauvais arguments */
     if(argc != 2){
         fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
         return EXIT_FAILURE;
@@ -71,8 +68,9 @@ int main(int argc, char** argv){
         fprintf(stderr, "Veuillez renseigner le chemin du fichier .itd\n");
         return EXIT_FAILURE;
     }
+    /**********************************************************************/
 
-
+    /* Init and create graph */
     Graph G = Graph();
     int nbNodes;
     vector<vector<int>> nodes = G.read_nodes(string(argv[1]), &nbNodes);
@@ -81,56 +79,28 @@ int main(int argc, char** argv){
         return EXIT_FAILURE;
     }
 
-    // for (int i = 0; i < nodes.size(); i++){
-    //     cout << "node " << i << ": ";
-    //     for (int j = 0; j < nodes[i].size(); j++){
-    //         cout << nodes[i][j] << " ";
-    //     }
-    // cout << "\n";
-    // }
-    // printf("\n");
-
     for(int u = 0; u < nbNodes; u++){
         G.addVertex(u);
     }
     for(int u = 0; u < nbNodes; u++){
-        // printf("Node %d (%d,%d) ---> ", u, nodes[u][1], nodes[u][2]);
         nodes[u][1] = float(nodes[u][1]-(GL_VIEW_WIDTH/2));
         nodes[u][2] = -float((nodes[u][2]-(GL_VIEW_HEIGHT/2)));
-        // printf("Node %d (%f,%f)\n", u, float(nodes[u][1]), float(nodes[u][2]));
         for(int v = 3; v < nodes[u].size(); v++){
             Position u_p = Position(float(nodes[u][1]),float(nodes[u][2]));
             Position v_p = Position(float(nodes[nodes[u][v]][1]),float(nodes[nodes[u][v]][2]));
             G.addEdge(u,nodes[u][v], u_p.dist(v_p));
         }
     }
-
-    // for (int i = 0; i < G.getAdj().size(); i++){
-    //     cout << "node " << i << ": ";
-    //     for (int j = 0; j < G.getAdj()[i].size(); j++){
-    //         cout << "(" << G.getAdj()[i][j].first << ", " << G.getAdj()[i][j].second << ") ";
-    //     }
-    //     cout << "\n";
-    // }
-    // cout << "\n";
     
-
     Position pos_init_aliens = Position(float(nodes[0][1]),float(nodes[0][2]));
     InGame game = InGame(G, pos_init_aliens);
     game.initAliens(nodes, G);
-    // for(int i = 0; i < game.getAliens().size(); i++){
-    //     Alien alien = game.getAliens()[i];
-    //     printf("Noeud %d (%f,%f)\n", alien.getPath()[0].first,float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2]));
-    //     printf("Position alien %d --> (%f,%f)\n", i, alien.getPos().getX(), alien.getPos().getY());
-    // }
     vector<pair<int,int>> edges = G.edges();
-    // printf("nb edges %d\n", edges.size());
-    // for(int i = 0; i < edges.size(); i++)
-    //     printf("(%d,%d)\n", edges[i].first,edges[i].second);
+    /***********************************************************************/
 
 
-
-/********************* WINDOW SDL ************************/
+    /**********************************************************************/
+    /********************* WINDOW SDL ************************/
     /* Initialisation de la SDL */
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(
@@ -157,7 +127,6 @@ int main(int argc, char** argv){
             "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
     }
-
     /* Initialisation du titre de la fenetre */
     SDL_WM_SetCaption(WINDOW_TITLE, NULL);
 
@@ -167,10 +136,11 @@ int main(int argc, char** argv){
 
     /* Initialisation de GLUT pour l'affichage de texte */
     glutInit(&argc, argv);
-/********************************************************/
+    /**********************************************************************/
 
-     
-/*********** Initialisation des textures ****************/
+
+    /**********************************************************************/
+    /*********** Initialisation des textures ****************/
     // Aliens
     GLuint textureAlienNervous = setTexture(filenameNervous);
     GLuint textureAlienFatty = setTexture(filenameFatty);
@@ -183,15 +153,14 @@ int main(int argc, char** argv){
     GLuint textureRadar = setTexture(filenameRadar);
     GLuint textureNavette = setTexture(filenameNavette);
     GLuint textureRobot = setTexture(filenameRobot);
-/*******************************************************/
 
-/********************** MAP ***************************/
+    /**************** Map *********************************/
   	// Chargement et traitement de la texture de la map
     Map map;
     GLuint textureMap = map.setMap();
-/******************************************************/
 
-/************** Initialisation de l'IHM ****************/
+
+    /************** Initialisation de l'IHM ****************/
     // Button Info
     Button buttonInfo = Button(info);
     GLuint textureButtonInfo = buttonInfo.setButtonTexture();
@@ -219,7 +188,9 @@ int main(int argc, char** argv){
     // Window Game over
     IHM gameOver = IHM(gameover);
     GLuint textureGameOver = gameOver.setIHMTexture();
+    /**********************************************************************/
 
+    /************** Instances de l'IHM ****************/
     // Towers
     Tower tower1 = Tower(red);
     Tower tower2 = Tower(green);
@@ -229,10 +200,10 @@ int main(int argc, char** argv){
     Building radarIHM = Building(radar);
     Building navetteIHM = Building(navette);
     Building robotIHM = Building(robot);
-/*************************************************************/
+    /**********************************************************************/
 
-   
-    /* Boucle principale */
+    /**********************************************************************/
+    /************** BOUCLE PRINCIPALE *********************/
     int loop = 1;
     int nbloop = 0;
     bool endWin = false, endLose = false;
@@ -250,7 +221,7 @@ int main(int argc, char** argv){
             sleep(1);
         }
         
-        if(game.getWaves() == 50){
+        if(game.getWaves() == 20){
             endWin = true;
         }
   
@@ -265,78 +236,70 @@ int main(int argc, char** argv){
         //     }
         // }
 
-        /* Recuperation du temps au debut de la boucle */
+        /********** Recuperation du temps ********************/
         Uint32 startTime = SDL_GetTicks();
 
         usleep(200000);
 
-        //calcul risque random
-        // if(0 == nbloop%50){
-        //     for(int i = 0; i < edges.size(); i++){
-        //        int weight = rand()%10 +1;
-        //        G.update_weight(edges[i].first,edges[i].second, 
-        //            G.weight(edges[i].first,edges[i].second)*weight);      
-        //     }
-        // }
+        /********** Calcul risque random ********************
+        if(0 == nbloop%50){
+            for(int i = 0; i < edges.size(); i++){
+               int weight = rand()%10 +1;
+               G.update_weight(edges[i].first,edges[i].second, 
+                   G.weight(edges[i].first,edges[i].second)*weight);      
+            }
+        }
+        */
 
-
-        //Update chemins aliens
+        /********** Update chemins aliens ********************/
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* curr_alien = (game.getAlien(i));
             int curr_node = curr_alien->getNextStep(0)->first;
-            Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2])); 
-
+            Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2]));
             if(curr_alien->getPos().dist(pos_curr_node) <= 7){
                 if(curr_node < nbNodes-1){
                     curr_alien->updatePath();
                     curr_alien->setPos(pos_curr_node);
-                }
-                else {
+                } else {
                     game.deleteAliens(i);
                     endLose = true;
                 }
             }
-
         }
 
         
-/***********************************************************
-************************* DRAW *****************************
-***********************************************************/
+        /***********************************************************
+        ***************** DRAW *************************************
+        ***********************************************************/
         glClearColor(0,0,0,0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-
-        /***************** DRAW MAP ******************/
+        /***************** DRAW MAP *******************/
         map.drawMap(textureMap, GL_VIEW_WIDTH, GL_VIEW_HEIGHT);
-        /*********************************************/
-        /***************** DRAW IHM ****************/
+        
+        /***************** DRAW IHM *******************/
         IHMCoins.drawIHM(textureIHMCoins);
         IHMInterface.drawIHM(textureInterface);
-        /*********************************************/
-        /************** DRAW TOWER IHM **************/
+        
+        /************** DRAW TOWER IHM ****************/
         tower1.drawTowerIHM(textureTower1);
         tower2.drawTowerIHM(textureTower2);
         tower3.drawTowerIHM(textureTower3);
         tower4.drawTowerIHM(textureTower4);
-        /********************************************/
-        /************ DRAW BUILDING IHM *************/
+        
+        /************ DRAW BUILDING IHM ***************/
         radarIHM.drawBuildingIHM(textureRadar);
         navetteIHM.drawBuildingIHM(textureNavette);
         robotIHM.drawBuildingIHM(textureRobot);
-        /*********************************************/
 
-
-        /************** DRAW MONEY INGAME **************/
+        /************* DRAW MONEY INGAME **************/
         char argent[10];
         sprintf(argent, "%d $", game.getMoney()); 
         vBitmapOutput(510, 275, argent, GLUT_BITMAP_HELVETICA_18);
-        /*********************************************/
 
         /********** DRAW TOWERS IN GAME ***************/
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tour = game.getTowers()[i];
-            //printf("Couleur tour %d --> %d\n", i, tour.getColor());
             switch (tour.getColor()){
                 case red: tour.drawEntity(textureTower1);
                             break; 
@@ -349,12 +312,10 @@ int main(int argc, char** argv){
                 default: ;
             }
         } 
-        /************************************************/
 
-        /************** DRAW BUILDINGS INGAME ***************/
+        /********** DRAW BUILDINGS INGAME ***************/
         for(int i = 0; i < game.getBuildings().size(); i++){
             Building batiment = game.getBuildings()[i];
-            //printf("Batiment %d --> %d\n", i, batiment.getType());
             switch (batiment.getType()){
                 case radar: batiment.drawEntity(textureRadar);
                             break; 
@@ -365,9 +326,8 @@ int main(int argc, char** argv){
                 default: ;
             }
         } 
-        /****************************************************/
 
-        /*************** DRAW ALIENS INGAME *****************/
+        /************ DRAW ALIENS INGAME *****************/
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* curr_alien = game.getAlien(i);
             if(curr_alien->getAlienType() == fatty)
@@ -375,8 +335,8 @@ int main(int argc, char** argv){
             else
                 curr_alien->drawEntity(textureAlienNervous);
         }
-        /*****************************************************/
-/******************************* TIRS DES TOURS **************************/            
+
+        /************** TIRS DES TOURS ********************/            
         for(int i = 0; i < game.getTowers().size(); i++){
             Tower tower = game.getTowers()[i];
             if(0 == nbloop%tower.getShotRate()){
@@ -384,7 +344,6 @@ int main(int argc, char** argv){
                 for(int j = 0; j < nbAliens; j++){
                     Alien *alien = game.getAlien(i);
                     if(alien->getPos().dist(target) <= tower.getRange()){
-
                         tower.drawShot(alien->getPos());
                         alien->setPv(-tower.getDamage());
                         if(alien->getPv() <= 0){
@@ -397,24 +356,6 @@ int main(int argc, char** argv){
                 }
             }
         }
-/**************************************************************************/
-
-        /***************** DRAW SHOT TOWER ******************
-        if(shot) {
-            for(int i = 0; i < game.getTowers().size(); i++){
-            Tower tower = game.getTowers()[i];
-                Position target = tower.target(game.getAliens());
-                for(int j = 0; j < game.getAliens().size(); j++){
-                    Alien *alien = game.getAlien(i);
-                    
-                    if(alien->getPos().dist(target) <= tower.getRange()){
-                        
-                        shot = !shot;
-                    }
-                }
-            }
-        }
-        ***************************************************/
 
         /****************** DRAW BUTTON ******************/
         if (!buttonInfo.getIsClick()) {
@@ -428,9 +369,8 @@ int main(int argc, char** argv){
         } else {
             buttonPlay.drawButton(textureButtonPlay);
         }
-        /***************************************************/
 
-        /**************** DRAW WIN **************/
+        /****************** DRAW WIN ********************/
         if(endWin){
             printf("GAME OVER WIN\n");
             win.drawIHM(textureWinner);
@@ -438,28 +378,27 @@ int main(int argc, char** argv){
             sleep(4);
             goto endGame;
         } 
-        /********************************************/
 
-        /**************** DRAW LOSE **************/
+        /****************** DRAW LOSE ******************/
         if(endLose){
             printf("GAME OVER LOSE\n");
             gameOver.drawIHM(textureGameOver);
             SDL_GL_SwapBuffers();
             sleep(4);
             goto endGame;
-        } 
-        /***************************************/    
-/************************************************
-*************************************************
-**************************************************/
+        }   
 
-        /* Echange du front et du back buffer : mise a jour de la fenetre */
+        /*** Echange du front et du back buffer *******/
         SDL_GL_SwapBuffers();
-        
+
+        /***********************************************************
+        ***************** END DRAW *********************************
+        ***********************************************************/
 
 
-
-/*************** Boucle traitant les evenements ***************/
+        /***********************************************************
+        ***************** LOOP EVENT *******************************
+        ***********************************************************/
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
             /* L'utilisateur ferme la fenetre : */
@@ -467,14 +406,12 @@ int main(int argc, char** argv){
                 loop = 0;
                 break;
             }
-        
             if( e.type == SDL_KEYDOWN 
                 && (e.key.keysym.sym == SDLK_q || e.key.keysym.sym == SDLK_ESCAPE)) {
                 loop = 0; 
                 break;
             }
             
-            /* Quelques exemples de traitement d'evenements : */
             switch(e.type) {
                 /* Clic souris */    
                 case SDL_MOUSEBUTTONUP:
@@ -500,7 +437,6 @@ int main(int argc, char** argv){
                                         game.setMoney(-tower1.getPrice());
                                     }                        }
                                 }
-
                         }
                         if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
                             if(tower2.getIsClick()) {
@@ -536,7 +472,6 @@ int main(int argc, char** argv){
                                 }
                             }
                         }
-
                         /* Building */
                         radarIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                         navetteIHM.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
@@ -582,8 +517,9 @@ int main(int argc, char** argv){
                     break;
             }
         }
-
-/****************************************************************************/
+        /***********************************************************
+        ***************** END EVENT ********************************
+        ***********************************************************/
 
         
         /*********** UPDATE ALIENS POSITION **************/
@@ -606,13 +542,11 @@ int main(int argc, char** argv){
                 }
                 else if(pos_dest.getY() > curr_pos.getY()){
                     curr_alien->setPos(Position(float(curr_pos.getX()), float(curr_pos.getY()+float(speed)))); 
-                }
-                
+                }  
             } 
         }
 
-/******************************* UPGRADE DES BATIMENTS **************************/            
-
+        /*********** UPGRADE BUILDINGS *****************/
         for(int i = 0; i < game.getBuildings().size(); i++){
             Building building =  game.getBuildings()[i];
             for(int j = 0; j < game.getTowers().size(); j++){
@@ -629,47 +563,48 @@ int main(int argc, char** argv){
                 }
             }
         }
-/**************************************************************************/
 
-        /* Calcul du temps ecoule */
+        /******** Calcul du temps ecoule **************/
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
-        /* Si trop peu de temps s'est ecoule, on met en pause le programme */
+        ///Si trop peu de temps s'est ecoule, on met en pause le programme
         if(elapsedTime < FRAMERATE_MILLISECONDS) {
             SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
         }
     }
+    /**********************************************************************
+    ******************* END BOUCLE PRINCIPALE *****************************
+    **********************************************************************/
     
     endGame: 
-        /************ Libération des données GPU *****************/
-        // Delete textures
-        // Map
-    	glDeleteTextures(1, &textureMap);
-        // Delete IHM
-        glDeleteTextures(1, &textureButtonInfo);
-        glDeleteTextures(1, &textureButtonPause);
-        glDeleteTextures(1, &textureButtonPlay);
-        glDeleteTextures(1, &textureButtonCross);
-        glDeleteTextures(1, &textureIHMCoins);
-        glDeleteTextures(1, &textureInterface);
-        glDeleteTextures(1, &textureGuide);
-        glDeleteTextures(1, &textureWinner);
-        glDeleteTextures(1, &textureGameOver);
-        // Aliens
-    	glDeleteTextures(1, &textureAlienFatty);
-        glDeleteTextures(1, &textureAlienNervous);
-        // Towers
-    	glDeleteTextures(1, &textureTower1);
-        glDeleteTextures(1, &textureTower2);
-        glDeleteTextures(1, &textureTower3);
-        glDeleteTextures(1, &textureTower4);
-        // Buildings
-        glDeleteTextures(1, &textureRadar);
-        glDeleteTextures(1, &textureNavette);
-        glDeleteTextures(1, &textureRobot);
-    	/**********************************************************/
+    /******* Libération des données GPU *************/
+    // Delete textures
+    // Map
+    glDeleteTextures(1, &textureMap);
+    // Delete IHM
+    glDeleteTextures(1, &textureButtonInfo);
+    glDeleteTextures(1, &textureButtonPause);
+    glDeleteTextures(1, &textureButtonPlay);
+    glDeleteTextures(1, &textureButtonCross);
+    glDeleteTextures(1, &textureIHMCoins);
+    glDeleteTextures(1, &textureInterface);
+    glDeleteTextures(1, &textureGuide);
+    glDeleteTextures(1, &textureWinner);
+    glDeleteTextures(1, &textureGameOver);
+    // Aliens
+    glDeleteTextures(1, &textureAlienFatty);
+    glDeleteTextures(1, &textureAlienNervous);
+    // Towers
+    glDeleteTextures(1, &textureTower1);
+    glDeleteTextures(1, &textureTower2);
+    glDeleteTextures(1, &textureTower3);
+    glDeleteTextures(1, &textureTower4);
+    // Buildings
+    glDeleteTextures(1, &textureRadar);
+    glDeleteTextures(1, &textureNavette);
+    glDeleteTextures(1, &textureRobot);
 
-        /* Liberation des ressources associees a la SDL */ 
-        SDL_Quit();
+    /*** Liberation des ressources de la SDL ******/
+    SDL_Quit();
         
-        return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
