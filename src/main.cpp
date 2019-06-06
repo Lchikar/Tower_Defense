@@ -375,6 +375,28 @@ int main(int argc, char** argv){
                 curr_alien->drawEntity(textureAlienNervous);
         }
         /*****************************************************/
+/******************************* TIRS DES TOURS **************************/            
+        for(int i = 0; i < game.getTowers().size(); i++){
+            Tower tower = game.getTowers()[i];
+            if(0 == nbloop%tower.getShotRate()){
+                Position target = tower.target(game.getAliens());
+                for(int j = 0; j < game.getAliens().size(); j++){
+                    Alien *alien = game.getAlien(i);
+                    if(alien->getPos().dist(target) <= tower.getRange()){
+                        tower.drawShot(alien->getPos());
+                        alien->setPv(-tower.getDamage());
+                        if(alien->getPv() <= 0){
+                            printf("You've earned %d$\n",alien->getReward());
+                            game.setMoney(alien->getReward());
+                            game.deleteAliens(i);
+                            nbAliens--;
+                        }
+                        shot = !shot;
+                    }
+                }
+            }
+        }
+/**************************************************************************/
 
         /***************** DRAW SHOT TOWER ******************
         if(shot) {
@@ -385,7 +407,7 @@ int main(int argc, char** argv){
                     Alien *alien = game.getAlien(i);
                     
                     if(alien->getPos().dist(target) <= tower.getRange()){
-                        tower.drawShot(alien->getPos());
+                        
                         shot = !shot;
                     }
                 }
@@ -587,29 +609,6 @@ int main(int argc, char** argv){
                 
             } 
         }
-
-
-/******************************* TIRS DES TOURS **************************/            
-        for(int i = 0; i < game.getTowers().size(); i++){
-            Tower tower = game.getTowers()[i];
-            if(0 == nbloop%tower.getShotRate()){
-                Position target = tower.target(game.getAliens());
-                for(int j = 0; j < game.getAliens().size(); j++){
-                    Alien *alien = game.getAlien(i);
-                    if(alien->getPos().dist(target) <= tower.getRange()){
-                        alien->setPv(-tower.getDamage());
-                        if(alien->getPv() <= 0){
-                            printf("You've earned %d$\n",alien->getReward());
-                            game.setMoney(alien->getReward());
-                            game.deleteAliens(i);
-                            nbAliens--;
-                        }
-                        shot = !shot;
-                    }
-                }
-            }
-        }
-/**************************************************************************/
 
 /******************************* UPGRADE DES BATIMENTS **************************/            
 
