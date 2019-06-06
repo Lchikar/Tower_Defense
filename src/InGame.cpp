@@ -34,6 +34,10 @@ Alien* InGame::getAlien(int i){
 vector<Tower> InGame::getTowers(){
 	return this->towers;
 }
+
+Tower* InGame::getTower(int i){
+	return &(this->towers[i]);
+}
 vector<Building> InGame::getBuildings(){
 	return this->buildings;
 }

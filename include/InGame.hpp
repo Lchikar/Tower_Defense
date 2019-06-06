@@ -30,6 +30,7 @@ class InGame{
 		void deleteAliens(int alien_index);
 
 		vector<Tower> getTowers();
+		Tower* getTower(int i);
 		void addTowers(ColorType type, Position p);
 		//towers can't be deleted
 		

@@ -20,11 +20,11 @@ Alien::Alien(AlienType type, Graph G, Position pos){
 	this->setPos(pos);
 	if(type == fatty){
 		pv =  150;
-		reward = 100;
+		reward = 10;
 		speed = 5;
 	} else {
 		pv =  50;
-		reward = 50;
+		reward = 5;
 		speed = 10;
 	}
 	setWidth(35);

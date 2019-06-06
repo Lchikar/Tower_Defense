@@ -16,10 +16,18 @@ using namespace std;
 *****************************************/
 /* Contructor */
 Building::Building(TypeBuild type) {
-	this->value = value;
 	this->type = type;
+	switch (type){
+		case radar: this->value = 4;
+			break;
+		case navette: this->value = 300;
+			break;
+		case robot: this->value = 50;
+			break;
+	};
 	this->isClick = false;
 	this->price = 15;
+	this->range = 500;
 	setWidth(50);
 	setHeight(50);
 }
@@ -80,12 +88,9 @@ int Building::getPrice(){
 	return price;
 }
 
-void Building::setValue(int value) {
-	this->value = value;
-}
-
-void Building::setType(TypeBuild type) {
-	this->type = type;
+int Building::getRange(){
+	int range = this->range;
+	return range;
 }
 
 void Building::setIsClick(bool isClick){

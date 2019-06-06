@@ -250,12 +250,13 @@ int main(int argc, char** argv){
 
         if(nbAliens == 0){
             game.updateWaves();
+            printf("WAVE %d\n", game.getWaves());
             game.initAliens(nodes, G);
             nbAliens = game.getAliens().size(); 
             sleep(1);
         }
         
-        if(game.getWaves() == 50){
+        if(game.getWaves() == 2){
             endWin = true;
         }
   
@@ -450,7 +451,7 @@ int main(int argc, char** argv){
                         tower4.click((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2)));
                         if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower1.getPos()) > 25){
                             if(tower1.getIsClick()) {
-                                printf("Achat tour 1\n");
+                                printf("Achat tour ULTRA POWER\n");
                                 if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){
                                     if(game.getMoney() >= tower1.getPrice()){
                                         game.addTowers(red, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
@@ -462,7 +463,7 @@ int main(int argc, char** argv){
                         }
                         if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower2.getPos()) > 25){
                             if(tower2.getIsClick()) {
-                                printf("Achat tour 2\n");
+                                printf("Achat tour ULTRA FAST\n");
                                 if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
                                     if(game.getMoney() >= tower2.getPrice()){
                                         game.addTowers(green, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
@@ -473,7 +474,7 @@ int main(int argc, char** argv){
                             }
                         }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower3.getPos()) > 25){
                             if(tower3.getIsClick()) {
-                                printf("Achat tour 3\n");
+                                printf("Achat tour FAR REACH\n");
                                 if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
                                     if(game.getMoney() >= tower3.getPrice()){
                                         game.addTowers(blue, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
@@ -484,7 +485,7 @@ int main(int argc, char** argv){
                             }
                         }if(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))).dist(tower4.getPos()) > 25){
                             if(tower4.getIsClick()) {
-                                printf("Achat tour 4\n");
+                                printf("Achat tour FAST AND POWER\n");
                                 if(estConstructible(Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))), nodes, edges)){                            
                                     if(game.getMoney() >= tower4.getPrice()){
                                         game.addTowers(yellow, Position((e.button.x-(GL_VIEW_WIDTH/2)), -(e.button.y-(GL_VIEW_HEIGHT/2))));
@@ -584,23 +585,34 @@ int main(int argc, char** argv){
             }
         }
 
-        int shot = 0;
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien *alien = game.getAlien(i);
             if(alien->getPv() <= 0){
-                printf("Alien %d died : You've earned %d$\n",i, alien->getReward());
+                printf("You've earned %d$\n",alien->getReward());
                 game.setMoney(alien->getReward());
                 game.deleteAliens(i);
                 sleep(1);
-                shot++;
                 nbAliens--;
             }
         }
-        if(shot > 0){
-            printf("%d shot, %d aliens left\n", shot, game.getAliens().size());
-            shot = 0;
-        }
 /**************************************************************************/
+
+        for(int i = 0; i < game.getBuildings().size(); i++){
+            Building building =  game.getBuildings()[i];
+            for(int j = 0; j < game.getTowers().size(); j++){
+                Tower* tower = game.getTower(i);
+                if(building.getPos().dist(tower->getPos()) <= building.getRange()){
+                    switch(building.getType()){
+                        case radar: tower->setShotRate(building.getValue());
+                            break;
+                        case navette: tower->setRange(building.getValue());
+                            break;
+                        case robot: tower->setDamage(building.getValue());
+                            break;
+                    }
+                }
+            }
+        }
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
