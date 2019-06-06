@@ -4,6 +4,7 @@
 
 * pour tester sous liunx :
 > make
+*
 > bin/itd data/testmap.itd
 
 * pour faire une archive :
