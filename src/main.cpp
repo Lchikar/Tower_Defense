@@ -250,20 +250,20 @@ int main(int argc, char** argv){
             sleep(1);
         }
         
-        if(game.getWaves() == 3){
+        if(game.getWaves() == 50){
             endWin = true;
         }
   
-        if(!game.getAliens().empty()){  
-            for(int i = 0; i < game.getAliens().size(); i++){
-                Alien* alien = game.getAlien(i);
-                // printf("Alien %d (%f,%f)\n\t", i, alien->getPos().getX(), alien->getPos().getY());
-                // for(int j = 0; j < alien->getPath().size(); j++){
-                //     printf("(%d,%d) ", alien->getNextStep(j)->first, alien->getNextStep(j)->second);
-                // }
-                // printf("\n"); 
-            }
-        }
+        // if(!game.getAliens().empty()){  
+        //     for(int i = 0; i < game.getAliens().size(); i++){
+        //         Alien* alien = game.getAlien(i);
+        //         printf("Alien %d (%f,%f)\n\t", i, alien->getPos().getX(), alien->getPos().getY());
+        //         for(int j = 0; j < alien->getPath().size(); j++){
+        //             printf("(%d,%d) ", alien->getNextStep(j)->first, alien->getNextStep(j)->second);
+        //         }
+        //         printf("\n"); 
+        //     }
+        // }
 
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
@@ -271,13 +271,13 @@ int main(int argc, char** argv){
         usleep(200000);
 
         //calcul risque random
-        if(0 == nbloop%50){
-            for(int i = 0; i < edges.size(); i++){
-               int weight = rand()%10 +1;
-               G.update_weight(edges[i].first,edges[i].second, 
-                   G.weight(edges[i].first,edges[i].second)*weight);      
-            }
-        }
+        // if(0 == nbloop%50){
+        //     for(int i = 0; i < edges.size(); i++){
+        //        int weight = rand()%10 +1;
+        //        G.update_weight(edges[i].first,edges[i].second, 
+        //            G.weight(edges[i].first,edges[i].second)*weight);      
+        //     }
+        // }
 
 
         //Update chemins aliens
