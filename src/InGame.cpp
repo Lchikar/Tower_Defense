@@ -9,7 +9,7 @@
 #include "../include/Graph.hpp"
 
 InGame::InGame(Graph G, Position pos_init_aliens){
-	this->money = 80;
+	this->money = 50;
 	this->waves = 1;
 
 	this->towers = vector<Tower>();
