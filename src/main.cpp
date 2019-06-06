@@ -602,7 +602,6 @@ int main(int argc, char** argv){
                             printf("You've earned %d$\n",alien->getReward());
                             game.setMoney(alien->getReward());
                             game.deleteAliens(i);
-                            sleep(1);
                             nbAliens--;
                         }
                         shot = !shot;
