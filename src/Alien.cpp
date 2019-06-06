@@ -80,6 +80,7 @@ vector<pair<int,int>> Alien::getPath(){
 	return this->path;
 }
 
+
 pair<int,int>* Alien::getNextStep(int i){
 	if(vector<pair<int,int>>() == this->path)
 		return NULL;
@@ -90,15 +91,37 @@ pair<int,int>* Alien::getNextStep(int i){
 /****************************************
 ***************** PATH ******************
 *****************************************/
-void Alien::updatePath(Graph G){
+void Alien::updatePath(){
 	if(this->path.size() == 1){
 		this->path.push_back(pair<int,int>(this->path[0].second, this->path[0].second));
 	}
     this->path.erase(this->path.begin(), this->path.begin()+1);
-	// printf("après pop first path : ");
- //    for(int j = 0; j < this->path.size(); j++)
- //        printf("(%d,%d) ", this->path[j].first, this->path[j].second);
- //    printf("\n");
+}
+
+void Alien::newPath(Graph G){
+	int src = this->dest();
+	// printf("SRC %d\n", src);
+    map<int,vector<pair<int,int>>> paths = G.Dijkstra(this->dest());
+	
+	int nbchemins = 0;
+	for(auto i = paths.begin(); i != paths.end(); i++)
+		nbchemins++;
+
+	printf("%d chemins depuis %d\n", nbchemins, src);
+	
+   	for(auto i = paths.begin(); i != paths.end(); i++){
+   		printf("TO %d : ", i->first);
+   		for(auto j = i->second.begin(); j != i->second.end(); j++)
+	   		printf("(%d,%d) ", j->first, 
+	   			j->second);
+	   	printf("\n");
+   	}
+
+   	this->path = paths[11];
+	
+	// for(int j = 0; j < this->getPath().size(); j++){
+ //        printf("(%d,%d) ", this->getNextStep(j)->first, this->getNextStep(j)->second);
+ //    }
 }
 
 int Alien::dest(){

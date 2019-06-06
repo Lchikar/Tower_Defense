@@ -284,27 +284,6 @@ int Graph::pop_closest_vertex(vector<int> *vertices, vector<int> distances){
 	return u;
 }
 
-vector<int> Graph::distances(int src){
-	vector<int> to_do;
-	for(auto i = this->adj.begin(); i != this->adj.end(); ++i){
-		to_do.push_back((*i).first);
-	}
-	vector<int> dist;
-	for(auto i = this->adj.begin(); i != this->adj.end(); ++i){
-		dist.push_back(999999);
-	}
-	dist[src] = 0;
-
-	while(!to_do.empty()){
-		int u = pop_closest_vertex(&to_do, dist);
-		if(-1 == u)
-			return dist;
-		for(int v : successors(u)){
-			dist[v] = std::min(dist[v], dist[u]+weight(u,v));
-		}
-	}
-	return dist;
-}
 
 map<int,vector<pair<int,int>>> Graph::Dijkstra(int src){
 	vector<int> to_do;
