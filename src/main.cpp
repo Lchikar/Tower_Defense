@@ -256,7 +256,7 @@ int main(int argc, char** argv){
             sleep(1);
         }
         
-        if(game.getWaves() == 2){
+        if(game.getWaves() == 50){
             endWin = true;
         }
   
