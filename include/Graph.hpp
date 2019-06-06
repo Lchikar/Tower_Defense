@@ -38,8 +38,6 @@ class Graph {
 
 		int pop_closest_vertex(vector<int> *vertices, vector<int> distances);
 
-		vector<int> distances(int src);
-
 		map<int,vector<pair<int,int>>> Dijkstra(int src);
 
 		bool exists_path(int src, int dest);

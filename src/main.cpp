@@ -123,7 +123,6 @@ int main(int argc, char** argv){
     //     printf("Noeud %d (%f,%f)\n", alien.getPath()[0].first,float(nodes[alien.getPath()[0].first][1]),float(nodes[alien.getPath()[0].first][2]));
     //     printf("Position alien %d --> (%f,%f)\n", i, alien.getPos().getX(), alien.getPos().getY());
     // }
-    int nbTowers = 0;
     vector<pair<int,int>> edges = G.edges();
     // printf("nb edges %d\n", edges.size());
     // for(int i = 0; i < edges.size(); i++)
@@ -242,16 +241,9 @@ int main(int argc, char** argv){
     while(loop){ 
         nbloop++;
 
-        // if(!game.getAliens().empty()){  
-        //     for(int i = 0; i < game.getAliens().size(); i++){
-        //         Alien* alien = game.getAlien(i);
-        //         printf("Alien %d (%f,%f)\n", i, alien->getPos().getX(), alien->getPos().getY());
-        //     } 
-        // }
-
         if(nbAliens == 0){
             game.updateWaves();
-            printf("WAVE %d\n", game.getWaves());
+            printf("******WAVE %d**********\n", game.getWaves());
             game.initAliens(nodes, G);
             nbAliens = game.getAliens().size(); 
             sleep(1);
@@ -261,32 +253,41 @@ int main(int argc, char** argv){
             endWin = true;
         }
   
+        if(!game.getAliens().empty()){  
+            for(int i = 0; i < game.getAliens().size(); i++){
+                Alien* alien = game.getAlien(i);
+                // printf("Alien %d (%f,%f)\n\t", i, alien->getPos().getX(), alien->getPos().getY());
+                // for(int j = 0; j < alien->getPath().size(); j++){
+                //     printf("(%d,%d) ", alien->getNextStep(j)->first, alien->getNextStep(j)->second);
+                // }
+                // printf("\n"); 
+            }
+        }
 
         /* Recuperation du temps au debut de la boucle */
         Uint32 startTime = SDL_GetTicks();
 
         usleep(200000);
 
-
         //calcul risque random
-        if(0 == nbloop%3){
+        if(0 == nbloop%50){
             for(int i = 0; i < edges.size(); i++){
                int weight = rand()%10 +1;
                G.update_weight(edges[i].first,edges[i].second, 
                    G.weight(edges[i].first,edges[i].second)*weight);      
-            }    
+            }
         }
-               
+
 
         //Update chemins aliens
         for(int i = 0; i < game.getAliens().size(); i++){
             Alien* curr_alien = (game.getAlien(i));
             int curr_node = curr_alien->getNextStep(0)->first;
             Position pos_curr_node = Position(float(nodes[curr_node][1]),float(nodes[curr_node][2])); 
-            
+
             if(curr_alien->getPos().dist(pos_curr_node) <= 7){
                 if(curr_node < nbNodes-1){
-                    curr_alien->updatePath(G);
+                    curr_alien->updatePath();
                     curr_alien->setPos(pos_curr_node);
                 }
                 else {
@@ -597,23 +598,20 @@ int main(int argc, char** argv){
                     Alien *alien = game.getAlien(i);
                     if(alien->getPos().dist(target) <= tower.getRange()){
                         alien->setPv(-tower.getDamage());
+                        if(alien->getPv() <= 0){
+                            printf("You've earned %d$\n",alien->getReward());
+                            game.setMoney(alien->getReward());
+                            game.deleteAliens(i);
+                            nbAliens--;
+                        }
                         shot = !shot;
                     }
                 }
             }
         }
-
-        for(int i = 0; i < game.getAliens().size(); i++){
-            Alien *alien = game.getAlien(i);
-            if(alien->getPv() <= 0){
-                printf("You've earned %d$\n",alien->getReward());
-                game.setMoney(alien->getReward());
-                game.deleteAliens(i);
-                sleep(1);
-                nbAliens--;
-            }
-        }
 /**************************************************************************/
+
+/******************************* UPGRADE DES BATIMENTS **************************/            
 
         for(int i = 0; i < game.getBuildings().size(); i++){
             Building building =  game.getBuildings()[i];
@@ -631,6 +629,7 @@ int main(int argc, char** argv){
                 }
             }
         }
+/**************************************************************************/
 
         /* Calcul du temps ecoule */
         Uint32 elapsedTime = SDL_GetTicks() - startTime;
@@ -639,7 +638,7 @@ int main(int argc, char** argv){
             SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
         }
     }
-
+    
     endGame: 
         /************ Libération des données GPU *****************/
         // Delete textures

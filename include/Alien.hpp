@@ -45,7 +45,8 @@ class Alien : public Entity {
 		void setAlienType(AlienType type);
 		
 		/* path */
-		void updatePath(Graph G);
+		void updatePath();
+		void newPath(Graph G);
 		int dest();
 
 
