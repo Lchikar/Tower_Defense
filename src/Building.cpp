@@ -18,9 +18,9 @@ using namespace std;
 Building::Building(TypeBuild type) {
 	this->type = type;
 	switch (type){
-		case radar: this->value = 4;
+		case radar: this->value = 400;
 			break;
-		case navette: this->value = 300;
+		case navette: this->value = 1;
 			break;
 		case robot: this->value = 50;
 			break;

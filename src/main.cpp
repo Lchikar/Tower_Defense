@@ -346,6 +346,7 @@ int main(int argc, char** argv){
                     if(alien->getPos().dist(target) <= tower.getRange()){
                         tower.drawShot(alien->getPos());
                         alien->setPv(-tower.getDamage());
+                        printf("Tower %d shot alien %d\n", i,j);
                         if(alien->getPv() <= 0){
                             printf("You've earned %d$\n",alien->getReward());
                             game.setMoney(alien->getReward());
