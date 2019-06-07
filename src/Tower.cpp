@@ -20,25 +20,25 @@ Tower::Tower(ColorType type) {
 	this->isClick = false;
 	if(type == red){
 		damage = 40;
-		range = 70;
+		range = 100;
 		shotRate = 2;
 		price = 10;
 	}
 	if(type == green){
 		damage = 20;
-		range = 100;
+		range = 150;
 		shotRate = 1;
 		price = 10;
 	}
 	if(type == blue){
 		damage = 10;
-		range = 200;
+		range = 250;
 		shotRate = 2;
 		price = 10;
 	}
 	if(type == yellow){
 		damage = 20;
-		range = 100;
+		range = 200;
 		shotRate = 1;
 		price = 20;
 	}
